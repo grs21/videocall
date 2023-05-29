@@ -12,8 +12,6 @@ const MyComponent = () => {
         remoteVideoTrack: null,
         remoteUid: null,
     });
-    var localPlayerContainer = null;
-    var remotePlayerContainer = null;
     const options = {
         appId: "afadeb1ff63443ac93d5e953314a544f", // Pass your App ID here.
         channel: "test1", // Set the channel name.
@@ -21,25 +19,11 @@ const MyComponent = () => {
         uid: 0, // Set the user ID.
     };
 
-    const joinButton = async () => {
-        await agoraEngineRef.current.join(options.appId, options.channel, options.token, options.uid);
-        channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-        channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-        document.getElementById('videoContainer').append(localPlayerContainer);
-        await agoraEngineRef.current.publish([
-            channelParametersRef.current.localAudioTrack,
-            channelParametersRef.current.localVideoTrack,
-        ]);
-        channelParametersRef.current.localVideoTrack.play(localPlayerContainer);
-        console.log("publish success!");
-    };
-
     useEffect(() => {
         const startBasicCall = async () => {
             agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-            remotePlayerContainer = document.createElement("div");
-
-            localPlayerContainer = document.createElement("div");
+            const remotePlayerContainer = document.createElement("div");
+            const localPlayerContainer = document.createElement("div");
             localPlayerContainer.id = options.uid;
             localPlayerContainer.textContent = "Local user " + options.uid;
             localPlayerContainer.style.width = "240px";
@@ -70,6 +54,19 @@ const MyComponent = () => {
                 }
             });
 
+           document.getElementById("join").onclick = async () => {
+                await agoraEngineRef.current.join(options.appId, options.channel, options.token, options.uid);
+                channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+                channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+                document.getElementById('videoContainer').append(localPlayerContainer);
+                await agoraEngineRef.current.publish([
+                    channelParametersRef.current.localAudioTrack,
+                    channelParametersRef.current.localVideoTrack,
+                ]);
+                channelParametersRef.current.localVideoTrack.play(localPlayerContainer);
+                console.log("publish success!");
+            };
+
             document.getElementById("leave").onclick = async () => {
                 if (channelParametersRef.current.localAudioTrack !== null) {
                     channelParametersRef.current.localAudioTrack.close();
@@ -96,7 +93,8 @@ const MyComponent = () => {
 
     return (
         <div>
-            <button id="join" onClick={() => joinButton()}>Join</button>
+            {/* onClick={() => joinButton()} */}
+            <button id="join" >Join</button>
             <button id="leave">Leave</button>
             <div id="videoContainer" style={{display:"flex",alignItems:"center",justifyContent:"center"}}></div>
             <div ref={localPlayerContainerRef}></div>
