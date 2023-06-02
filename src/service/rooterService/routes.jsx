@@ -1,6 +1,5 @@
-import TestPage from "../../pages/MainPage/testPage"
-import VideoCall from "../../pages/MainPage/videocall"
-
+import TestPage from '../../initalpage/testPage';
+import VideoCall from '../../initalpage/videoCallRoom';
 export const routes = [
 
     {
@@ -8,7 +7,7 @@ export const routes = [
         component: TestPage,
     },
     {
-        path:'/videoCall',
-        component:VideoCall
+        path: '/videoCall',
+        component: VideoCall,
     }
 ]
