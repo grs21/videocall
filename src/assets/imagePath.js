@@ -1,0 +1,9 @@
+export {default as Avatar_01} from './img/profiles/avatar-01.jpg';
+export {default as Avatar_02} from './img/profiles/avatar-02.jpg';
+export {default as Avatar_05} from './img/profiles/avatar-05.jpg';
+export {default as Avatar_09} from './img/profiles/avatar-09.jpg';
+export {default as Avatar_13} from './img/profiles/avatar-13.jpg';
+export {default as Avatar_16} from './img/profiles/avatar-16.jpg';
+export {default as User} from './img/user.jpg';
+export {default as Attachment} from './img/attachment.png';
+export {default as Video_Call} from './img/video-call.jpg';

@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import AgoraRTC from "agora-rtc-sdk-ng";
+import { useSelector, useDispatch } from 'react-redux';
+import { setRoomProperty } from '../stores/slices//videoRoomSlice';
 
 const VideoCall = () => {
     const agoraEngineRef = useRef(null);
@@ -12,12 +14,15 @@ const VideoCall = () => {
         remoteVideoTrack: null,
         remoteUid: null,
     });
-    const options = {
-        appId: "afadeb1ff63443ac93d5e953314a544f", // Pass your App ID here.
-        channel: "test1", // Set the channel name.
-        token: "007eJxTYHiRynHSwJlxznmNc7MXuvBdjNEvn1HXzsB1Xvopl8kdb1MFhsS0xJTUJMO0NDNjExPjxGRL4xTTVEtTY2NDk0RTE5O0+e0lKQ2BjAx9FwSYGBkgEMRnZShJLS4xZGAAANqLHdA=",
-        uid: 0, // Set the user ID.
-    };
+    const dispatch = useDispatch();
+    dispatch(setRoomProperty({
+        appId: 'afadeb1ff63443ac93d5e953314a544f',
+        channel: 'test1',
+        token: '007eJxTYHiRynHSwJlxznmNc7MXuvBdjNEvn1HXzsB1Xvopl8kdb1MFhsS0xJTUJMO0NDNjExPjxGRL4xTTVEtTY2NDk0RTE5O0+e0lKQ2BjAx9FwSYGBkgEMRnZShJLS4xZGAAANqLHdA=',
+        uid: 0,
+    }))
+    const { roomProperty } = useSelector(state => state.videoRoomProperty)
+    const options = roomProperty
 
     useEffect(() => {
         const startBasicCall = async () => {
@@ -30,7 +35,6 @@ const VideoCall = () => {
             localPlayerContainer.style.height = "280px";
             localPlayerContainer.style.padding = "15px 5px 5px 5px";
             localPlayerContainer.style.marginRight = "3em"
-
             remotePlayerContainer.style.width = "240px";
             remotePlayerContainer.style.height = "280px";
             remotePlayerContainer.style.padding = "15px 5px 5px 5px";
@@ -54,17 +58,25 @@ const VideoCall = () => {
                 }
             });
 
-           document.getElementById("join").onclick = async () => {
-                await agoraEngineRef.current.join(options.appId, options.channel, options.token, options.uid);
-                channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-                channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-                document.getElementById('videoContainer').append(localPlayerContainer);
-                await agoraEngineRef.current.publish([
-                    channelParametersRef.current.localAudioTrack,
-                    channelParametersRef.current.localVideoTrack,
-                ]);
-                channelParametersRef.current.localVideoTrack.play(localPlayerContainer);
-                console.log("publish success!");
+            document.getElementById("join").onclick = async () => {
+                try {
+                    await agoraEngineRef.current.join(options.appId, options.channel, options.token, options.uid);
+                    channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+                    channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+                    document.getElementById('videoContainer').append(localPlayerContainer);
+                    await agoraEngineRef.current.publish([
+                        channelParametersRef.current.localAudioTrack,
+                        channelParametersRef.current.localVideoTrack,
+                    ]);
+                    channelParametersRef.current.localVideoTrack.play(localPlayerContainer);
+                    console.log("publish success!");
+                } catch (error) {
+                    document.getElementById('videoContainer').innerHTML=<div>
+                        {error.code}
+                    </div>
+                    console.error(error.code);
+                }
+
             };
 
             document.getElementById("leave").onclick = async () => {
@@ -77,7 +89,6 @@ const VideoCall = () => {
                     window.location.reload();
                 }
             };
-
         };
 
         startBasicCall();
@@ -93,10 +104,9 @@ const VideoCall = () => {
 
     return (
         <div>
-            {/* onClick={() => joinButton()} */}
             <button id="join" >Join</button>
             <button id="leave">Leave</button>
-            <div id="videoContainer" style={{display:"flex",alignItems:"center",justifyContent:"center"}}></div>
+            <div id="videoContainer" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}></div>
             <div ref={localPlayerContainerRef}></div>
             <div ref={remotePlayerContainerRef}></div>
         </div>

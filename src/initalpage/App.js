@@ -1,10 +1,8 @@
 
-import '.././App.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { routes } from '../service/rooterService/routes';
 
@@ -15,7 +13,7 @@ function App() {
         <Switch>
           {
             routes.map(route => (
-              <Route path={route.path}>
+              <Route path={route.path} exact={route.exact} key={route.id}>
                 <route.component />
               </Route>
             ))}
