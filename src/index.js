@@ -4,7 +4,7 @@ import App from './initalpage/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './stores/store';
-import './style/css/style.css'
+import './style/css/main.css'
 import './style/css/bootstrap.min.css'
 import './style/css/line-awesome.min.css'
 import './style/css/font-awesome.min.css'
