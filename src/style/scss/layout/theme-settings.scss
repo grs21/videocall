@@ -23,7 +23,7 @@
         }
     }
     .page-wrapper{
-        margin: 0 230px 0 0 ;
+        margin: 0 0 0 0 ;
     }
     .main-wrapper{
         position: relative;
@@ -53,6 +53,9 @@
             }
         }
     }
+}
+body{
+    background-color:red !important;
 }
 
 [data-sidebar-size="sm-hover"]{
@@ -92,7 +95,7 @@
         }
     }
     .page-wrapper{
-        margin: 0 60px 0 0 ;
+        margin: 0 0 0 0 ;
     }
     .sidebar{
         width: 60px;
@@ -127,7 +130,7 @@
 
 [data-sidebar-size="md"]{
     .page-wrapper{
-        margin: 0 200px 0 0 ;
+        margin: 0 0 0 0 ;
     }   
     .sidebar{
         width: 200px;
@@ -251,7 +254,7 @@
     }
     .sidebar {
         background-color: $__white;
-        box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
+        box-shadow: 0 1px 1px 0 $__light__black;
         .sidebar-menu{
             ul{
                 ul {
@@ -1308,7 +1311,7 @@
         flex-wrap: wrap;
         border-top:1px dashed $__metallic-silver ;
         padding: 12px 3px;
-        box-shadow: 0 5px 4px rgb(0 0 0 / 20%);
+        box-shadow: 0 5px 4px $__light__black;
         ul {
             left:0 !important;
             position: absolute !important;
@@ -1410,7 +1413,7 @@
         }
     } 
     .sidebar {
-        box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
+        box-shadow: 0 1px 1px 0 $__black;
         background-color: #34444c;
         .sidebar-menu{
             .greedy ul li a:hover {
@@ -1490,7 +1493,7 @@
         }
         .sidebar {
             background-color: $__white;
-            box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
+            box-shadow: 0 1px 1px 0 $__black;
              ul li span {
                 display: $__inline__block;
                 color: $__gray;

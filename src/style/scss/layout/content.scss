@@ -2,7 +2,6 @@
     left: 0;
     position: $__relative;
     transition: all 0.2s ease-in-out;
-    @include margin-padding(0 230px 0 0 ,60px 0 0);
     @include respond-below(custom992) {
         @include margin-padding(0,60px 0 0);
     }

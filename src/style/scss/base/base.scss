@@ -19,7 +19,7 @@ img {
 	vertical-align: $__middle;
 }
 a{
-	text-decoration: $__none;
+	text-decoration: $__none !important;
     outline: $__none;
 	color:$__sky__blue;
 	cursor: $__pointer;

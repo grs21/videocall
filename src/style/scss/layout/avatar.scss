@@ -12,7 +12,7 @@
 	width: 34px;
 	position: $__relative;
 	white-space: $__nowrap;
-	@include margin-padding( 0  0 0 10px, null);
+	@include margin-padding( 0  10px 0 0, null);
 	@include rounded(50%);
 	&.avatar-xs {
 		width: 24px;
