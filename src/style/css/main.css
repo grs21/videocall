@@ -1137,10 +1137,6 @@ a.bg-danger:focus, a.bg-danger:hover, button.bg-danger:focus, button.bg-danger:h
   left: 0;
   position: relative;
   transition: all 0.2s ease-in-out; }
-  @media (max-width: 992px) {
-    .page-wrapper {
-      margin: 0;
-      padding: 60px 0 0; } }
   .page-wrapper .content {
     padding: 30px; }
     @media (max-width: 575px) {
@@ -2362,9 +2358,6 @@ input[type=file].form-control {
     display: block !important; }
   [data-layout-width="boxed"] .sidebar ul ul li {
     display: block !important; }
-
-body {
-  background-color: red !important; }
 
 [data-sidebar-size="sm-hover"] #toggle_btn {
   display: none; }
