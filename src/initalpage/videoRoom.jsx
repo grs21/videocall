@@ -1,13 +1,31 @@
-/**Video_Call
- * Signin Firebase
- */
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
 import { User, Attachment, Avatar_01, Avatar_05, Avatar_02, Avatar_09, Avatar_13, Avatar_16, Video_Call } from '../assets/imagePath'
+import { useSelector, useDispatch } from 'react-redux';
+import AgoraRTC from "agora-rtc-sdk-ng";
+import { setRoomProperty } from '../stores/slices//videoRoomSlice';
+import { joinVideoRoom, leaveRoom } from '../service/baseFunction/videoCallHelper';
 
 const VideoCall = () => {
+  const { roomProperty } = useSelector(state => state.videoRoomProperty);
+  const agoraEngineRef = useRef(null);
+  const localPlayerContainerRef = useRef(null);
+  const remotePlayerContainerRef = useRef(null);
+  const dispatch = useDispatch();
+  dispatch(setRoomProperty({
+    appId: 'afadeb1ff63443ac93d5e953314a544f',
+    channel: 'test1',
+    token: '007eJxTYHi3LPt9QlFdpb27rpCeZUfR4l1Rjpanbjilvcx17RCWuq3AkJiWmJKaZJiWZmZsYmKcmGxpnGKaamlqbGxokmhqYpLmuKEtpSGQkYHDdycDIxSC+KwMJanFJYYMDAAnyB5q',
+    uid: 0,
+  }))
+  const channelParametersRef = useRef({
+    localAudioTrack: null,
+    localVideoTrack: null,
+    remoteAudioTrack: null,
+    remoteVideoTrack: null,
+    remoteUid: null,
+  });
   const [windowDimension, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight,
@@ -19,6 +37,43 @@ const VideoCall = () => {
 
     })
   }
+  useEffect(() => {
+    const startBasicCall = async () => {
+      agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+      const remotePlayerContainer = document.createElement('div');
+      remotePlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;'
+      const localPlayerContainer = document.createElement('div');
+      localPlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;border-radius: 6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 1px solid white;';
+
+      agoraEngineRef.current.on("user-published", async (user, mediaType) => {
+        await agoraEngineRef.current.subscribe(user, mediaType);
+
+
+        if (mediaType === "video") {
+          channelParametersRef.current.remoteVideoTrack = user.videoTrack;
+          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
+          channelParametersRef.current.remoteUid = user.uid.toString();
+          remotePlayerContainer.id = user.uid.toString();
+          channelParametersRef.current.remoteUid = user.uid.toString();
+          remotePlayerContainer.textContent = "Remote user " + user.uid.toString();
+          document.getElementById('user-video-container').append(remotePlayerContainer);
+          await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
+          remotePlayerContainer.childNodes[1].style = ''
+          remotePlayerContainer.childNodes[1].firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
+        }
+        if (mediaType === "audio") {
+          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
+          channelParametersRef.current.remoteAudioTrack.play();
+        }
+      });
+
+      document.getElementById('ara').onclick = async (e) => {
+        e.preventDefault();
+        joinVideoRoom(agoraEngineRef, channelParametersRef, roomProperty, localPlayerContainer);
+      }
+    }
+    startBasicCall();
+  })
   useEffect(() => {
     window.addEventListener("resize", detectSize)
     return () => {
@@ -75,10 +130,10 @@ const VideoCall = () => {
               </div>
               <div className="chat-contents">
                 <div className="chat-content-wrap">
-                  <div className="user-video">
-                    <img src={Video_Call} alt="" />
+                  <div className="user-video" id='user-video-container'>
+                    {/* <img src={Video_Call} alt="" /> */}
                   </div>
-                  <div className="my-video">
+                  <div className="my-video" id='my-video-container'>
                     <ul>
                       <li>
                         <img src={Avatar_01} className="img-fluid" alt="" />
@@ -91,7 +146,7 @@ const VideoCall = () => {
                 <div className="call-icons">
                   <span className="call-duration">00:59</span>
                   <ul className="call-items">
-                    <li className="call-item">
+                    <li className="call-item" id='ara'>
                       <a href="" title="Enable Video" data-placement="top" data-bs-toggle="tooltip">
                         <i className="fa fa-video-camera camera" />
                       </a>
