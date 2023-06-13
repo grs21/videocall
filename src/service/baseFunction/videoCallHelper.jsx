@@ -7,7 +7,7 @@ export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, roomProp
         channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
         const myVideoRow = document.querySelector('#my-video-container ul li');
         if (container !== null && container !== undefined && myVideoRow !== null && myVideoRow !== undefined) {
-            myVideoRow.replaceChild(container,myVideoRow.firstChild)
+            myVideoRow.replaceChild(container, myVideoRow.firstChild)
         }
         await agoraEngineRef.current.publish([
             channelParametersRef.current.localAudioTrack,
@@ -35,7 +35,7 @@ export var leaveRoom = async (agoraEngineRef, channelParametersRef, remotePlayer
         }
     } catch (error) {
         let errorMesage = error.code;
-       // document.getElementById('videoContainer').innerHTML = `<div>${errorMesage}</div>`
+        // document.getElementById('videoContainer').innerHTML = `<div>${errorMesage}</div>`
         console.error(errorMesage);
     }
 }

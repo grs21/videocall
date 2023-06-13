@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { useSelector, useDispatch } from 'react-redux';
 import { setRoomProperty } from '../stores/slices//videoRoomSlice';
+import { joinVideoRoom, leaveRoom } from '../service/baseFunction/videoCallHelper'
+
 
 const VideoCall = () => {
     const agoraEngineRef = useRef(null);
@@ -17,8 +19,8 @@ const VideoCall = () => {
     const dispatch = useDispatch();
     dispatch(setRoomProperty({
         appId: 'afadeb1ff63443ac93d5e953314a544f',
-        channel: 'test1',
-        token: '007eJxTYHiRynHSwJlxznmNc7MXuvBdjNEvn1HXzsB1Xvopl8kdb1MFhsS0xJTUJMO0NDNjExPjxGRL4xTTVEtTY2NDk0RTE5O0+e0lKQ2BjAx9FwSYGBkgEMRnZShJLS4xZGAAANqLHdA=',
+        channel: 'test2',
+        token: '007eJxTYEg6kTLZVCTmyZSTK8P2nd5lf5bx+I7P/D55DxQke9U+LVRWYEhMS0xJTTJMSzMzNjExTky2NE4xTbU0NTY2NEk0NTFJW7u4MaUhkJFBPoyFmZEBAkF8VoaS1OISIwYGAKjVH8M=',
         uid: 0,
     }))
     const { roomProperty } = useSelector(state => state.videoRoomProperty)
@@ -39,6 +41,7 @@ const VideoCall = () => {
             remotePlayerContainer.style.height = "280px";
             remotePlayerContainer.style.padding = "15px 5px 5px 5px";
 
+            ///If another user is included in an active conversation, it is useful to subscribe the user.
             agoraEngineRef.current.on("user-published", async (user, mediaType) => {
                 await agoraEngineRef.current.subscribe(user, mediaType);
 
@@ -103,7 +106,7 @@ const VideoCall = () => {
     };
 
     return (
-        <div>
+        <div >
             <button id="join" >Join</button>
             <button id="leave">Leave</button>
             <div id="videoContainer" style={{ display: "flex", alignItems: "center", justifyContent: "center" }}></div>

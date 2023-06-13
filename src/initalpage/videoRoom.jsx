@@ -28,7 +28,7 @@ const VideoCall = () => {
   });
   const [windowDimension, detectHW] = useState({
     winWidth: window.innerWidth,
-    winHeight: window.innerHeight,
+    winHeight: window.innerHeight - 1,
   })
   const detectSize = () => {
     detectHW({
@@ -99,7 +99,7 @@ const VideoCall = () => {
       {/* Main Row */}
       <div className="chat-main-row">
         <div className="chat-main-wrapper">
-          <div className="col-lg-9 message-view task-view">
+          <div className="col-lg-9 message-view task-view show" id='task_window'>
             <div className="chat-window">
               <div className="fixed-header">
                 <div className="navbar">
@@ -117,14 +117,16 @@ const VideoCall = () => {
                   </div>
                   <ul className="nav float-end custom-menu">
                     <li className="nav-item">
-                      <a href="#task_window" id="task_chat" className="task-chat profile-rightbar float-end"><i className="fa fa-comments" /></a>
+                      <a href="#task_window" id="task_chat" className="task-chat profile-rightbar float-end" data-bs-toggle="collapse">
+                        <i className="fa fa-comments" />
+                      </a>
                     </li>
-                    <li className="nav-item dropdown dropdown-action">
+                    {/* <li className="nav-item dropdown dropdown-action">
                       <a href="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i className="fa fa-cog" /></a>
                       <div className="dropdown-menu dropdown-menu-right">
                         <a href="" className="dropdown-item">Settings</a>
                       </div>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
@@ -176,7 +178,7 @@ const VideoCall = () => {
               </div>
             </div>
           </div>
-          <div className="col-lg-3 message-view chat-profile-view chat-sidebar" id="task_window">
+          <div className="col-lg-3 message-view chat-profile-view chat-sidebar collapse show" id="task_window">
             <div className="chat-window video-window">
               <div className="fixed-header">
                 <ul className="nav nav-tabs nav-tabs-bottom">

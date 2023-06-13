@@ -7,18 +7,18 @@ export const routes = [
         path: '/',
         component: TestPage,
         exact: true,
-        id:1
+        id: 1
     },
     {
         path: '/home',
         component: VideoCall,
         exact: true,
-        id:2,
+        id: 2,
     },
     {
-        path:'/test',
-        component:VideoRoom,
-        exact:true,
-        id:3
+        path: '/test',
+        component: VideoRoom,
+        exact: true,
+        id: 3
     }
 ]
