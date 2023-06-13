@@ -3700,21 +3700,9 @@ input[type=file].form-control {
     height: 100%;
     table-layout: fixed;
     width: 100%; }
-    .chat-main-row .chat-main-wrapper .message-view {
-      display: table-cell;
-      height: 100%;
-      float: none;
-      position: static;
-      vertical-align: top;
-      width: 75%;
-      padding: 0; }
-      @media (max-width: 991px) {
-        .chat-main-row .chat-main-wrapper .message-view {
-          width: 100%; } }
     .chat-main-row .chat-main-wrapper .chat-sidebar {
       background-color: #ffffff;
-      border-right: 1px solid #eaeaea;
-      width: 300px !important; }
+      border-right: 1px solid #eaeaea; }
 
 .chat-sidebar .chat-contents {
   background-color: #ffffff; }
@@ -5715,15 +5703,26 @@ button.close {
       padding: 0;
       position: static;
       vertical-align: top;
-      width: 75%; }
+      margin: 0 -25% 0 0;
+      -webkit-transition: all 0.35s ease;
+      -ms-transition: all 0.35s ease;
+      transition: all 0.35s ease; }
+      .chat-main-row .chat-main-wrapper .message-view.chat-profile-view {
+        position: fixed; }
+        .chat-main-row .chat-main-wrapper .message-view.chat-profile-view.show {
+          margin-right: 100% 0%; }
+      .chat-main-row .chat-main-wrapper .message-view.task-view {
+        width: 100%; }
+        .chat-main-row .chat-main-wrapper .message-view.task-view.show {
+          width: 75%; }
       @media (max-width: 991px) {
         .chat-main-row .chat-main-wrapper .message-view.task-view {
-          width: 100%; } }
+          width: 100%; }
+          .chat-main-row .chat-main-wrapper .message-view.task-view.show {
+            width: 100%; } }
       @media (max-width: 991px) {
         .chat-main-row .chat-main-wrapper .message-view.chat-profile-view {
-          -webkit-transition: all 0.4s ease;
-          -ms-transition: all 0.4s ease;
-          transition: all 0.4s ease;
+          background-color: pink;
           z-index: 1041;
           width: 300px;
           display: table-cell;
@@ -5736,6 +5735,8 @@ button.close {
           -webkit-transform: translateX(0px);
           -ms-transform: translateX(0px); }
           .chat-main-row .chat-main-wrapper .message-view.chat-profile-view.opened {
+            margin-right: 0; }
+          .chat-main-row .chat-main-wrapper .message-view.chat-profile-view.show {
             margin-right: 0; } }
     .chat-main-row .chat-main-wrapper .task-left-sidebar {
       width: 58.3333%; }
@@ -5791,13 +5792,9 @@ button.close {
           min-height: auto;
           padding: 0; }
           .chat-main-row .chat-main-wrapper .chat-window .fixed-header .navbar .profile-rightbar {
-            display: none;
             color: #bbb;
             font-size: 26px;
             margin-left: 15px; }
-            @media (max-width: 991px) {
-              .chat-main-row .chat-main-wrapper .chat-window .fixed-header .navbar .profile-rightbar {
-                display: block; } }
         .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu {
           margin: 1px 0 0; }
           .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu li a {
@@ -5815,11 +5812,6 @@ button.close {
               color: #283447; }
           .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu li .dropdown-menu-right a {
             font-size: 14px; }
-          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu .profile-rightbar {
-            display: none; }
-            @media (max-width: 991px) {
-              .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu .profile-rightbar {
-                display: block; } }
 
 .task-wrapper {
   padding: 20px;

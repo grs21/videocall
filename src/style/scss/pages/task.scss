@@ -234,17 +234,33 @@
             height: $__full__height;
             float: $__none;
             padding: 0;
-            position: $__static;
+            @include position($__static,null,null,null,null);
             vertical-align: $__top;
-            width: 75%;
+            margin: 0 -25% 0 0;
+            @include transition(all 0.35s ease);
+            &.chat-profile-view {
+                position: fixed;
+                  &.show{
+                 margin-right: $__full__width 0%;
+                  }
+             }
+             &.task-view{
+                width: 100%;
+                &.show{
+                    width: 75%;
+                }
+             }
             @include respond-below(custom991) {
                 &.task-view{
                     width: 100%;
+                &.show{
+                    width: 100%;
+                }    
                 }
             }
             @include respond-below(custom991) {
                 &.chat-profile-view {
-                    @include transition(all 0.4s ease);
+                    background-color: pink;
                     z-index: 1041;
                     width: 300px;
                     display: $__table-cell;
@@ -254,8 +270,12 @@
                     &.opened {
                         margin-right: 0 ; 
                     }
-                }
+                    &.show{
+                        margin-right: 0;
+                    }
             }
+            }
+        
         }
         .task-left-sidebar {
             width: 58.3333%;
@@ -314,12 +334,12 @@
                     min-height: $__auto;
                     padding: 0;
                     .profile-rightbar{
-                        display: $__none;
+                        
                         color: $__metalic__gray;
                         font-size: $__font__size__26;
                         margin-left: 15px;
                         @include respond-below(custom991) {
-                            display: $__block;
+                            
                         }
                     }
                 }
@@ -349,9 +369,8 @@
                         }
                     }
                     .profile-rightbar {
-                        display: $__none;
                         @include respond-below(custom991) {
-                            display: $__block;
+                           
                         }
                     }
                 }

@@ -212,24 +212,9 @@
         height: $__full__height;
         table-layout: $__fixed;
         width: $__full__width;
-        .message-view {
-            display: $__table__cell;
-            height: $__full__height;
-            float: $__none;
-            position: $__static;
-            vertical-align: $__top;
-            width: 75%;
-            @include margin-padding(null, 0);
-            @include respond-below(custom991) {
-                width: $__full__width;
-            }
-            
-        }
         .chat-sidebar {
             background-color: $__white;
             border-right: 1px solid $__mild___gray;
-            width: 300px !important;
-           
         }
     }
 }
