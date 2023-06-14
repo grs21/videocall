@@ -15,8 +15,6 @@ export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, roomProp
         ]);
         channelParametersRef.current.localVideoTrack.play(container);
         container.firstChild.firstChild.style = 'transform: rotateY(180deg); object-fit: cover; width: 100%; height: 100%; position: relative; left: 0px; top: 0px;';
-        console.log(container);
-        console.log("publish success!");
     } catch (error) {
         let errorMesage = error.code;
         console.error(errorMesage);
@@ -31,17 +29,14 @@ export var leaveRoom = async (agoraEngineRef, channelParametersRef, remotePlayer
             removeVideoDiv(remotePlayerContainer.id);
             removeVideoDiv(localPlayerContainer.id);
             await agoraEngineRef.current.leave();
-            //window.location.reload();
         }
     } catch (error) {
         let errorMesage = error.code;
-        // document.getElementById('videoContainer').innerHTML = `<div>${errorMesage}</div>`
         console.error(errorMesage);
     }
 }
 
 const removeVideoDiv = (elementId) => {
-    console.log("Removing " + elementId + "Div");
     let div = document.getElementById(elementId);
     if (div) {
         div.remove();

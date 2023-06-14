@@ -1,8 +1,8 @@
-import TestPage from '../../initalpage/testPage';
-import VideoCall from '../../initalpage/videoCallRoom';
-import VideoRoom from '../../initalpage/videoRoom';
-export const routes = [
+import TestPage from '../../MainPage/testPage';
+import VideoCall from '../../MainPage/videoCallRoom';
+import VideoRoom from '../../MainPage/videoRoom';
 
+export const routes = [
     {
         path: '/',
         component: TestPage,
