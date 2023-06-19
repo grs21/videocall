@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './stores/store';
 
-import "./style/js/bootstrap.min.js";
+import "./style/js/bootstrap.min.js"
 import './style/css/main.css';
 import './style/css/line-awesome.min.css';
 import './style/css/font-awesome.min.css';

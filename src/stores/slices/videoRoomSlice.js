@@ -8,7 +8,8 @@ export const videoRoomSlice = createSlice({
             channel: '',
             token: '',
             uid: 0,
-        }
+        },
+        GUID:'7939bcb4-2a22-4833-af7c-6faf3381a613#'
     },
     reducers: {
         setRoomProperty: (state, action) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { User, Attachment, Avatar_01, Avatar_05, Avatar_02, Avatar_09, Avatar_13, Avatar_16, Video_Call } from '../../assets/imagePath'
+import {  Avatar_02, Avatar_09 } from '../../assets/imagePath'
 
 function calls() {
   return (

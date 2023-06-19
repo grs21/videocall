@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { useSelector, useDispatch } from 'react-redux';
 import { setRoomProperty } from '../stores/slices//videoRoomSlice';
-import { joinVideoRoom, leaveRoom } from '../service/baseFunction/videoCallHelper'
 
 
 const VideoCall = () => {

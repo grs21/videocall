@@ -1,8 +1,13 @@
 import React from 'react'
 import { Attachment } from '../../assets/imagePath'
 import Message from '../../component/message';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage } from '../../stores/slices/messagesSlice';
 
-function chat() {
+function Chat() {
+    const { messages } = useSelector(state => state.messages);
+    const dispatch = useDispatch();
+    
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             sendMessage();
@@ -11,9 +16,9 @@ function chat() {
 
     const sendMessage = (event) => {
         console.log('message');
-        
+        dispatch(addMessage('message'));
     }
-   
+
     return (
         <div className="content-full tab-pane" id="chats_tab">
             <div className="chat-window">
@@ -51,4 +56,4 @@ function chat() {
     )
 }
 
-export default chat
+export default Chat

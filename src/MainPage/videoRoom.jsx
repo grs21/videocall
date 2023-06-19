@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from "react-helmet";
-import { Link } from 'react-router-dom';
-import { User, Attachment, Avatar_01, Avatar_05, Avatar_02, Avatar_09, Avatar_13, Avatar_16, Video_Call } from '../assets/imagePath'
 import { useSelector, useDispatch } from 'react-redux';
 import { setRoomProperty } from '../stores/slices/videoRoomSlice';
 import DragFilesModal from '../modals/dragFilesModal';
@@ -17,8 +15,8 @@ const VideoCall = () => {
   const dispatch = useDispatch();
   dispatch(setRoomProperty({
     appId: 'afadeb1ff63443ac93d5e953314a544f',
-    channel: 'test2',
-    token: '007eJxTYFC7aDRt94oDxsVs5bOKD5xJ+nS+tujF+zd7ntToPrWVtWpUYEhMS0xJTTJMSzMzNjExTky2NE4xTbU0NTY2NEk0NTFJy8vsSGkIZGQw2xzByMgAgSA+K0NJanGJEQMDACpLIbo=',
+    channel: 'test4',
+    token: '007eJxTYOj+P19P/XRT4gyWTXEMXV/TPglvD6tr8o5tYjqTnjntoYMCQ2JaYkpqkmFampmxiYlxYrKlcYppqqWpsbGhSaKpiUlaMG9PSkMgI8PXxFusjAwQCOKzMpSkFpeYMDAAAHF9H9Q=',
     uid: 0,
   }))
   const [windowDimension, detectHW] = useState({
