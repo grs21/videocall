@@ -15,7 +15,7 @@ export const videoRoomSlice = createSlice({
         testData : prepareVideoCallInstance,
     },
     reducers: {
-        createSlice: (state, action) => {
+        setRoomProperty: (state, action) => {
             state.roomProperty.appId = action.payload.appId;
             state.roomProperty.channel = action.payload.channel;
             state.roomProperty.token = action.payload.token;
