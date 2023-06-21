@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import PrepareVideoCall from "../../modal/PrepareVideoCall.js"
 
+const prepareVideoCallInstance = new PrepareVideoCall();
 export const videoRoomSlice = createSlice({
     name: 'videoRoom',
     initialState: {
@@ -9,17 +11,21 @@ export const videoRoomSlice = createSlice({
             token: '',
             uid: 0,
         },
-        GUID:'7939bcb4-2a22-4833-af7c-6faf3381a613#'
+        GUID:'7939bcb4-2a22-4833-af7c-6faf3381a613#',
+        testData : prepareVideoCallInstance,
     },
     reducers: {
-        setRoomProperty: (state, action) => {
+        createSlice: (state, action) => {
             state.roomProperty.appId = action.payload.appId;
             state.roomProperty.channel = action.payload.channel;
             state.roomProperty.token = action.payload.token;
             state.roomProperty.uid = action.payload.uid;
         },
+        setTestData:(state, action) => {
+            prepareVideoCallInstance.setResponse(action.payload)
+        },
     }
 })
-export const { setRoomProperty } = videoRoomSlice.actions
+export const { setRoomProperty,setTestData } = videoRoomSlice.actions;
 
 export default videoRoomSlice.reducer

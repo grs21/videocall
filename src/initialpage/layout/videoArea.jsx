@@ -1,13 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { Avatar_01, Avatar_05 } from '../../assets/imagePath'
-import { joinVideoRoom, leaveRoom } from '../../service/baseFunction/videoCallHelper';
+import { joinVideoRoom, leaveRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { getPrepareVideo } from '../../service/api/room';
+import {createSlice, setTestData } from '../../stores/slices/videoRoomSlice';
 
 function VideoArea() {
-  const { roomProperty } = useSelector(state => state.videoRoomProperty);
+  const { roomProperty,testData } = useSelector(state => state.videoRoomProperty);
+  const dispatch = useDispatch(); 
   const agoraEngineRef = useRef(null);
+  const effectRun = useRef(false);
   const channelParametersRef = useRef({
     localAudioTrack: null,
     localVideoTrack: null,
@@ -16,41 +20,46 @@ function VideoArea() {
     remoteUid: null,
   });
   useEffect(() => {
-    const startBasicCall = async () => {
-      agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-      const remotePlayerContainer = document.createElement('div');
-      remotePlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;'
-      const localPlayerContainer = document.createElement('div');
-      localPlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;border-radius: 6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 1px solid white;';
-
-      agoraEngineRef.current.on("user-published", async (user, mediaType) => {
-        await agoraEngineRef.current.subscribe(user, mediaType);
-
-
-        if (mediaType === "video") {
-          channelParametersRef.current.remoteVideoTrack = user.videoTrack;
-          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
-          channelParametersRef.current.remoteUid = user.uid.toString();
-          remotePlayerContainer.id = user.uid.toString();
-          channelParametersRef.current.remoteUid = user.uid.toString();
-          remotePlayerContainer.textContent = "Remote user " + user.uid.toString();
-          document.getElementById('user-video-container').append(remotePlayerContainer);
-          await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
-          remotePlayerContainer.childNodes[1].style = ''
-          remotePlayerContainer.childNodes[1].firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
+    if (effectRun.current === false) {
+      const startBasicCall = async () => {
+        const resPrepareVideoCall = await getPrepareVideo();
+        dispatch(setTestData(resPrepareVideoCall));
+        console.log(testData.getFullName());
+        agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+        const remotePlayerContainer = document.createElement('div');
+        remotePlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;'
+        const localPlayerContainer = document.createElement('div');
+        localPlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;border-radius: 6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 1px solid white;';
+        agoraEngineRef.current.on("user-published", async (user, mediaType) => {
+          await agoraEngineRef.current.subscribe(user, mediaType);
+          if (mediaType === "video") {
+            channelParametersRef.current.remoteVideoTrack = user.videoTrack;
+            channelParametersRef.current.remoteAudioTrack = user.audioTrack;
+            channelParametersRef.current.remoteUid = user.uid.toString();
+            remotePlayerContainer.id = user.uid.toString();
+            channelParametersRef.current.remoteUid = user.uid.toString();
+            remotePlayerContainer.textContent = "Remote user " + user.uid.toString();
+            document.getElementById('user-video-container').append(remotePlayerContainer);
+            await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
+            remotePlayerContainer.childNodes[1].style = ''
+            remotePlayerContainer.childNodes[1].firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
+          }
+          if (mediaType === "audio") {
+            channelParametersRef.current.remoteAudioTrack = user.audioTrack;
+            channelParametersRef.current.remoteAudioTrack.play();
+          }
+        });
+        
+        document.getElementById('ara').onclick = async (e) => {
+          e.preventDefault();
+          joinVideoRoom(agoraEngineRef, channelParametersRef, roomProperty, localPlayerContainer);
         }
-        if (mediaType === "audio") {
-          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
-          channelParametersRef.current.remoteAudioTrack.play();
-        }
-      });
-
-      document.getElementById('ara').onclick = async (e) => {
-        e.preventDefault();
-        joinVideoRoom(agoraEngineRef, channelParametersRef, roomProperty, localPlayerContainer);
+      }
+      startBasicCall();
+      return () =>{
+        effectRun.current = true;
       }
     }
-    startBasicCall();
   })
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>
