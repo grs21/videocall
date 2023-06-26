@@ -5,10 +5,10 @@ import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPrepareVideo } from '../../service/api/room';
-import {createSlice, setTestData } from '../../stores/slices/videoRoomSlice';
+import {createSlice, setCallProperty } from '../../stores/slices/videoRoomSlice';
 
 function VideoArea() {
-  const { roomProperty,testData } = useSelector(state => state.videoRoomProperty);
+  const { roomProperty,callProperty } = useSelector(state => state.videoRoomProperty);
   const dispatch = useDispatch(); 
   const agoraEngineRef = useRef(null);
   const effectRun = useRef(false);
@@ -20,11 +20,10 @@ function VideoArea() {
     remoteUid: null,
   });
   useEffect(() => {
-    if (effectRun.current === false) {
       const startBasicCall = async () => {
-        const resPrepareVideoCall = await getPrepareVideo();
-        dispatch(setTestData(resPrepareVideoCall));
-        console.log(testData.getFullName());
+        // const resPrepareVideoCall = await getPrepareVideo();
+        // dispatch(setCallProperty(resPrepareVideoCall));
+        //console.log(callProperty,'log3');
         agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
         const remotePlayerContainer = document.createElement('div');
         remotePlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;'
@@ -56,11 +55,7 @@ function VideoArea() {
         }
       }
       startBasicCall();
-      return () =>{
-        effectRun.current = true;
-      }
-    }
-  })
+  },[callProperty])
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>
       <div className="chat-window">
