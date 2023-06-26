@@ -181,7 +181,7 @@
                     background-color: $__white;
                     border: 1px solid $__mild___gray;
                     color: $__dark__gray;
-                    float: $__right;
+                    float: $__left;
                     position: $__relative;
                     max-width: 60%;
                     @include margin-padding(null, 8px 15px);
@@ -304,6 +304,7 @@
                                 color: $__dark__gray;
                                 display: $__inline__block;
                                 font-size: $__font__size__11;
+                                @include margin-padding(0 0 0 8px, null);
                             }
 
                             .call-details {

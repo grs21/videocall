@@ -3790,7 +3790,7 @@ input[type=file].form-control {
           background-color: #ffffff;
           border: 1px solid #eaeaea;
           color: #888888;
-          float: right;
+          float: left;
           position: relative;
           max-width: 60%;
           padding: 8px 15px;
@@ -3875,7 +3875,8 @@ input[type=file].form-control {
             .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .chat-time {
               color: #888888;
               display: inline-block;
-              font-size: 11px; }
+              font-size: 11px;
+              margin: 0 0 0 8px; }
             .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details {
               margin: 10px 0 0px; }
               .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details .call-info {
