@@ -4,7 +4,7 @@ import {  Avatar_02, Avatar_09 } from '../../assets/imagePath'
 
 function calls() {
   return (
-    <div className="content-full tab-pane show active" id="calls_tab">
+    <div className="content-full tab-pane" id="calls_tab">
     <div className="chat-wrap-inner">
       <div className="chat-box">
         <div className="chats">

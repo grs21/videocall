@@ -60,8 +60,8 @@ const VideoCall = () => {
             <div className="chat-window video-window">
               <div className="fixed-header">
                 <ul className="nav nav-tabs nav-tabs-bottom">
-                  <NavItem href='#calls_tab' state='active' navName='Calls'/>
-                  <NavItem href='#chats_tab' state='' navName='Chats'/>
+                  <NavItem href='#calls_tab' state='' navName='Calls'/>
+                  <NavItem href='#chats_tab' state='active' navName='Chats'/>
                   <NavItem href='#profile_tab' state='' navName='Profile'/>
                 </ul>
               </div>
