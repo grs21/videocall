@@ -5,6 +5,10 @@ import messagesSlice from "./slices/messagesSlice";
 export default configureStore({
     reducer: {
         videoRoomProperty: videoRoomSlice,
-        messages:messagesSlice,
-    }
+        messages: messagesSlice,
+    },
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 })
