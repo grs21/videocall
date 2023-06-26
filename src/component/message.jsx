@@ -2,7 +2,22 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { Avatar_09 } from '../assets/imagePath'
 
-function chat() {
+function chat({ message }) {
+    const dateFormat = () => {
+        if (message?.CreatedDate !== null) {
+            const date = new Date(message.CreatedDate);
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+            };
+            const formattedDate = date.toLocaleString('tr-TR', options);
+            return formattedDate;
+        }
+    }
+    const date = new Date();
     return (
         <div className="chat chat-left">
             <div className="chat-avatar">
@@ -13,12 +28,8 @@ function chat() {
             <div className="chat-body">
                 <div className="chat-bubble">
                     <div className="chat-content">
-                        <span className="task-chat-user">John Doe</span> <span className="file-attached">attached 3 files <i className="fa fa-paperclip" /></span> <span className="chat-time">Feb 17, 2019 at 4:32am</span>
-                        <ul className="attach-list">
-                            <li><i className="fa fa-file" /> <a href="#">project_document.avi</a></li>
-                            <li><i className="fa fa-file" /> <a href="#">video_conferencing.psd</a></li>
-                            <li><i className="fa fa-file" /> <a href="#">landing_page.psd</a></li>
-                        </ul>
+                        <span className="task-chat-user">{message.FromName}</span><span className="chat-time">{dateFormat()}</span>
+                        <p>{message.Message}</p>
                     </div>
                 </div>
             </div>
