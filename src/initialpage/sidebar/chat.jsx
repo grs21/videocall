@@ -4,7 +4,8 @@ import Message from '../../component/message';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, initializeMessages } from '../../stores/slices/messagesSlice';
 import io from '../../style/js/socket.io.js';
-
+import ChatLine from '../../component/chatLine';
+import { dateFormat } from '../../helper/videoCallHelper';
 
 function Chat() {
   const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
@@ -15,9 +16,14 @@ function Chat() {
   const fromName = callProperty.getDoctorName();
   const fromId = callProperty.getDoctorPersonId();
   const toId = callProperty.getPatientId();
-  const fileName = '';
   const toName = callProperty.getFullName();
   const fileUrl = '';
+  var prevDate = null;
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
 
 
   const handleKeyPress = (event) => {
@@ -32,7 +38,6 @@ function Chat() {
       var message = messageInput.value;
       if (message !== '') {
         socket.emit('typing', { RoomId: roomId, username: fromName, isTyping: false, FromId: fromId });
-        //var message = fileName;
         socket.emit('new_message', {
           RoomId: roomId,
           FromId: fromId,
@@ -43,8 +48,6 @@ function Chat() {
           FileUrl: fileUrl
         });
         messageInput.value = '';
-        // dispatch(addMessage('message'));
-        //ScrollEnd()
       }
     }
   }
@@ -52,16 +55,9 @@ function Chat() {
   function ScrollEnd() {
     var chatList = document.getElementById('chat-list');
     if (chatList) {
-      chatList.scrollTop = chatList.scrollHeight; 
-      //chatList.scrollTop = chatList.scrollHeight;
+      chatList.scrollTop = chatList.scrollHeight;
     }
-    console.log(chatList.scrollHeight);
-    console.log('scroll');
   }
-  // useEffect(() => {
-
-  // }, [messages])
-
 
   useEffect(() => {
     console.log('useEffect');
@@ -84,10 +80,6 @@ function Chat() {
     });
 
     socket.on('all_messages', async (data) => {
-      let temp = 'data';
-      let tempdate = 'data';
-      let isNewMessage = '';
-      let isNewDate = '';
       console.log('all_messages', data);
       await dispatch(initializeMessages(data));
       socket.emit('read', { RoomId: roomId, ToId: fromId });
@@ -119,9 +111,22 @@ function Chat() {
             <div className="chat-wrap-inner" id='chat-list'>
               <div className="chat-box">
                 <div className="chats">
-                  {messages && messages.map((message, index) => (
-                    <Message key={index} message={message} />
-                  ))}
+                  {messages && messages.map((message, index) => {
+                    const messageDate = new Date(message.CreatedDate);
+                    /// To add chatLine when a new day is passed
+                    if (!prevDate || (messageDate && messageDate.getDate() !== prevDate.getDate())) {
+                      prevDate = messageDate;
+                      return (
+                        <div>
+                          <ChatLine date={dateFormat(messageDate, options)} />
+                          <Message key={index} message={message} />
+                        </div>
+                      );
+                    } else {
+                      prevDate = messageDate;
+                      return <Message key={index} message={message} />
+                    }
+                  })}
                 </div>
               </div>
             </div>

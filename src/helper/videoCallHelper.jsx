@@ -42,3 +42,11 @@ const removeVideoDiv = (elementId) => {
         div.remove();
     }
 };
+
+export const dateFormat = (date,options) => {
+    if (date !== null && date !== undefined) {
+        const dateObject = new Date(date);
+        const formattedDate = dateObject.toLocaleString('tr-TR', options);
+        return formattedDate;
+    }
+}

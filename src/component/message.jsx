@@ -1,23 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Avatar_09 } from '../assets/imagePath'
+import { Avatar_09 } from '../assets/imagePath';
+import { dateFormat } from '../helper/videoCallHelper';
 
 function chat({ message }) {
-    const dateFormat = () => {
-        if (message?.CreatedDate !== null) {
-            const date = new Date(message.CreatedDate);
-            const options = {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-            };
-            const formattedDate = date.toLocaleString('tr-TR', options);
-            return formattedDate;
-        }
-    }
-    const date = new Date();
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+      };
     return (
         <div className="chat chat-left">
             <div className="chat-avatar">
@@ -28,7 +21,7 @@ function chat({ message }) {
             <div className="chat-body">
                 <div className="chat-bubble">
                     <div className="chat-content">
-                        <span className="task-chat-user">{message.FromName}</span><span className="chat-time">{dateFormat()}</span>
+                        <span className="task-chat-user">{message.FromName}</span><span className="chat-time">{dateFormat(message.CreatedDate, options)}</span>
                         <p>{message.Message}</p>
                     </div>
                 </div>
