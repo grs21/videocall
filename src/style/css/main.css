@@ -3871,7 +3871,7 @@ input[type=file].form-control {
             border-radius: 0 !important; }
             .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .task-chat-user {
               color: #333333;
-              font-size: 13px; }
+              font-size: 500; }
             .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .chat-time {
               color: #888888;
               display: inline-block;
@@ -5936,7 +5936,21 @@ button.close {
             font-size: 26px;
             margin-left: 15px; }
         .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu {
-          margin: 1px 0 0; }
+          margin: 1px 0 0;
+          position: relative; }
+          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu .notification-count {
+            position: absolute;
+            left: 41px;
+            top: -2px;
+            font-size: 10px;
+            font-weight: 700;
+            background-color: #e0001a;
+            color: #ffffff;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            padding-inline: 4px;
+            transition: width 2s; }
           .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu li a {
             color: #bbb;
             font-size: 26px;

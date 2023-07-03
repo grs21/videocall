@@ -62,7 +62,6 @@ function Chat() {
   useEffect(() => {
     console.log('useEffect');
     socket.emit('login_room', { RoomId: roomId });
-    var allGet = 0;
     socket.on('new_message', async (data) => {
       console.log(data, 'newMessage');
       await dispatch(addMessage(data));

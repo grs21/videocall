@@ -5,7 +5,7 @@ import { setRoomProperty } from '../stores/slices/videoRoomSlice';
 import DragFilesModal from '../modals/dragFilesModal';
 import ShareFileModal from '../modals/shareFileModal';
 import VideoArea from '../initialpage/layout/videoArea';
-import NavItem  from '../component/navItem';
+import NavItem from '../component/navItem';
 import Chat from '../initialpage/sidebar/chat';
 import Calls from '../initialpage/sidebar/calls';
 import Profile from '../initialpage/sidebar/profile';
@@ -60,15 +60,17 @@ const VideoCall = () => {
             <div className="chat-window video-window">
               <div className="fixed-header">
                 <ul className="nav nav-tabs nav-tabs-bottom">
-                  <NavItem href='#calls_tab' state='' navName='Calls'/>
-                  <NavItem href='#chats_tab' state='active' navName='Chats'/>
-                  <NavItem href='#profile_tab' state='' navName='Profile'/>
+                  <NavItem href='#profile_tab' state='' navName='Profile' />
+                  <NavItem href='#chats_tab' state='active' navName='Chats' />
+                  <NavItem href='#calls_tab' state='' navName='Calls' />
+
+
                 </ul>
               </div>
               <div className="tab-content chat-contents">
-                <Profile/>
-                <Calls/>
-                <Chat/>
+                <Profile />
+                <Calls />
+                <Chat />
               </div>
             </div>
           </div>

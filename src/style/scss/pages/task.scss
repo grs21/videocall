@@ -417,6 +417,22 @@
 
                 .custom-menu {
                     margin: 1px 0 0;
+                    position: $__relative;
+
+                    & .notification-count {
+                        position: $__absolute;
+                        left: 41px;
+                        top: -2px;
+                        font-size: 10px;
+                        font-weight: 700;
+                        background-color: $__ferriari__red;
+                        color: $__white;
+                        border-radius: 3px;
+                        display: $__flex;
+                        justify-content: $__center;
+                        padding-inline: 4px;
+                        transition: width 2s;
+                    }
 
                     li {
                         a {

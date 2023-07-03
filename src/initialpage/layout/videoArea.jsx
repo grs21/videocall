@@ -1,17 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Avatar_01, Avatar_05 } from '../../assets/imagePath'
 import { joinVideoRoom, leaveRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPrepareVideo } from '../../service/api/room';
-import {createSlice, setCallProperty } from '../../stores/slices/videoRoomSlice';
-
+import { createSlice, setCallProperty } from '../../stores/slices/videoRoomSlice';
+import { addMessage, initializeMessages, setMessagesCount, setNotifCState } from '../../stores/slices/messagesSlice';
 function VideoArea() {
-  const { roomProperty,callProperty } = useSelector(state => state.videoRoomProperty);
-  const dispatch = useDispatch(); 
+  const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
+  const { messages, newMessageCount, notifCState } = useSelector(state => state.messages);
+  const dispatch = useDispatch();
   const agoraEngineRef = useRef(null);
-  const effectRun = useRef(false);
   const channelParametersRef = useRef({
     localAudioTrack: null,
     localVideoTrack: null,
@@ -19,43 +19,59 @@ function VideoArea() {
     remoteVideoTrack: null,
     remoteUid: null,
   });
+
   useEffect(() => {
-      const startBasicCall = async () => {
-        // const resPrepareVideoCall = await getPrepareVideo();
-        // dispatch(setCallProperty(resPrepareVideoCall));
-        //console.log(callProperty,'log3');
-        agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-        const remotePlayerContainer = document.createElement('div');
-        remotePlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;'
-        const localPlayerContainer = document.createElement('div');
-        localPlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;border-radius: 6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 1px solid white;';
-        agoraEngineRef.current.on("user-published", async (user, mediaType) => {
-          await agoraEngineRef.current.subscribe(user, mediaType);
-          if (mediaType === "video") {
-            channelParametersRef.current.remoteVideoTrack = user.videoTrack;
-            channelParametersRef.current.remoteAudioTrack = user.audioTrack;
-            channelParametersRef.current.remoteUid = user.uid.toString();
-            remotePlayerContainer.id = user.uid.toString();
-            channelParametersRef.current.remoteUid = user.uid.toString();
-            remotePlayerContainer.textContent = "Remote user " + user.uid.toString();
-            document.getElementById('user-video-container').append(remotePlayerContainer);
-            await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
-            remotePlayerContainer.childNodes[1].style = ''
-            remotePlayerContainer.childNodes[1].firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
-          }
-          if (mediaType === "audio") {
-            channelParametersRef.current.remoteAudioTrack = user.audioTrack;
-            channelParametersRef.current.remoteAudioTrack.play();
-          }
-        });
-        
-        document.getElementById('ara').onclick = async (e) => {
-          e.preventDefault();
-          joinVideoRoom(agoraEngineRef, channelParametersRef, roomProperty, localPlayerContainer);
+    const chatNavbar = document.getElementsByClassName('nav-item');
+    if (chatNavbar !== undefined && chatNavbar !== null) {
+      for (let navbar of chatNavbar) {
+        if (navbar.firstChild.href.includes('chats_tab')) {
+          navbar.firstChild.classList.forEach(element => {
+            if (element === 'active') {
+              dispatch(setNotifCState(false));
+              dispatch(setMessagesCount(0));
+            } else {
+              dispatch(setNotifCState(true));
+            }
+          });
         }
       }
-      startBasicCall();
-  },[callProperty])
+    }
+  }, [messages])
+
+  useEffect(() => {
+    const startBasicCall = async () => {
+      agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+      const remotePlayerContainer = document.createElement('div');
+      remotePlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;'
+      const localPlayerContainer = document.createElement('div');
+      localPlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;border-radius: 6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 1px solid white;';
+      agoraEngineRef.current.on("user-published", async (user, mediaType) => {
+        await agoraEngineRef.current.subscribe(user, mediaType);
+        if (mediaType === "video") {
+          channelParametersRef.current.remoteVideoTrack = user.videoTrack;
+          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
+          channelParametersRef.current.remoteUid = user.uid.toString();
+          remotePlayerContainer.id = user.uid.toString();
+          channelParametersRef.current.remoteUid = user.uid.toString();
+          remotePlayerContainer.textContent = "Remote user " + user.uid.toString();
+          document.getElementById('user-video-container').append(remotePlayerContainer);
+          await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
+          remotePlayerContainer.childNodes[1].style = ''
+          remotePlayerContainer.childNodes[1].firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
+        }
+        if (mediaType === "audio") {
+          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
+          channelParametersRef.current.remoteAudioTrack.play();
+        }
+      });
+
+      document.getElementById('ara').onclick = async (e) => {
+        e.preventDefault();
+        joinVideoRoom(agoraEngineRef, channelParametersRef, roomProperty, localPlayerContainer);
+      }
+    }
+    startBasicCall();
+  }, [callProperty])
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>
       <div className="chat-window">
@@ -73,11 +89,14 @@ function VideoArea() {
                 <span className="last-seen">Online</span>
               </div>
             </div>
-            <ul className="nav float-end custom-menu">
+            <ul className="nav float-end custom-menu message-icon">
               <li className="nav-item">
                 <a href="#task_window" id="task_chat" className="task-chat profile-rightbar float-end" data-bs-toggle="collapse">
                   <i className="fa fa-comments" />
                 </a>
+              </li>
+              <li className='notification-count'>
+                {notifCState ? newMessageCount : ''}
               </li>
             </ul>
           </div>
