@@ -43,10 +43,17 @@ const removeVideoDiv = (elementId) => {
     }
 };
 
-export const dateFormat = (date,options) => {
+export const dateFormat = (date, options) => {
     if (date !== null && date !== undefined) {
         const dateObject = new Date(date);
         const formattedDate = dateObject.toLocaleString('tr-TR', options);
         return formattedDate;
+    }
+}
+
+export const chatScroll = () => {
+    var chatList = document.getElementById('chat-list');
+    if (chatList) {
+        chatList.scrollTop = chatList.scrollHeight;
     }
 }

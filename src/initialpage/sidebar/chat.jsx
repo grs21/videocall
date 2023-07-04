@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, initializeMessages } from '../../stores/slices/messagesSlice';
 import io from '../../style/js/socket.io.js';
 import ChatLine from '../../component/chatLine';
-import { dateFormat } from '../../helper/videoCallHelper';
+import { dateFormat, chatScroll } from '../../helper/videoCallHelper';
 
 function Chat() {
   const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
@@ -52,12 +52,7 @@ function Chat() {
     }
   }
 
-  function ScrollEnd() {
-    var chatList = document.getElementById('chat-list');
-    if (chatList) {
-      chatList.scrollTop = chatList.scrollHeight;
-    }
-  }
+  
 
   useEffect(() => {
     console.log('useEffect');
@@ -66,14 +61,14 @@ function Chat() {
       console.log(data, 'newMessage');
       await dispatch(addMessage(data));
       socket.emit('read', { RoomId: roomId, ToId: fromId });
-      ScrollEnd();
+      chatScroll();
     });
 
     socket.on('typing', (data) => {
-      console.log('typing', data);
+      //console.log('typing', data);
       if (data.FromId === toId) {
         if (data.isTyping) {
-          ScrollEnd();
+          chatScroll();
         }
       }
     });
@@ -82,7 +77,7 @@ function Chat() {
       console.log('all_messages', data);
       await dispatch(initializeMessages(data));
       socket.emit('read', { RoomId: roomId, ToId: fromId });
-      ScrollEnd();
+      chatScroll();
     });
 
 
@@ -103,7 +98,7 @@ function Chat() {
 
 
   return (
-    <div className="content-full tab-pane show active" id="chats_tab">
+    <div className="content-full tab-pane" id="chats_tab">
       <div className="chat-window">
         <div className="chat-contents">
           <div className="chat-content-wrap">

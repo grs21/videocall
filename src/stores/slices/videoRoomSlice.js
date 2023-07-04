@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import PrepareVideoCall from "../../modal/PrepareVideoCall.js"
+import PrepareVideoCall from "../../model/PrepareVideoCall.js"
 
 const prepareVideoCallInstance = new PrepareVideoCall();
 export const videoRoomSlice = createSlice({

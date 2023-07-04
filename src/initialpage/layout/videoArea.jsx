@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPrepareVideo } from '../../service/api/room';
 import { createSlice, setCallProperty } from '../../stores/slices/videoRoomSlice';
-import { addMessage, initializeMessages, setMessagesCount, setNotifCState } from '../../stores/slices/messagesSlice';
+import { addMessage, initializeMessages, setMessagesCount, setNotifCState, setSidebarState } from '../../stores/slices/messagesSlice';
+import ChatIcon from '../../component/chatIcon';
+
 function VideoArea() {
   const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
-  const { messages, newMessageCount, notifCState } = useSelector(state => state.messages);
+  const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
   const dispatch = useDispatch();
   const agoraEngineRef = useRef(null);
   const channelParametersRef = useRef({
@@ -22,17 +24,13 @@ function VideoArea() {
 
   useEffect(() => {
     const chatNavbar = document.getElementsByClassName('nav-item');
-    if (chatNavbar !== undefined && chatNavbar !== null) {
+    if (chatNavbar.length > 0) {
       for (let navbar of chatNavbar) {
         if (navbar.firstChild.href.includes('chats_tab')) {
-          navbar.firstChild.classList.forEach(element => {
-            if (element === 'active') {
-              dispatch(setNotifCState(false));
-              dispatch(setMessagesCount(0));
-            } else {
-              dispatch(setNotifCState(true));
-            }
-          });
+          const isActive = navbar.firstChild.classList.contains('active');
+          if (isActive && sidebarState) {
+            dispatch(setMessagesCount(0));
+          }
         }
       }
     }
@@ -72,6 +70,7 @@ function VideoArea() {
     }
     startBasicCall();
   }, [callProperty])
+
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>
       <div className="chat-window">
@@ -89,16 +88,7 @@ function VideoArea() {
                 <span className="last-seen">Online</span>
               </div>
             </div>
-            <ul className="nav float-end custom-menu message-icon">
-              <li className="nav-item">
-                <a href="#task_window" id="task_chat" className="task-chat profile-rightbar float-end" data-bs-toggle="collapse">
-                  <i className="fa fa-comments" />
-                </a>
-              </li>
-              <li className='notification-count'>
-                {notifCState ? newMessageCount : ''}
-              </li>
-            </ul>
+            <ChatIcon />
           </div>
         </div>
         <div className="chat-contents">

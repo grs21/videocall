@@ -340,9 +340,9 @@ a {
   outline: none;
   color: #0d6efd;
   cursor: pointer;
-  -webkit-transition: all 0.2s ease;
-  -ms-transition: all 0.2s ease;
-  transition: all 0.2s ease; }
+  -webkit-transition: all 0.15s ease;
+  -ms-transition: all 0.15s ease;
+  transition: all 0.15s ease; }
   a:hover {
     -webkit-transition: all 0.2s ease;
     -ms-transition: all 0.2s ease;
@@ -5938,19 +5938,6 @@ button.close {
         .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu {
           margin: 1px 0 0;
           position: relative; }
-          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu .notification-count {
-            position: absolute;
-            left: 41px;
-            top: -2px;
-            font-size: 10px;
-            font-weight: 700;
-            background-color: #e0001a;
-            color: #ffffff;
-            border-radius: 3px;
-            display: flex;
-            justify-content: center;
-            padding-inline: 4px;
-            transition: width 2s; }
           .chat-main-row .chat-main-wrapper .chat-window .fixed-header .custom-menu li a {
             color: #bbb;
             font-size: 26px;
@@ -6314,3 +6301,21 @@ button.close {
   left: 0; }
   .status.online {
     background-color: #55ce63; }
+
+.notification-count, .custom-notification-count {
+  position: absolute;
+  left: 41px;
+  top: -2px;
+  font-size: 10px;
+  font-weight: 700;
+  background-color: #e0001a;
+  color: #ffffff;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  padding-inline: 4px;
+  transition: width 2s; }
+
+.custom-notification-count {
+  left: 58px;
+  top: 8px; }

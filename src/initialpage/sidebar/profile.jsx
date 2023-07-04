@@ -4,7 +4,7 @@ import { User, Attachment, Avatar_01, Avatar_05, Avatar_02, Avatar_09, Avatar_13
 
 function profile() {
   return (
-    <div className="content-full tab-pane" id="profile_tab">
+    <div className="content-full tab-pane show active" id="profile_tab">
     <div className="display-table">
       <div className="table-row">
         <div className="table-body">

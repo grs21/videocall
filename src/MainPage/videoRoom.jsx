@@ -12,6 +12,7 @@ import Profile from '../initialpage/sidebar/profile';
 
 const VideoCall = () => {
   const { roomProperty } = useSelector(state => state.videoRoomProperty);
+  const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
   const dispatch = useDispatch();
   dispatch(setRoomProperty({
     appId: 'afadeb1ff63443ac93d5e953314a544f',
@@ -60,17 +61,18 @@ const VideoCall = () => {
             <div className="chat-window video-window">
               <div className="fixed-header">
                 <ul className="nav nav-tabs nav-tabs-bottom">
-                  <NavItem href='#profile_tab' state='' navName='Profile' />
-                  <NavItem href='#chats_tab' state='active' navName='Chats' />
+                  <NavItem href='#profile_tab' state='active' navName='Profile' />
+
+                  <NavItem href='#chats_tab' state='' navName='Chats' />
+
                   <NavItem href='#calls_tab' state='' navName='Calls' />
-
-
                 </ul>
               </div>
               <div className="tab-content chat-contents">
                 <Profile />
-                <Calls />
                 <Chat />
+                <Calls />
+
               </div>
             </div>
           </div>
@@ -83,7 +85,7 @@ const VideoCall = () => {
       {/* Share Files Modal */}
       <ShareFileModal />
       {/* /Share Files Modal */}
-    </div>
+    </div >
   );
 
 }
