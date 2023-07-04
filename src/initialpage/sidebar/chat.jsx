@@ -33,6 +33,7 @@ function Chat() {
   }
 
   const sendMessage = (event) => {
+    console.log('gönderrrrrr');
     const messageInput = document.getElementById('messageInput');
     if (messageInput !== null && messageInput !== undefined) {
       var message = messageInput.value;
@@ -52,20 +53,16 @@ function Chat() {
     }
   }
 
-  
-
   useEffect(() => {
     console.log('useEffect');
     socket.emit('login_room', { RoomId: roomId });
     socket.on('new_message', async (data) => {
-      console.log(data, 'newMessage');
       await dispatch(addMessage(data));
       socket.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
     });
 
     socket.on('typing', (data) => {
-      //console.log('typing', data);
       if (data.FromId === toId) {
         if (data.isTyping) {
           chatScroll();
@@ -74,7 +71,6 @@ function Chat() {
     });
 
     socket.on('all_messages', async (data) => {
-      console.log('all_messages', data);
       await dispatch(initializeMessages(data));
       socket.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
@@ -95,8 +91,6 @@ function Chat() {
     };
   }, [callProperty]);
 
-
-
   return (
     <div className="content-full tab-pane" id="chats_tab">
       <div className="chat-window">
@@ -112,7 +106,7 @@ function Chat() {
                       prevDate = messageDate;
                       return (
                         <div>
-                          <ChatLine date={dateFormat(messageDate, options)} />
+                          {/* <ChatLine date={dateFormat(messageDate, options)} /> */}
                           <Message key={index} message={message} />
                         </div>
                       );
@@ -133,8 +127,8 @@ function Chat() {
               <div className="message-area">
                 <div className="input-group">
                   <textarea className="form-control" placeholder="Type message..." defaultValue={""} onKeyDown={handleKeyPress} id='messageInput' />
-                  <span className="input-group-append">
-                    <button className="btn btn-primary" type="button"><i className="fa fa-send" onClick={sendMessage} /></button>
+                  <span className="input-group-append"  onClick={sendMessage}>
+                    <button className="btn btn-primary" type="button"><i className="fa fa-send" /></button>
                   </span>
                 </div>
               </div>
