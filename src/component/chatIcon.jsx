@@ -1,15 +1,16 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage, initializeMessages, setMessagesCount, setNotifCState, setSidebarState } from '../stores/slices/messagesSlice';
+import { setMessagesCount, setSidebarState } from '../stores/slices/messagesSlice';
 
 function CharIcon() {
     const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
     const messageIconHandler = (e) => {
         const sideBar = document.getElementById('task_window');
         if (sideBar !== null && sideBar !== undefined) {
+            //When the sidebar is opened and the chat bar is open,
+            //the notification on the chat bar is reset.
             if (notifCState) dispatch(setMessagesCount(0));
             dispatch(setSidebarState(!sidebarState));
-
         }
     }
     const dispatch = useDispatch();
@@ -20,8 +21,8 @@ function CharIcon() {
                     <i className="fa fa-comments" />
                 </a>
             </li>
-            {/* !sidebarState &&  */}
             <li className='notification-count'>
+                {/* If the sidebar is closed and there is a new unread message */}
                 {(!sidebarState && newMessageCount > 0) ? newMessageCount : ''}
             </li>
         </ul>

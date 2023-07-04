@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from 'react-redux';
 import { setRoomProperty } from '../stores/slices/videoRoomSlice';
@@ -62,9 +62,7 @@ const VideoCall = () => {
               <div className="fixed-header">
                 <ul className="nav nav-tabs nav-tabs-bottom">
                   <NavItem href='#profile_tab' state='active' navName='Profile' />
-
                   <NavItem href='#chats_tab' state='' navName='Chats' />
-
                   <NavItem href='#calls_tab' state='' navName='Calls' />
                 </ul>
               </div>
@@ -72,7 +70,6 @@ const VideoCall = () => {
                 <Profile />
                 <Chat />
                 <Calls />
-
               </div>
             </div>
           </div>

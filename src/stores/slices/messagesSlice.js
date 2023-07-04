@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import React from 'react'
 
 export const messagesSlice = createSlice({
     name: 'messages',
     initialState: {
         messages: [],
         newMessageCount: 0,
+        // If the char bar is clicked, its value will be true
         notifCState: false,
         // if side bar opened value true
         sidebarState: true,

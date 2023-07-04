@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { addMessage, initializeMessages, setMessagesCount, setNotifCState } from '../stores/slices/messagesSlice';
+import { setMessagesCount, setNotifCState } from '../stores/slices/messagesSlice';
 import { chatScroll } from '../helper/videoCallHelper';
 
 function NavItem({ href, state, navName }) {

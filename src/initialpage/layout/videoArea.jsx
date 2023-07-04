@@ -4,9 +4,7 @@ import { joinVideoRoom, leaveRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPrepareVideo } from '../../service/api/room';
-import { createSlice, setCallProperty } from '../../stores/slices/videoRoomSlice';
-import { addMessage, initializeMessages, setMessagesCount, setNotifCState, setSidebarState } from '../../stores/slices/messagesSlice';
+import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
 
 function VideoArea() {
