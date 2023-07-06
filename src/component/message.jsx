@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Avatar_09 } from '../assets/imagePath';
+import { User } from '../assets/imagePath';
 import { dateFormat } from '../helper/videoCallHelper';
+import ChatLine from '../component/chatLine';
+import { useDispatch, useSelector } from 'react-redux';
 
-function chat({ message }) {
+function Chat({ message }) {
+    const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
     const options = {
         year: 'numeric',
         month: 'long',
@@ -11,17 +14,22 @@ function chat({ message }) {
         hour: 'numeric',
         minute: 'numeric',
       };
+      const doctorId = callProperty.getDoctorId();
+      const messageFromId = message.ToId;
     return (
-        <div className="chat chat-left">
+        <div className={'chat '+ ( doctorId !== messageFromId ? 'chat-right':'chat-left')}>
+           
             <div className="chat-avatar">
                 <Link to="/app/profile/employee-profile" className="avatar">
-                    <img alt="" src={Avatar_09} />
+                    <img alt="" src={User} />
                 </Link>
             </div>
             <div className="chat-body">
                 <div className="chat-bubble">
                     <div className="chat-content">
-                        <span className="task-chat-user">{message.FromName}</span><span className="chat-time">{dateFormat(message.CreatedDate, options)}</span>
+                        <span className="task-chat-user">{message.FromName}</span>
+                        {/* <span className="chat-time">{dateFormat(message.CreatedDate, options)}</span> */}
+                        {/* <ChatLine date={''} /> */}
                         <p>{message.Message}</p>
                     </div>
                 </div>
@@ -30,7 +38,7 @@ function chat({ message }) {
     )
 }
 
-export default chat
+export default Chat
 {/*                                 
                                     <div className="chat chat-left">
                                         <div className="chat-avatar">

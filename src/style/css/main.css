@@ -52,7 +52,7 @@
   display: -ms-inline-flexbox;
   display: inline-flex; }
 
-.avatar .avatar-title, .card .leave-inline-form, .card .card-title.with-switch, .header .user-menu.nav > li.flag-nav a, .task-follower-list, .task-board-color .board-color-list, [data-layout=horizontal] body nav.greedy, [data-sidebar="dark"] .two-col-bar .sidebar .sidebar-left .nav-link, .punch-info .punch-hours, .att-statistics .stats-info p, .chat-contents .chat-content-wrap .chats .chat-bubble .chat-img-attach .chat-placeholder, .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details, .voice-call-avatar, .call-box .call-wrapper, .call-box .call-wrapper .call-items, .error-page, .error-page .main-wrapper, .file-wrap, .file-wrap .file-sidebar .file-header, .file-wrap .file-sidebar .file-search .input-group .input-group-prepend, .file-cont-wrap, .file-cont-wrap .file-cont-inner .file-cont-header, .file-cont-wrap .file-cont-inner .file-cont-header .file-options, .file-content .file-search .input-group-prepend, .file-content .file-body .file-scroll .file-content-inner .card-file .card-file-thumb, .leave-item .leave-row, .leave-item .leave-right, .leave-header, .avatar-dropdown .avatar-group .avatar, .rating-list, .job-list .job-list-det, .board-view-header .pro-teams .pro-team-lead, .board-view-header .pro-teams .pro-team-members, .board-view-header .pro-progress-bar, .kanban-cont, .kanban-cont .kanban-list .kanban-wrap .task-board-header, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-info, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-footer, .kanban-cont .kanban-list .kanban-header, .chat-content-wrap .chat-wrap-inner .task-header, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info a, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info .remove-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .due-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date a, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .remove-icon, .chat-content-wrap .chat-wrap-inner .task-desc, .chat-content-wrap .chat-wrap-inner .task-desc .task-textarea, .chat-footer .task-followers, .chat-footer .message-bar .message-area .input-group, .task-assign .task-complete-btn {
+.avatar .avatar-title, .card .leave-inline-form, .card .card-title.with-switch, .header .user-menu.nav > li.flag-nav a, .task-follower-list, .task-board-color .board-color-list, [data-layout=horizontal] body nav.greedy, [data-sidebar="dark"] .two-col-bar .sidebar .sidebar-left .nav-link, .punch-info .punch-hours, .att-statistics .stats-info p, .chat-contents .chat-content-wrap .chats .chat-bubble .chat-img-attach .chat-placeholder, .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details, .chat-sidebar .chat-contents .chats .chat-right .chat-body .chat-bubble .chat-content .call-details, .voice-call-avatar, .call-box .call-wrapper, .call-box .call-wrapper .call-items, .error-page, .error-page .main-wrapper, .file-wrap, .file-wrap .file-sidebar .file-header, .file-wrap .file-sidebar .file-search .input-group .input-group-prepend, .file-cont-wrap, .file-cont-wrap .file-cont-inner .file-cont-header, .file-cont-wrap .file-cont-inner .file-cont-header .file-options, .file-content .file-search .input-group-prepend, .file-content .file-body .file-scroll .file-content-inner .card-file .card-file-thumb, .leave-item .leave-row, .leave-item .leave-right, .leave-header, .avatar-dropdown .avatar-group .avatar, .rating-list, .job-list .job-list-det, .board-view-header .pro-teams .pro-team-lead, .board-view-header .pro-teams .pro-team-members, .board-view-header .pro-progress-bar, .kanban-cont, .kanban-cont .kanban-list .kanban-wrap .task-board-header, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-info, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-footer, .kanban-cont .kanban-list .kanban-header, .chat-content-wrap .chat-wrap-inner .task-header, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info a, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info .remove-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .due-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date a, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .remove-icon, .chat-content-wrap .chat-wrap-inner .task-desc, .chat-content-wrap .chat-wrap-inner .task-desc .task-textarea, .chat-footer .task-followers, .chat-footer .message-bar .message-area .input-group, .task-assign .task-complete-btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
@@ -408,7 +408,7 @@ strong {
   display: -ms-inline-flexbox;
   display: inline-flex; }
 
-.avatar .avatar-title, .card .leave-inline-form, .card .card-title.with-switch, .header .user-menu.nav > li.flag-nav a, .task-follower-list, .task-board-color .board-color-list, [data-layout=horizontal] body nav.greedy, [data-sidebar="dark"] .two-col-bar .sidebar .sidebar-left .nav-link, .punch-info .punch-hours, .att-statistics .stats-info p, .chat-contents .chat-content-wrap .chats .chat-bubble .chat-img-attach .chat-placeholder, .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details, .voice-call-avatar, .call-box .call-wrapper, .call-box .call-wrapper .call-items, .error-page, .error-page .main-wrapper, .file-wrap, .file-wrap .file-sidebar .file-header, .file-wrap .file-sidebar .file-search .input-group .input-group-prepend, .file-cont-wrap, .file-cont-wrap .file-cont-inner .file-cont-header, .file-cont-wrap .file-cont-inner .file-cont-header .file-options, .file-content .file-search .input-group-prepend, .file-content .file-body .file-scroll .file-content-inner .card-file .card-file-thumb, .leave-item .leave-row, .leave-item .leave-right, .leave-header, .avatar-dropdown .avatar-group .avatar, .rating-list, .job-list .job-list-det, .board-view-header .pro-teams .pro-team-lead, .board-view-header .pro-teams .pro-team-members, .board-view-header .pro-progress-bar, .kanban-cont, .kanban-cont .kanban-list .kanban-wrap .task-board-header, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-info, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-footer, .kanban-cont .kanban-list .kanban-header, .chat-content-wrap .chat-wrap-inner .task-header, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info a, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info .remove-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .due-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date a, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .remove-icon, .chat-content-wrap .chat-wrap-inner .task-desc, .chat-content-wrap .chat-wrap-inner .task-desc .task-textarea, .chat-footer .task-followers, .chat-footer .message-bar .message-area .input-group, .task-assign .task-complete-btn {
+.avatar .avatar-title, .card .leave-inline-form, .card .card-title.with-switch, .header .user-menu.nav > li.flag-nav a, .task-follower-list, .task-board-color .board-color-list, [data-layout=horizontal] body nav.greedy, [data-sidebar="dark"] .two-col-bar .sidebar .sidebar-left .nav-link, .punch-info .punch-hours, .att-statistics .stats-info p, .chat-contents .chat-content-wrap .chats .chat-bubble .chat-img-attach .chat-placeholder, .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details, .chat-sidebar .chat-contents .chats .chat-right .chat-body .chat-bubble .chat-content .call-details, .voice-call-avatar, .call-box .call-wrapper, .call-box .call-wrapper .call-items, .error-page, .error-page .main-wrapper, .file-wrap, .file-wrap .file-sidebar .file-header, .file-wrap .file-sidebar .file-search .input-group .input-group-prepend, .file-cont-wrap, .file-cont-wrap .file-cont-inner .file-cont-header, .file-cont-wrap .file-cont-inner .file-cont-header .file-options, .file-content .file-search .input-group-prepend, .file-content .file-body .file-scroll .file-content-inner .card-file .card-file-thumb, .leave-item .leave-row, .leave-item .leave-right, .leave-header, .avatar-dropdown .avatar-group .avatar, .rating-list, .job-list .job-list-det, .board-view-header .pro-teams .pro-team-lead, .board-view-header .pro-teams .pro-team-members, .board-view-header .pro-progress-bar, .kanban-cont, .kanban-cont .kanban-list .kanban-wrap .task-board-header, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-info, .kanban-cont .kanban-list .kanban-wrap .task-board-body .kanban-footer, .kanban-cont .kanban-list .kanban-header, .chat-content-wrap .chat-wrap-inner .task-header, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info a, .chat-content-wrap .chat-wrap-inner .task-header .assignee-info .remove-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .due-icon, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date a, .chat-content-wrap .chat-wrap-inner .task-header .task-due-date .remove-icon, .chat-content-wrap .chat-wrap-inner .task-desc, .chat-content-wrap .chat-wrap-inner .task-desc .task-textarea, .chat-footer .task-followers, .chat-footer .message-bar .message-area .input-group, .task-assign .task-complete-btn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
@@ -3691,10 +3691,6 @@ input[type=file].form-control {
         width: 100%;
         float: left;
         margin-bottom: 10px; }
-        .chat-contents .chat-content-wrap .chats .chat-bubble:first-child .chat-content {
-          border-top-right-radius: 20px !important; }
-        .chat-contents .chat-content-wrap .chats .chat-bubble:last-child .chat-content {
-          border-bottom-right-radius: 20px !important; }
         .chat-contents .chat-content-wrap .chats .chat-bubble .chat-content .chat-time {
           color: rgba(0, 0, 0, 0.5);
           display: block;
@@ -3746,62 +3742,71 @@ input[type=file].form-control {
               line-height: 16px; }
             .chat-contents .chat-content-wrap .chats .chat-bubble .chat-img-attach .chat-placeholder .chat-file-desc {
               font-size: 11px; }
-      .chat-contents .chat-content-wrap .chats .chat-right .chat-body {
-        padding: 0 10px 0 48px; }
-        .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content {
-          background-color: #f2f2f2;
-          border: 1px solid #e3e3e3;
-          clear: both;
-          color: #727272;
-          display: block;
-          float: right;
-          max-width: 60%;
-          position: relative;
-          margin: 0;
-          padding: 8px 15px;
-          border-radius: 20px 2px 2px 20px; }
-          .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-time {
+      .chat-contents .chat-content-wrap .chats .chat-right {
+        width: 100%;
+        float: left; }
+        .chat-contents .chat-content-wrap .chats .chat-right .chat-body {
+          padding: 0 50px 0 0; }
+          .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content {
+            background-color: #236bfe;
+            border: 1px solid #e3e3e3;
+            clear: both;
+            color: #ffffff;
+            display: block;
+            float: right;
+            max-width: 100%;
+            position: relative;
+            margin: 13px 0 0 0;
+            padding: 8px 15px;
+            border-radius: 20px 2px 25px 20px; }
+            .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-time {
+              text-align: right; }
+            .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content.img-content {
+              background-color: transparent;
+              border: 0;
+              color: #76838f;
+              padding: 0;
+              text-align: right; }
+            .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-line {
+              margin: 6px 0 4px 0; }
+              .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-line .chat-date {
+                padding: 0 0;
+                font-size: 12px; }
+          .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-time {
             text-align: right; }
-          .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content.img-content {
-            background-color: transparent;
-            border: 0;
-            color: #76838f;
-            padding: 0;
-            text-align: right; }
-        .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-time {
-          text-align: right; }
-        .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-action-btns {
-          float: right; }
+          .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-action-btns {
+            float: right; }
       .chat-contents .chat-content-wrap .chats .chat-left {
         width: 100%;
         float: left; }
-        .chat-contents .chat-content-wrap .chats .chat-left .chat-avatar {
-          float: right; }
-          .chat-contents .chat-content-wrap .chats .chat-left .chat-avatar .avatar {
-            line-height: 30px;
-            height: 30px;
-            width: 30px; }
+        .chat-contents .chat-content-wrap .chats .chat-left .chat-avatar .avatar {
+          line-height: 30px;
+          height: 30px;
+          width: 30px; }
         .chat-contents .chat-content-wrap .chats .chat-left .chat-body {
           margin: 0;
           padding: 0 20px 0 0;
           display: block;
           overflow: hidden; }
         .chat-contents .chat-content-wrap .chats .chat-left .chat-content {
-          background-color: #ffffff;
-          border: 1px solid #eaeaea;
-          color: #888888;
+          background-color: #1ec06a;
+          border: 1px solid #ffffff;
+          clear: both;
+          color: #ffffff;
           float: left;
           position: relative;
-          max-width: 60%;
+          max-width: 100%;
+          margin: 13px 0 0 0;
           padding: 8px 15px;
-          border-radius: 20px; }
+          border-radius: 0 20px 20px 25px; }
           @media (max-width: 575px) {
             .chat-contents .chat-content-wrap .chats .chat-left .chat-content {
               max-width: 80%; } }
-        .chat-contents .chat-content-wrap .chats .chat-left .chat-bubble:first-child .chat-content {
-          border-top-left-radius: 20px; }
-        .chat-contents .chat-content-wrap .chats .chat-left .chat-bubble:last-child .chat-content {
-          border-bottom-left-radius: 20px; }
+          .chat-contents .chat-content-wrap .chats .chat-left .chat-content .chat-line {
+            margin: 6px 0 4px 0; }
+            .chat-contents .chat-content-wrap .chats .chat-left .chat-content .chat-line .chat-date {
+              padding: 0 0;
+              font-size: 12px; }
         .chat-contents .chat-content-wrap .chats .chat-left .chat-img-attach {
           float: left;
           margin: 0 12px 12px 0; }
@@ -3856,32 +3861,49 @@ input[type=file].form-control {
           height: 30px;
           line-height: 30px; }
       .chat-sidebar .chat-contents .chats .chat-left .chat-body {
-        margin: 0 0 0 50px;
+        margin: 0 0 0 40px;
         padding: 0; }
         .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble {
           display: block;
           width: 100%;
           float: left;
           margin: 0 0 10px; }
-          .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content {
-            border: 0;
-            padding: 0;
-            background-color: transparent;
-            max-width: 100%;
-            border-radius: 0 !important; }
-            .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .task-chat-user {
-              color: #333333;
-              font-size: 500; }
-            .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .chat-time {
-              color: #888888;
-              display: inline-block;
-              font-size: 11px;
-              margin: 0 0 0 8px; }
-            .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details {
-              margin: 10px 0 0px; }
-              .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details .call-info {
-                margin-right: 10px;
-                width: 100%; }
+          .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .task-chat-user {
+            color: #ffffff;
+            font-size: 500; }
+          .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .chat-time {
+            color: #888888;
+            display: inline-block;
+            font-size: 11px;
+            margin: 0 0 0 8px; }
+          .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details {
+            margin: 10px 0 0px; }
+            .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .call-details .call-info {
+              margin-right: 10px;
+              width: 100%; }
+    .chat-sidebar .chat-contents .chats .chat-right .chat-avatar {
+      float: right; }
+      .chat-sidebar .chat-contents .chats .chat-right .chat-avatar .avatar {
+        width: 30px;
+        height: 30px;
+        line-height: 30px; }
+    .chat-sidebar .chat-contents .chats .chat-right .chat-body .chat-bubble {
+      display: block;
+      width: 100%;
+      margin: 0 0 10px; }
+      .chat-sidebar .chat-contents .chats .chat-right .chat-body .chat-bubble .chat-content .task-chat-user {
+        color: #ffffff;
+        font-size: 500; }
+      .chat-sidebar .chat-contents .chats .chat-right .chat-body .chat-bubble .chat-content .chat-time {
+        color: #888888;
+        display: inline-block;
+        font-size: 11px;
+        margin: 0 0 0 8px; }
+      .chat-sidebar .chat-contents .chats .chat-right .chat-body .chat-bubble .chat-content .call-details {
+        margin: 10px 0 0px; }
+        .chat-sidebar .chat-contents .chats .chat-right .chat-body .chat-bubble .chat-content .call-details .call-info {
+          margin-right: 10px;
+          width: 100%; }
 
 .video-window .fixed-header {
   padding: 0 !important;

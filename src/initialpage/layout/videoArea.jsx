@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Avatar_01, Avatar_05 } from '../../assets/imagePath'
+import { Avatar_01, Avatar_05,User } from '../../assets/imagePath'
 import { joinVideoRoom, leaveRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';
@@ -77,7 +77,7 @@ function VideoArea() {
             <div className="user-details">
               <div className="float-start user-img">
                 <Link className="avatar" to="/app/profile/employee-profile" title="Mike Litorus">
-                  <img src={Avatar_05} alt="" className="rounded-circle" />
+                  <img src={User} alt="" className="rounded-circle" />
                   <span className="status online" />
                 </Link>
               </div>

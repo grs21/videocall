@@ -135,7 +135,7 @@ export default class PrepareVideoCall {
         return this.patientId;
     }
 
-    getDoktorId() {
+    getDoctorId() {
         return this.doctorId;
     }
 }

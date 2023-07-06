@@ -106,7 +106,7 @@ function Chat() {
                       prevDate = messageDate;
                       return (
                         <div>
-                          {/* <ChatLine date={dateFormat(messageDate, options)} /> */}
+                          <ChatLine date={dateFormat(messageDate, options)} />
                           <Message key={index} message={message} />
                         </div>
                       );

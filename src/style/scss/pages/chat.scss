@@ -20,18 +20,6 @@
                 float: $__left;
                 margin-bottom: 10px;
 
-                &:first-child {
-                    .chat-content {
-                        border-top-right-radius: 20px !important;
-                    }
-                }
-
-                &:last-child {
-                    .chat-content {
-                        border-bottom-right-radius: 20px !important;
-                    }
-                }
-
                 .chat-content {
                     .chat-time {
                         color: rgba(0, 0, 0, 0.5);
@@ -118,20 +106,22 @@
             }
 
             .chat-right {
+                width: $__full__width;
+                float: $__left;
                 .chat-body {
-                    @include margin-padding(null, 0 10px 0 48px);
+                    @include margin-padding(null, 0 50px 0 0);
 
                     .chat-content {
-                        background-color: $__light__sage;
+                        background-color: #236bfe;
                         border: 1px solid $__metallic-silver;
                         clear: $__both;
-                        color: $__dark__smokeygray;
+                        color: $__white;
                         display: $__block;
                         float: $__right;
-                        max-width: 60%;
+                        max-width:  $__full__width;
                         position: $__relative;
-                        @include margin-padding(0, 8px 15px);
-                        @include rounded(20px 2px 2px 20px);
+                        @include margin-padding(13px 0 0 0 , 8px 15px);
+                        @include rounded(20px 2px 25px 20px);
 
                         .chat-time {
                             text-align: $__right;
@@ -143,6 +133,13 @@
                             color: $__smokey-grays;
                             padding: 0;
                             text-align: $__right;
+                        }
+                        .chat-line{
+                            @include margin-padding(6px 0 4px 0, null);
+                            .chat-date{
+                                @include margin-padding(null,0 0);
+                                font-size: $__font__size__12;
+                            }
                         }
 
                     }
@@ -162,8 +159,6 @@
                 float: $__left;
 
                 .chat-avatar {
-                    float: $__right;
-
                     .avatar {
                         line-height: 30px;
                         height: 30px;
@@ -178,30 +173,24 @@
                 }
 
                 .chat-content {
-                    background-color: $__white;
-                    border: 1px solid $__mild___gray;
-                    color: $__dark__gray;
+                    background-color: #1ec06a;
+                    border: 1px solid $__white;
+                    clear: $__both;
+                    color: $__white;
                     float: $__left;
                     position: $__relative;
-                    max-width: 60%;
-                    @include margin-padding(null, 8px 15px);
-                    @include rounded(20px);
+                    max-width:  $__full__width;
+                    @include margin-padding(13px 0 0 0, 8px 15px);
+                    @include rounded(0 20px 20px 25px);
 
                     @include respond-below(custom575) {
                         max-width: 80%;
                     }
-                }
-
-                .chat-bubble {
-                    &:first-child {
-                        .chat-content {
-                            border-top-left-radius: 20px;
-                        }
-                    }
-
-                    &:last-child {
-                        .chat-content {
-                            border-bottom-left-radius: 20px;
+                    .chat-line{
+                        @include margin-padding(6px 0 4px 0, null);
+                        .chat-date{
+                            @include margin-padding(null,0 0);
+                            font-size: $__font__size__12;
                         }
                     }
                 }
@@ -280,7 +269,7 @@
                 }
 
                 .chat-body {
-                    @include margin-padding(0 0 0 50px, 0);
+                    @include margin-padding(0 0 0 40px, 0);
 
                     .chat-bubble {
                         display: $__block;
@@ -289,14 +278,53 @@
                         @include margin-padding(0 0 10px, null);
 
                         .chat-content {
-                            border: 0;
-                            padding: 0;
-                            background-color: $__transparent;
-                            max-width: $__full__width;
-                            @include rounded(0 !important);
-
                             .task-chat-user {
-                                color: $__gray;
+                                color: $__white;
+                                font-size: $__medium;
+                            }
+
+                            .chat-time {
+                                color: $__dark__gray;
+                                display: $__inline__block;
+                                font-size: $__font__size__11;
+                                @include margin-padding(0 0 0 8px, null);
+                            }
+
+                            .call-details {
+                                @include margin-padding(10px 0 0px, null);
+                                @extend %display-flex;
+
+                                .call-info {
+                                    margin-right: 10px;
+                                    width: $__full__width;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .chat-right{
+                .chat-avatar {
+                    float: $__right;
+
+                    .avatar {
+                        width: 30px;
+                        height: 30px;
+                        line-height: 30px;
+                    }
+                }
+
+                .chat-body {
+
+                    .chat-bubble {
+                        display: $__block;
+                        width: $__full__width;
+                    
+                        @include margin-padding(0 0 10px, null);
+
+                        .chat-content {
+                            .task-chat-user {
+                                color: $__white;
                                 font-size: $__medium;
                             }
 
