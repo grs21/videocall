@@ -46,6 +46,7 @@
 
                     p {
                         @include margin-padding(0, null);
+                        word-wrap: break-word;
                     }
                 }
 

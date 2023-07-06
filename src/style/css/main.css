@@ -3706,7 +3706,8 @@ input[type=file].form-control {
         .chat-contents .chat-content-wrap .chats .chat-bubble .chat-content .chat-img-group p {
           margin: 0 0 20px; }
         .chat-contents .chat-content-wrap .chats .chat-bubble .chat-content p {
-          margin: 0; }
+          margin: 0;
+          word-wrap: break-word; }
         .chat-contents .chat-content-wrap .chats .chat-bubble:hover .chat-action-btns {
           display: block; }
         .chat-contents .chat-content-wrap .chats .chat-bubble .chat-action-btns {
