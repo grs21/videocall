@@ -14,7 +14,7 @@ function Chat() {
   const socket = io.connect('https://mlponlinechat.mlpcare.com:3010');
   const roomId = callProperty.getRoomId();
   const fromName = callProperty.getDoctorName();
-  const fromId = callProperty.getDoctorPersonId();
+  const fromId = callProperty.getDoctorId();
   const toId = callProperty.getPatientId();
   const toName = callProperty.getFullName();
   const fileUrl = '';

@@ -13,15 +13,18 @@ function Chat({ message }) {
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
-      };
-      const doctorId = callProperty.getDoctorId();
-      const messageFromId = message.ToId;
+    };
+    const doctorImg = callProperty.getDoctorPhoto();
+    const patientImg = callProperty.getPatientPhoto();
+    const doctorId = callProperty.getDoctorId();
+    const messageFromId = message.FromId;
+    const isDoctor = doctorId === messageFromId
     return (
-        <div className={'chat '+ ( doctorId !== messageFromId ? 'chat-right':'chat-left')}>
-           
+        <div className={'chat ' + (isDoctor ? 'chat-right' : 'chat-left')}>
+
             <div className="chat-avatar">
                 <Link to="/app/profile/employee-profile" className="avatar">
-                    <img alt="" src={User} />
+                    <img alt="" src={isDoctor ? ( doctorImg === null ? User : doctorImg) : (patientImg === null ? User : patientImg)} />
                 </Link>
             </div>
             <div className="chat-body">

@@ -59,6 +59,8 @@ export default class PrepareVideoCall {
             this.roomId = parsedResponse.roomId || '';
             this.patientId = parsedResponse.patientId || '';
             this.doctorId = parsedResponse.doctorId || '';
+            this.doctorPhoto = parsedResponse.doctorPhoto || null;
+            this.patientPhoto = parsedResponse.patientPhoto || null;
         }else {
             console.log('PrepareVideoCall','Undefined');
         }
@@ -137,5 +139,12 @@ export default class PrepareVideoCall {
 
     getDoctorId() {
         return this.doctorId;
+    }
+
+    getDoctorPhoto() {
+        return this.doctorPhoto;
+    }
+    getPatientPhoto() {
+        return this.patientPhoto;
     }
 }

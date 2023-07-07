@@ -7,7 +7,7 @@ import {
 import { routes } from '../service/rooterService/routes';
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getPrepareVideo } from '../service/api/room';
+import { callPrepareVideo } from '../service/api/room';
 import { createSlice, setCallProperty } from '../stores/slices/videoRoomSlice';
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     if (effectRun.current === false) {
       const initializeApp = async () => {
-        const resPrepareVideoCall = await getPrepareVideo();
+        const resPrepareVideoCall = await callPrepareVideo();
         dispatch(setCallProperty(resPrepareVideoCall));
       }
       initializeApp();
