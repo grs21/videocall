@@ -57,3 +57,19 @@ export const chatScroll = () => {
         chatList.scrollTop = chatList.scrollHeight;
     }
 }
+export const closeModal = (tagId)=>{
+    const modal = document.getElementById(tagId);
+    const modalIsOpen = modal.classList.contains('show');
+    const body = document.body;
+    if (modalIsOpen) {
+        /// modal cosed
+        modal.classList.remove('show')
+        modal.style = ''
+        const modalBackDrop = document.getElementsByClassName('modal-backdrop fade show')[0];
+        modalBackDrop.remove();
+        body.classList.remove('modal-open');
+        body.style = '';
+    }else{
+        modal.classList.add('show')
+    }
+}
