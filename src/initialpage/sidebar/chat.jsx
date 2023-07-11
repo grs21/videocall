@@ -3,15 +3,15 @@ import { Attachment } from '../../assets/imagePath'
 import Message from '../../component/message';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMessage, initializeMessages } from '../../stores/slices/messagesSlice';
-import io from '../../style/js/socket.io.js';
 import ChatLine from '../../component/chatLine';
 import { dateFormat, chatScroll } from '../../helper/videoCallHelper';
+import { SOCKET_IO } from '../../constant/constant';
+import { sendMessage } from '../../helper/videoCallHelper';
 
 function Chat() {
   const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
   const { messages } = useSelector(state => state.messages);
   const dispatch = useDispatch();
-  const socket = io.connect('https://mlponlinechat.mlpcare.com:3010');
   const roomId = callProperty.getRoomId();
   const fromName = callProperty.getDoctorName();
   const fromId = callProperty.getDoctorId();
@@ -28,41 +28,24 @@ function Chat() {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      sendMessage();
+      sendMessage(roomId, fromName, fromId, toId, fileUrl, toName);
     }
   }
 
-  const sendMessage = (event) => {
-    console.log('gönderrrrrr');
-    const messageInput = document.getElementById('messageInput');
-    if (messageInput !== null && messageInput !== undefined) {
-      var message = messageInput.value;
-      if (message !== '') {
-        socket.emit('typing', { RoomId: roomId, username: fromName, isTyping: false, FromId: fromId });
-        socket.emit('new_message', {
-          RoomId: roomId,
-          FromId: fromId,
-          FromName: fromName,
-          ToId: toId,
-          ToName: toName,
-          Message: message,
-          FileUrl: fileUrl
-        });
-        messageInput.value = '';
-      }
-    }
+  const sendMessageHandler = (event) => {
+    sendMessage(roomId, fromName, fromId, toId, fileUrl, toName);
   }
 
   useEffect(() => {
     console.log('useEffect');
-    socket.emit('login_room', { RoomId: roomId });
-    socket.on('new_message', async (data) => {
+    SOCKET_IO.emit('login_room', { RoomId: roomId });
+    SOCKET_IO.on('new_message', async (data) => {
       await dispatch(addMessage(data));
-      socket.emit('read', { RoomId: roomId, ToId: fromId });
+      SOCKET_IO.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
+      console.log('newMessage', data);
     });
-
-    socket.on('typing', (data) => {
+    SOCKET_IO.on('typing', (data) => {
       if (data.FromId === toId) {
         if (data.isTyping) {
           chatScroll();
@@ -70,24 +53,24 @@ function Chat() {
       }
     });
 
-    socket.on('all_messages', async (data) => {
-      await dispatch(initializeMessages(data));
-      socket.emit('read', { RoomId: roomId, ToId: fromId });
+    SOCKET_IO.on('all_messages', async (allMesages) => {
+      await dispatch(initializeMessages(allMesages));
+      SOCKET_IO.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
     });
 
 
-    socket.on('connect', () => {
-      console.log('Socket.IO bağlandı');
+    SOCKET_IO.on('connect', () => {
+      console.log('SOCKET_IO.IO bağlandı');
     });
 
-    socket.on('disconnect', () => {
-      console.log('Socket.IO bağlantısı kesildi');
+    SOCKET_IO.on('disconnect', () => {
+      console.log('SOCKET_IO.IO bağlantısı kesildi');
     });
     return () => {
-      socket.off('new_message');
-      socket.off('typing');
-      socket.off('all_messages');
+      SOCKET_IO.off('new_message');
+      SOCKET_IO.off('typing');
+      SOCKET_IO.off('all_messages');
     };
   }, [callProperty]);
 
@@ -99,22 +82,24 @@ function Chat() {
             <div className="chat-wrap-inner" id='chat-list'>
               <div className="chat-box">
                 <div className="chats">
-                  {messages && messages.map((message, index) => {
-                    const messageDate = new Date(message.CreatedDate);
-                    /// To add chatLine when a new day is passed
-                    if (!prevDate || (messageDate && messageDate.getDate() !== prevDate.getDate())) {
-                      prevDate = messageDate;
-                      return (
-                        <div>
-                          <ChatLine date={dateFormat(messageDate, options)} />
-                          <Message key={index} message={message} />
-                        </div>
-                      );
-                    } else {
-                      prevDate = messageDate;
-                      return <Message key={index} message={message} />
-                    }
-                  })}
+                  {
+                    messages && messages.map((message, index) => {
+                      const messageDate = new Date(message.CreatedDate);
+                      /// To add chatLine when a new day is passed
+                      if (!prevDate || (messageDate && messageDate.getDate() !== prevDate.getDate())) {
+                        prevDate = messageDate;
+                        return (
+                          <div key={index}>
+                            <ChatLine date={dateFormat(messageDate, options)} />
+                            <Message message={message} />
+                          </div>
+                        );
+                      } else {
+                        prevDate = messageDate;
+                        return <Message key={index} message={message} />
+                      }
+                    })
+                  }
                 </div>
               </div>
             </div>
@@ -127,7 +112,7 @@ function Chat() {
               <div className="message-area">
                 <div className="input-group">
                   <textarea className="form-control" placeholder="Type message..." defaultValue={""} onKeyDown={handleKeyPress} id='messageInput' />
-                  <span className="input-group-append"  onClick={sendMessage}>
+                  <span className="input-group-append" onClick={sendMessageHandler}>
                     <button className="btn btn-primary" type="button"><i className="fa fa-send" /></button>
                   </span>
                 </div>

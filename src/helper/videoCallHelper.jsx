@@ -1,4 +1,7 @@
 import AgoraRTC from "agora-rtc-sdk-ng";
+import { SOCKET_IO } from '../constant/constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelectedFile, setIsDragging } from '../stores/slices/fileSlice';
 
 export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, roomProperty, container) => {
     try {
@@ -57,7 +60,7 @@ export const chatScroll = () => {
         chatList.scrollTop = chatList.scrollHeight;
     }
 }
-export const closeModal = (tagId)=>{
+export const CloseModal = (tagId) => {
     const modal = document.getElementById(tagId);
     const modalIsOpen = modal.classList.contains('show');
     const body = document.body;
@@ -69,7 +72,27 @@ export const closeModal = (tagId)=>{
         modalBackDrop.remove();
         body.classList.remove('modal-open');
         body.style = '';
-    }else{
+    } else {
         modal.classList.add('show')
+    }
+}
+export const sendMessage = (roomId, fromName, fromId, toId, fileUrl, toName, fileName) => {
+    console.log('gönderrrrrr');
+    const messageInput = document.getElementById('messageInput');
+    if (messageInput !== null && messageInput !== undefined) {
+        const message = fileUrl === '' ? messageInput.value : fileName;
+        if (message !== '' || fileUrl !== '') {
+            SOCKET_IO.emit('typing', { RoomId: roomId, username: fromName, isTyping: false, FromId: fromId });
+            SOCKET_IO.emit('new_message', {
+                RoomId: roomId,
+                FromId: fromId,
+                FromName: fromName,
+                ToId: toId,
+                ToName: toName,
+                Message: message,
+                FileUrl: fileUrl
+            });
+            messageInput.value = '';
+        }
     }
 }

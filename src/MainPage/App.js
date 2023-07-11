@@ -7,7 +7,7 @@ import {
 import { routes } from '../service/rooterService/routes';
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { callPrepareVideo } from '../service/api/room';
+import { callPrepareVideo } from '../service/api/apiService';
 import { createSlice, setCallProperty } from '../stores/slices/videoRoomSlice';
 function App() {
   const dispatch = useDispatch();

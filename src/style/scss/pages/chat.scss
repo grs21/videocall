@@ -282,6 +282,7 @@
                             .task-chat-user {
                                 color: $__white;
                                 font-size: $__medium;
+                                font-weight: $__bold;
                             }
 
                             .chat-time {
@@ -521,15 +522,14 @@
 .upload-drop-zone {
     background-color: $__white;
     border: 2px dashed $__metallic-silver;
-    color: $__goose-gray;
+    color: $__grayblacks;
     height: 200px;
-    line-height: 200px;
     margin-bottom: 20px;
     text-align: $__center;
 
     .upload-text {
-        font-size: 24px;
         margin-left: 10px;
+        cursor: $__pointer;
     }
 }
 
@@ -607,3 +607,16 @@
         visibility: $__hidden;
     }
 }
+
+.file-uploader {
+    display: flex;
+    align-items: $__center;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    transition: border-color 0.3s ease;
+    justify-content: center;
+  }
+  
+  .file-uploader.dragging {
+    border-color: blue;
+  }

@@ -3871,7 +3871,8 @@ input[type=file].form-control {
           margin: 0 0 10px; }
           .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .task-chat-user {
             color: #ffffff;
-            font-size: 500; }
+            font-size: 500;
+            font-weight: 700; }
           .chat-sidebar .chat-contents .chats .chat-left .chat-body .chat-bubble .chat-content .chat-time {
             color: #888888;
             display: inline-block;
@@ -4022,14 +4023,13 @@ input[type=file].form-control {
 .upload-drop-zone {
   background-color: #ffffff;
   border: 2px dashed #e3e3e3;
-  color: #cccccc;
+  color: #16191c;
   height: 200px;
-  line-height: 200px;
   margin-bottom: 20px;
   text-align: center; }
   .upload-drop-zone .upload-text {
-    font-size: 24px;
-    margin-left: 10px; }
+    margin-left: 10px;
+    cursor: pointer; }
 
 .upload-list .file-size {
   color: #888888;
@@ -4096,6 +4096,17 @@ input[type=file].form-control {
   .notification-popup.hide {
     opacity: 0;
     visibility: hidden; }
+
+.file-uploader {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  transition: border-color 0.3s ease;
+  justify-content: center; }
+
+.file-uploader.dragging {
+  border-color: blue; }
 
 .voice-call-avatar {
   flex: 2; }
