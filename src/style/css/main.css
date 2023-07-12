@@ -3764,13 +3764,13 @@ input[type=file].form-control {
             position: relative;
             margin: 13px 0 0 0;
             padding: 8px 15px;
-            border-radius: 20px 2px 25px 20px; }
+            border-radius: 20px 2px 20px 20px; }
             .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-time {
               text-align: right; }
             .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content.img-content {
               padding: 3px 3px; }
               .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content.img-content img {
-                border-radius: 20px 2px 25px 20px;
+                border-radius: 20px 2px 20px 20px;
                 max-height: 250px; }
             .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-line {
               margin: 6px 0 4px 0; }
@@ -3803,14 +3803,14 @@ input[type=file].form-control {
           max-width: 100%;
           margin: 13px 0 0 0;
           padding: 8px 15px;
-          border-radius: 0 20px 20px 25px; }
+          border-radius: 0 20px 20px 20px; }
           @media (max-width: 575px) {
             .chat-contents .chat-content-wrap .chats .chat-left .chat-content {
               max-width: 80%; } }
           .chat-contents .chat-content-wrap .chats .chat-left .chat-content.img-content {
             padding: 3px 3px; }
             .chat-contents .chat-content-wrap .chats .chat-left .chat-content.img-content img {
-              border-radius: 20px 2px 25px 20px;
+              border-radius: 2px 2px 20px 20px;
               max-height: 250px; }
           .chat-contents .chat-content-wrap .chats .chat-left .chat-content .chat-line {
             margin: 6px 0 4px 0; }
