@@ -48,6 +48,13 @@
                         @include margin-padding(0, null);
                         word-wrap: break-word;
                     }
+
+                    a {
+                        color: $__white;
+                        text-decoration: underline !important;
+                        text-transform: lowercase;
+                        word-wrap: break-word;
+                    }
                 }
 
                 &:hover {
@@ -109,6 +116,7 @@
             .chat-right {
                 width: $__full__width;
                 float: $__left;
+
                 .chat-body {
                     @include margin-padding(null, 0 50px 0 0);
 
@@ -119,9 +127,9 @@
                         color: $__white;
                         display: $__block;
                         float: $__right;
-                        max-width:  $__full__width;
+                        max-width: $__full__width;
                         position: $__relative;
-                        @include margin-padding(13px 0 0 0 , 8px 15px);
+                        @include margin-padding(13px 0 0 0, 8px 15px);
                         @include rounded(20px 2px 25px 20px);
 
                         .chat-time {
@@ -129,20 +137,23 @@
                         }
 
                         &.img-content {
-                            background-color: $__transparent;
-                            border: 0;
-                            color: $__smokey-grays;
-                            padding: 0;
-                            text-align: $__right;
-                        }
-                        .chat-line{
-                            @include margin-padding(6px 0 4px 0, null);
-                            .chat-date{
-                                @include margin-padding(null,0 0);
-                                font-size: $__font__size__12;
+                            @include margin-padding(null, 3px 3px);
+
+                            img {
+                                @include rounded(20px 2px 25px 20px);
+                                max-height: 250px;
+                                 
                             }
                         }
 
+                        .chat-line {
+                            @include margin-padding(6px 0 4px 0, null);
+
+                            .chat-date {
+                                @include margin-padding(null, 0 0);
+                                font-size: $__font__size__12;
+                            }
+                        }
                     }
 
                     .chat-time {
@@ -180,17 +191,27 @@
                     color: $__white;
                     float: $__left;
                     position: $__relative;
-                    max-width:  $__full__width;
+                    max-width: $__full__width;
                     @include margin-padding(13px 0 0 0, 8px 15px);
                     @include rounded(0 20px 20px 25px);
-
                     @include respond-below(custom575) {
                         max-width: 80%;
                     }
-                    .chat-line{
+                    &.img-content {
+                        @include margin-padding(null, 3px 3px);
+
+                        img {
+                            @include rounded(20px 2px 25px 20px);
+                            max-height: 250px;
+                             
+                        }
+                    }
+
+                    .chat-line {
                         @include margin-padding(6px 0 4px 0, null);
-                        .chat-date{
-                            @include margin-padding(null,0 0);
+
+                        .chat-date {
+                            @include margin-padding(null, 0 0);
                             font-size: $__font__size__12;
                         }
                     }
@@ -305,7 +326,8 @@
                     }
                 }
             }
-            .chat-right{
+
+            .chat-right {
                 .chat-avatar {
                     float: $__right;
 
@@ -321,7 +343,7 @@
                     .chat-bubble {
                         display: $__block;
                         width: $__full__width;
-                    
+
                         @include margin-padding(0 0 10px, null);
 
                         .chat-content {
@@ -531,6 +553,25 @@
         margin-left: 10px;
         cursor: $__pointer;
     }
+
+    &.file-uploader {
+        display: flex;
+        align-items: $__center;
+        padding: 20px;
+        border: 2px dashed #ccc;
+        transition: border-color 0.3s ease;
+        justify-content: center;
+
+        .upload-preview {
+            width: 100px;
+            height: 100px;
+            line-height: 0px;
+
+            img {
+                object-fit: cover
+            }
+        }
+    }
 }
 
 .upload-list {
@@ -608,15 +649,6 @@
     }
 }
 
-.file-uploader {
-    display: flex;
-    align-items: $__center;
-    padding: 20px;
-    border: 2px dashed #ccc;
-    transition: border-color 0.3s ease;
-    justify-content: center;
-  }
-  
-  .file-uploader.dragging {
+.file-uploader.dragging {
     border-color: blue;
-  }
+}

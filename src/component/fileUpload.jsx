@@ -47,10 +47,10 @@ function FileUpload() {
     const setFile = (file) => {
         dispatch(setIsDragging(false));
         if (file !== undefined) {
-
             console.log(file, 'tıklandı');
             fileExtension = file.name.split('.').pop();
-            if (fileExtension === 'png' || fileExtension === 'jpg') {
+            const isImage = fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg'
+            if (isImage) {
                 const reader = new FileReader();
                 reader.onload = () => {
                     const base64Image = reader.result;
@@ -82,8 +82,8 @@ function FileUpload() {
             <input type="file" onChange={handleFileChange} ref={fileInputRef} style={{ display: 'none' }} />
             {
                 (preview !== null) ?
-                    <div style={{ width: '100px', height: '100px', lineHeight: '0px' }}>
-                        <img src={preview} alt="Selected File" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <div className='upload-preview'>
+                        <img src={preview} alt="Selected File" />
                     </div> :
                     <i className="fa fa-cloud-upload fa-2x" />
             }

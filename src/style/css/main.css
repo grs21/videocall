@@ -3708,6 +3708,11 @@ input[type=file].form-control {
         .chat-contents .chat-content-wrap .chats .chat-bubble .chat-content p {
           margin: 0;
           word-wrap: break-word; }
+        .chat-contents .chat-content-wrap .chats .chat-bubble .chat-content a {
+          color: #ffffff;
+          text-decoration: underline !important;
+          text-transform: lowercase;
+          word-wrap: break-word; }
         .chat-contents .chat-content-wrap .chats .chat-bubble:hover .chat-action-btns {
           display: block; }
         .chat-contents .chat-content-wrap .chats .chat-bubble .chat-action-btns {
@@ -3763,11 +3768,10 @@ input[type=file].form-control {
             .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-time {
               text-align: right; }
             .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content.img-content {
-              background-color: transparent;
-              border: 0;
-              color: #76838f;
-              padding: 0;
-              text-align: right; }
+              padding: 3px 3px; }
+              .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content.img-content img {
+                border-radius: 20px 2px 25px 20px;
+                max-height: 250px; }
             .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-line {
               margin: 6px 0 4px 0; }
               .chat-contents .chat-content-wrap .chats .chat-right .chat-body .chat-content .chat-line .chat-date {
@@ -3803,6 +3807,11 @@ input[type=file].form-control {
           @media (max-width: 575px) {
             .chat-contents .chat-content-wrap .chats .chat-left .chat-content {
               max-width: 80%; } }
+          .chat-contents .chat-content-wrap .chats .chat-left .chat-content.img-content {
+            padding: 3px 3px; }
+            .chat-contents .chat-content-wrap .chats .chat-left .chat-content.img-content img {
+              border-radius: 20px 2px 25px 20px;
+              max-height: 250px; }
           .chat-contents .chat-content-wrap .chats .chat-left .chat-content .chat-line {
             margin: 6px 0 4px 0; }
             .chat-contents .chat-content-wrap .chats .chat-left .chat-content .chat-line .chat-date {
@@ -4030,6 +4039,19 @@ input[type=file].form-control {
   .upload-drop-zone .upload-text {
     margin-left: 10px;
     cursor: pointer; }
+  .upload-drop-zone.file-uploader {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    transition: border-color 0.3s ease;
+    justify-content: center; }
+    .upload-drop-zone.file-uploader .upload-preview {
+      width: 100px;
+      height: 100px;
+      line-height: 0px; }
+      .upload-drop-zone.file-uploader .upload-preview img {
+        object-fit: cover; }
 
 .upload-list .file-size {
   color: #888888;
@@ -4096,14 +4118,6 @@ input[type=file].form-control {
   .notification-popup.hide {
     opacity: 0;
     visibility: hidden; }
-
-.file-uploader {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  border: 2px dashed #ccc;
-  transition: border-color 0.3s ease;
-  justify-content: center; }
 
 .file-uploader.dragging {
   border-color: blue; }

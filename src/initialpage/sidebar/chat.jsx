@@ -57,6 +57,7 @@ function Chat() {
       await dispatch(initializeMessages(allMesages));
       SOCKET_IO.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
+      console.log(allMesages);
     });
 
 
@@ -90,8 +91,8 @@ function Chat() {
                         prevDate = messageDate;
                         return (
                           <div key={index}>
-                            <ChatLine date={dateFormat(messageDate, options)} />
-                            <Message message={message} />
+                            <ChatLine key={index} date={dateFormat(messageDate, options)} />
+                            <Message  message={message} />
                           </div>
                         );
                       } else {

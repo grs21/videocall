@@ -11,7 +11,11 @@ function Chat({ message }) {
     const doctorId = callProperty.getDoctorId();
     const messageFromId = message.FromId;
     const isDoctor = doctorId === messageFromId
+    const fileUrl = message.FileUrl;
+    const fileExtension = fileUrl.split('.').pop();
     const messageName = message.FromName.replace(/Optional|\(|\)|\[|\]|\{|\}/g, "").replace(/"/g, "");
+    const isThereFile = fileUrl === '';
+    const isImage = fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg'
     return (
         <div className={'chat ' + (isDoctor ? 'chat-right' : 'chat-left')}>
             <div className="chat-avatar">
@@ -21,14 +25,19 @@ function Chat({ message }) {
             </div>
             <div className="chat-body">
                 <div className="chat-bubble">
-                    <div className="chat-content">
+                    <div className={'chat-content ' + (isThereFile ? '' : isImage ? 'img-content' : '')}>
                         {isDoctor ? '' :
                             <div>
                                 <span className="task-chat-user">{messageName}</span>
                                 <ChatLine date={''} />
                             </div>
                         }
-                        <p>{message.Message}</p>
+                        {isThereFile ?
+                            <p>{message.Message}</p> :
+                            (isImage) ?
+                                <img alt="" src={fileUrl} /> :
+                                <a href={fileUrl}>{message.Message}</a>
+                        }
                     </div>
                 </div>
             </div>
