@@ -37,7 +37,6 @@ function Chat() {
   }
 
   useEffect(() => {
-    console.log('useEffect');
     SOCKET_IO.emit('login_room', { RoomId: roomId });
     SOCKET_IO.on('new_message', async (data) => {
       await dispatch(addMessage(data));
@@ -57,7 +56,6 @@ function Chat() {
       await dispatch(initializeMessages(allMesages));
       SOCKET_IO.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
-      console.log(allMesages);
     });
 
 
@@ -90,14 +88,14 @@ function Chat() {
                       if (!prevDate || (messageDate && messageDate.getDate() !== prevDate.getDate())) {
                         prevDate = messageDate;
                         return (
-                          <div key={index}>
-                            <ChatLine key={index} date={dateFormat(messageDate, options)} />
-                            <Message  message={message} />
+                          <div key={index} className='line-container'>
+                            <ChatLine date={dateFormat(messageDate, options)} />
+                            <Message message={message} />
                           </div>
                         );
                       } else {
                         prevDate = messageDate;
-                        return <Message key={index} message={message} />
+                        return (<Message key={index} message={message} />)
                       }
                     })
                   }

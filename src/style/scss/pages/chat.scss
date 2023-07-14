@@ -54,6 +54,9 @@
                         text-decoration: underline !important;
                         text-transform: lowercase;
                         word-wrap: break-word;
+                        i{
+                            margin-left: 10px;
+                        }
                     }
                 }
 
@@ -116,7 +119,8 @@
             .chat-right {
                 width: $__full__width;
                 float: $__left;
-
+                z-index: 1;
+                position: $__relative;
                 .chat-body {
                     @include margin-padding(null, 0 50px 0 0);
 
@@ -142,7 +146,7 @@
                             img {
                                 @include rounded(20px 2px 20px 20px);
                                 max-height: 250px;
-                                 
+                                cursor: $__pointer;
                             }
                         }
 
@@ -203,6 +207,7 @@
                         img {
                             @include rounded(2px 2px 20px 20px);
                             max-height: 250px;
+                            cursor: $__pointer
                              
                         }
                     }
@@ -221,6 +226,12 @@
                     float: $__left;
                     @include margin-padding(0 12px 12px 0, null);
                 }
+            }
+
+            .line-container{
+                width: 100%;
+                float: left;
+
             }
         }
     }

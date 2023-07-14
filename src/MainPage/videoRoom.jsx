@@ -13,11 +13,12 @@ import Profile from '../initialpage/sidebar/profile';
 const VideoCall = () => {
   const { roomProperty } = useSelector(state => state.videoRoomProperty);
   const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
+  const { imageModalState, shareImgURL } = useSelector(state => state.modal);
   const dispatch = useDispatch();
   dispatch(setRoomProperty({
     appId: 'afadeb1ff63443ac93d5e953314a544f',
-    channel: 'test4',
-    token: '007eJxTYOj+P19P/XRT4gyWTXEMXV/TPglvD6tr8o5tYjqTnjntoYMCQ2JaYkpqkmFampmxiYlxYrKlcYppqqWpsbGhSaKpiUlaMG9PSkMgI8PXxFusjAwQCOKzMpSkFpeYMDAAAHF9H9Q=',
+    channel: 'test1',
+    token: '007eJxTYPDRCBW6asf5bdFsziPHJv8/xntMo0xsinnuUsanghrOnUcUGBLTElNSkwzT0syMTUyME5MtjVNMUy1NjY0NTRJNTUzSnixel9IQyMiwWvQyAyMUgvisDCWpxSWGDAwAJlwfUg==',
     uid: 0,
   }))
   const [windowDimension, detectHW] = useState({

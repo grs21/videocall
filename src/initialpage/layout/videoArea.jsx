@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Avatar_01, Avatar_05,User } from '../../assets/imagePath'
+import { Avatar_01, Avatar_05, User } from '../../assets/imagePath'
 import { joinVideoRoom, leaveRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';

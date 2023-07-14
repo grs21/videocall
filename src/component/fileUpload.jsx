@@ -67,6 +67,7 @@ function FileUpload() {
                     fileInputRef.current.value = "";
                 }
             } else {
+                dispatch(setSelectedFile(null));
                 toast.info(UNSUPPORTED_FILE_TYPE);
             }
         }

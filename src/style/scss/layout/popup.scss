@@ -120,6 +120,14 @@
 				}
 			}
 		}
+
+		div {
+			img {
+				max-height: calc(100vh - 87px);
+				object-fit: contain;
+				@include margin-padding(20px auto 20px auto,null);
+			}
+		}
 	}
 }
 
@@ -288,3 +296,11 @@
 		color: $__whitecolor !important;
 	}
 }
+
+@media screen and (min-width: 1440px) {
+	.modal-dialog{
+		max-width: 900px !important;
+		margin-right: auto !important;
+		margin-left: auto !important;
+	}
+  }
