@@ -2,15 +2,16 @@ import React, { useEffect, useRef } from 'react';
 import { Attachment } from '../../assets/imagePath'
 import Message from '../../component/message';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, initializeMessages } from '../../stores/slices/messagesSlice';
+import { addMessage, initializeMessages, setMessagesState } from '../../stores/slices/messagesSlice';
 import ChatLine from '../../component/chatLine';
 import { dateFormat, chatScroll } from '../../helper/videoCallHelper';
 import { SOCKET_IO } from '../../constant/constant';
 import { sendMessage } from '../../helper/videoCallHelper';
+import Spinner from '../../component/spinner';
 
 function Chat() {
   const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
-  const { messages } = useSelector(state => state.messages);
+  const { messages, messagesState } = useSelector(state => state.messages);
   const dispatch = useDispatch();
   const roomId = callProperty.getRoomId();
   const fromName = callProperty.getDoctorName();
@@ -53,9 +54,11 @@ function Chat() {
     });
 
     SOCKET_IO.on('all_messages', async (allMesages) => {
+      dispatch(setMessagesState(true));
       await dispatch(initializeMessages(allMesages));
       SOCKET_IO.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
+      
     });
 
 
@@ -82,6 +85,7 @@ function Chat() {
               <div className="chat-box">
                 <div className="chats">
                   {
+                    messagesState ?
                     messages && messages.map((message, index) => {
                       const messageDate = new Date(message.CreatedDate);
                       /// To add chatLine when a new day is passed
@@ -97,7 +101,7 @@ function Chat() {
                         prevDate = messageDate;
                         return (<Message key={index} message={message} />)
                       }
-                    })
+                    }): <Spinner/>
                   }
                 </div>
               </div>

@@ -9,6 +9,7 @@ export const messagesSlice = createSlice({
         notifCState: false,
         // if side bar opened value true
         sidebarState: true,
+        messagesState:false,
     },
     reducers: {
 
@@ -28,10 +29,13 @@ export const messagesSlice = createSlice({
         },
         setSidebarState: (state, action) => {
             state.sidebarState = action.payload;
+        },
+        setMessagesState: (state, action) => {
+            state.messagesState = action.payload;
         }
     }
 });
 
-export const { addMessage, initializeMessages, setMessagesCount, setNotifCState, setSidebarState } = messagesSlice.actions
+export const { addMessage, initializeMessages, setMessagesCount, setNotifCState, setSidebarState, setMessagesState } = messagesSlice.actions
 
 export default messagesSlice.reducer;

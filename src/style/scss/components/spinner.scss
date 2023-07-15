@@ -1,0 +1,27 @@
+.spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    position: absolute;
+    top: 40%;
+    right: 50%;
+  }
+  
+  .spinner-inner {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #888;
+    animation: spinner-rotate 1s infinite linear;
+  }
+  
+  @keyframes spinner-rotate {
+    0% {
+      transform: rotate(0);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
