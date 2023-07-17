@@ -23,12 +23,21 @@ function Chat({ message }) {
     const imageMessageHandler = (e) => {
         dispatch(setShareImgURL(fileUrl));
     }
+    const isBase64 = (data)=>{
+        /// a temporary function will be deleted upon base64 enhancement
+        return data.includes('http')
+    }
 
     return (
         <div className={'chat ' + (isDoctor ? 'chat-right' : 'chat-left')}>
             <div className="chat-avatar">
                 <div className="avatar">
-                    <img alt="" src={isDoctor ? (doctorImg === null ? User : doctorImg) : (patientImg === null ? User : `data:image/png;base64,${patientImg}`)} />
+                    <img alt="" src={
+                        isDoctor ? (doctorImg === null ? User : doctorImg)
+                            : (patientImg === null ? User
+                                : isBase64(patientImg) ? patientImg
+                                    : `data:image/png;base64,${patientImg}`)
+                    } />
                 </div>
             </div>
             <div className="chat-body">
@@ -43,7 +52,7 @@ function Chat({ message }) {
                         {isThereFile ?
                             <p>{message.Message}</p> :
                             (isImage) ?
-                                <img alt="" src={fileUrl} onClick={imageMessageHandler} data-bs-toggle='modal' data-bs-target='#share_files'/> :
+                                <img alt="" src={fileUrl} onClick={imageMessageHandler} data-bs-toggle='modal' data-bs-target='#share_files' /> :
                                 <a target="_blank" href={fileUrl}>
                                     {message.Message}
                                     {isPDF ? <i className="ml-2 fa fa-file-pdf-o" /> : <i className="ml-2 fa fa-paperclip" />}
