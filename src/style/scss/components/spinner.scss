@@ -9,10 +9,10 @@
   }
   
   .spinner-inner {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    border: 2px solid #236bfe;
+    border: 5px solid #236bfe;
     border-top-color: $__white;
     animation: spinner-rotate 1s infinite linear;
   }

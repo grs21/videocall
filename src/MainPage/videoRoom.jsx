@@ -51,7 +51,7 @@ const VideoCall = () => {
   return (
     <div className="page-wrapper" style={{ minHeight: windowDimension.winHeight }}>
       <Helmet>
-        <title>Video Call - HRMS Admin Template</title>
+        <title>Video Call - MLP Online</title>
         <meta name="description" content="Chat" />
       </Helmet>
       {/* Main Row */}
