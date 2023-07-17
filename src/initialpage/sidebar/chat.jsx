@@ -58,7 +58,6 @@ function Chat() {
       await dispatch(initializeMessages(allMesages));
       SOCKET_IO.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
-      
     });
 
 
