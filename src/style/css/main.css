@@ -4233,15 +4233,15 @@ input[type=file].form-control {
         display: inline-block;
         font-size: 20px;
         border-radius: 50px; }
-  .call-icons .end-call {
+  .call-icons .end-call, .call-icons .begin-call {
     position: absolute;
     top: 7px;
     right: 0; }
     @media (max-width: 575px) {
-      .call-icons .end-call {
+      .call-icons .end-call, .call-icons .begin-call {
         margin-top: 10px;
         position: inherit; } }
-    .call-icons .end-call a {
+    .call-icons .end-call a, .call-icons .begin-call a {
       background-color: #f06060;
       color: #ffffff;
       display: inline-block;
@@ -4249,6 +4249,10 @@ input[type=file].form-control {
       text-transform: uppercase;
       padding: 8px 25px;
       border-radius: 50px; }
+  .call-icons .begin-call {
+    right: 100px; }
+    .call-icons .begin-call a {
+      background-color: #4ed964; }
 
 .chat-sidebar .chats {
   padding: 15px 15px 30px; }

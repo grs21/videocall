@@ -38,62 +38,6 @@ function profile() {
                 </li>
               </ul>
             </div>
-            <div>
-              <ul className="nav nav-tabs nav-tabs-solid nav-justified mb-0">
-                <li className="nav-item"><a className="nav-link active" href="#all_files" data-bs-toggle="tab">All Files</a></li>
-                <li className="nav-item"><a className="nav-link" href="#my_files" data-bs-toggle="tab">My Files</a></li>
-              </ul>
-              <div className="tab-content">
-                <div className="tab-pane show active" id="all_files">
-                  <ul className="files-list">
-                    <li>
-                      <div className="files-cont">
-                        <div className="file-type">
-                          <span className="files-icon"><i className="fa fa-file-pdf-o" /></span>
-                        </div>
-                        <div className="files-info">
-                          <span className="file-name text-ellipsis">AHA Selfcare Mobile Application Test-Cases.xls</span>
-                          <span className="file-author"><a href="#">Loren Gatlin</a></span> <span className="file-date">May 31st at 6:53 PM</span>
-                        </div>
-                        <ul className="files-action">
-                          <li className="dropdown dropdown-action">
-                            <a href="" className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i className="material-icons">more_horiz</i></a>
-                            <div className="dropdown-menu">
-                              <a className="dropdown-item" href="">Download</a>
-                              <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#share_files">Share</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                <div className="tab-pane" id="my_files">
-                  <ul className="files-list">
-                    <li>
-                      <div className="files-cont">
-                        <div className="file-type">
-                          <span className="files-icon"><i className="fa fa-file-pdf-o" /></span>
-                        </div>
-                        <div className="files-info">
-                          <span className="file-name text-ellipsis">AHA Selfcare Mobile Application Test-Cases.xls</span>
-                          <span className="file-author"><a href="#">John Doe</a></span> <span className="file-date">May 31st at 6:53 PM</span>
-                        </div>
-                        <ul className="files-action">
-                          <li className="dropdown dropdown-action">
-                            <a href="" className="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i className="material-icons">more_horiz</i></a>
-                            <div className="dropdown-menu">
-                              <a className="dropdown-item" href="">Download</a>
-                              <a className="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#share_files">Share</a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

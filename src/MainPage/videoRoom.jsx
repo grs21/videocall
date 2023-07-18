@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from 'react-redux';
-import { setRoomProperty } from '../stores/slices/videoRoomSlice';
 import DragFilesModal from '../modals/dragFilesModal';
 import ShareFileModal from '../modals/shareFileModal';
 import VideoArea from '../initialpage/layout/videoArea';
@@ -11,16 +10,7 @@ import Calls from '../initialpage/sidebar/calls';
 import Profile from '../initialpage/sidebar/profile';
 
 const VideoCall = () => {
-  const { roomProperty } = useSelector(state => state.videoRoomProperty);
-  const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
-  const { imageModalState, shareImgURL } = useSelector(state => state.modal);
   const dispatch = useDispatch();
-  dispatch(setRoomProperty({
-    appId: 'afadeb1ff63443ac93d5e953314a544f',
-    channel: 'test1',
-    token: '007eJxTYPDRCBW6asf5bdFsziPHJv8/xntMo0xsinnuUsanghrOnUcUGBLTElNSkwzT0syMTUyME5MtjVNMUy1NjY0NTRJNTUzSnixel9IQyMiwWvQyAyMUgvisDCWpxSWGDAwAJlwfUg==',
-    uid: 0,
-  }))
   const [windowDimension, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight - 1,
@@ -62,15 +52,14 @@ const VideoCall = () => {
             <div className="chat-window video-window">
               <div className="fixed-header">
                 <ul className="nav nav-tabs nav-tabs-bottom">
-                  <NavItem href='#profile_tab' state='active' navName='Profile' />
-                  <NavItem href='#chats_tab' state='' navName='Chats' />
-                  <NavItem href='#calls_tab' state='' navName='Calls' />
+                  <NavItem href='#profile_tab' state='active' navName='Profil' />
+                  <NavItem href='#chats_tab' state='' navName='Chat' />
+                  
                 </ul>
               </div>
               <div className="tab-content chat-contents">
                 <Profile />
                 <Chat />
-                <Calls />
               </div>
             </div>
           </div>

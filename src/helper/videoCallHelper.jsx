@@ -1,11 +1,13 @@
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { SOCKET_IO } from '../constant/constant';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedFile, setIsDragging } from '../stores/slices/fileSlice';
-
-export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, roomProperty, container) => {
+ 
+export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, callPrepareVideo, container) => {
+    const appId = callPrepareVideo.getAppId(); // Pass your App ID here.
+    const channel = callPrepareVideo.getChannel(); // Set the channel name.
+    const token = callPrepareVideo.getToken();
+    const uid = 1000; // Set the user ID.
     try {
-        await agoraEngineRef.current.join(roomProperty.appId, roomProperty.channel, roomProperty.token, roomProperty.uid);
+        await agoraEngineRef.current.join(appId, channel, token, uid);
         channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
         channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
         const myVideoRow = document.querySelector('#my-video-container ul li');

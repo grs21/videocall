@@ -26,3 +26,14 @@ export const uploadFile = async (formdata, roomId, fromName, fromId, toId, toNam
   CloseModal('drag_files')
   return response;
 };
+
+export const prepareVideoCallPush = async () => {
+  const url = `${BASE_URL}/Mobile/PrepareVideoCall_Push`;
+  const data = {
+    RandevuGuid: GUID,
+  };
+  const header = {
+    'Content-Type': 'application/json',
+  }
+  return requestService.post(url, JSON.stringify(data), header);
+}

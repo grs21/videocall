@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Avatar_01, Avatar_05, User } from '../../assets/imagePath'
-import { joinVideoRoom, leaveRoom } from '../../helper/videoCallHelper';
+import React, { useEffect, useRef } from 'react';
+import { User, Video_Call } from '../../assets/imagePath'
+import { joinVideoRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
+import {  prepareVideoCallPush } from '../../service/api/apiService';
 
 function VideoArea() {
-  const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
-  const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
+  const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
+  const { messages, sidebarState } = useSelector(state => state.messages);
   const dispatch = useDispatch();
   const agoraEngineRef = useRef(null);
   const channelParametersRef = useRef({
@@ -60,14 +61,14 @@ function VideoArea() {
           channelParametersRef.current.remoteAudioTrack.play();
         }
       });
-
-      document.getElementById('ara').onclick = async (e) => {
+      document.getElementById('begin_call').onclick = async (e) => {
         e.preventDefault();
-        joinVideoRoom(agoraEngineRef, channelParametersRef, roomProperty, localPlayerContainer);
+        prepareVideoCallPush();
       }
+      //joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
     }
     startBasicCall();
-  }, [callProperty])
+  }, [callPrepareVideo])
 
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>
@@ -97,7 +98,7 @@ function VideoArea() {
             <div className="my-video" id='my-video-container'>
               <ul>
                 <li>
-                  <img src={Avatar_01} className="img-fluid" alt="" />
+                  <img src={User} className="" alt="" />
                 </li>
               </ul>
             </div>
@@ -107,7 +108,7 @@ function VideoArea() {
           <div className="call-icons">
             <span className="call-duration">00:59</span>
             <ul className="call-items">
-              <li className="call-item" id='ara'>
+              <li className="call-item">
                 <a href="" title="Enable Video" data-placement="top" data-bs-toggle="tooltip">
                   <i className="fa fa-video-camera camera" />
                 </a>
@@ -128,6 +129,11 @@ function VideoArea() {
                 </a>
               </li>
             </ul>
+            <div className="begin-call" id='begin_call'>
+              <a href="">
+                <i className="material-icons">call_end</i>
+              </a>
+            </div>
             <div className="end-call">
               <a href="">
                 <i className="material-icons">call_end</i>

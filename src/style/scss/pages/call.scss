@@ -118,6 +118,14 @@
             @include rounded(50px);
         }
     }
+
+    .begin-call{
+        @extend .end-call;
+        right: 100px;
+        a{
+            background-color: $__call__green;
+        }
+    }
 }
 
 .chat-sidebar {

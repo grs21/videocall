@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setShareImgURL } from '../stores/slices/imageShareSlice';
 
 function Chat({ message }) {
-    const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
-    const { imageModalState, shareImgURL } = useSelector(state => state.modal);
+    const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
     const dispatch = useDispatch();
-    const doctorImg = callProperty.getDoctorPhoto();
-    const patientImg = callProperty.getPatientPhoto();
-    const doctorId = callProperty.getDoctorId();
+    const doctorImg = callPrepareVideo.getDoctorPhoto();
+    const patientImg = callPrepareVideo.getPatientPhoto();
+    const doctorId = callPrepareVideo.getDoctorId();
     const messageFromId = message.FromId;
     const isDoctor = doctorId === messageFromId
     const fileUrl = message.FileUrl;

@@ -10,14 +10,14 @@ import { sendMessage } from '../../helper/videoCallHelper';
 import Spinner from '../../component/spinner';
 
 function Chat() {
-  const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
   const { messages, messagesState } = useSelector(state => state.messages);
   const dispatch = useDispatch();
-  const roomId = callProperty.getRoomId();
-  const fromName = callProperty.getDoctorName();
-  const fromId = callProperty.getDoctorId();
-  const toId = callProperty.getPatientId();
-  const toName = callProperty.getFullName();
+  const roomId = callPrepareVideo.getRoomId();
+  const fromName = callPrepareVideo.getDoctorName();
+  const fromId = callPrepareVideo.getDoctorId();
+  const toId = callPrepareVideo.getPatientId();
+  const toName = callPrepareVideo.getFullName();
   const fileUrl = '';
   var prevDate = null;
   const options = {
@@ -73,7 +73,7 @@ function Chat() {
       SOCKET_IO.off('typing');
       SOCKET_IO.off('all_messages');
     };
-  }, [callProperty]);
+  }, [callPrepareVideo]);
 
   return (
     <div className="content-full tab-pane" id="chats_tab">

@@ -9,22 +9,22 @@ import { setSelectedFile, setIsDragging, setPreview } from '../stores/slices/fil
 
 function DragFilesModal() {
   const { selectedFile, isDragging } = useSelector(state => state.files);
-  const { roomProperty, callProperty } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
   const dispatch = useDispatch();
 
   const uploadFileHandle = async () => {
     if (selectedFile) {
-      const identityNumber = callProperty.doctorPersonId;
+      const identityNumber = callPrepareVideo.doctorPersonId;
       var formData = new FormData();
       formData.append('IdentityNumber', identityNumber);
       formData.append('App', 'MLPONLINE');
       formData.append('Type', 'Doctor');
       formData.append('File', selectedFile, selectedFile.name);
-      const roomId = callProperty.getRoomId();
-      const fromName = callProperty.getDoctorName();
-      const fromId = callProperty.getDoctorId();
-      const toId = callProperty.getPatientId();
-      const toName = callProperty.getFullName();
+      const roomId = callPrepareVideo.getRoomId();
+      const fromName = callPrepareVideo.getDoctorName();
+      const fromId = callPrepareVideo.getDoctorId();
+      const toId = callPrepareVideo.getPatientId();
+      const toName = callPrepareVideo.getFullName();
       uploadFile(formData, roomId, fromName, fromId, toId, toName, selectedFile.name)
     } else {
       toast.info(PLEASE_UPLOAD_FILE);
