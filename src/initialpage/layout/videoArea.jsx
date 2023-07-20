@@ -19,7 +19,7 @@ function VideoArea() {
   const [isCalling, setIsCalling] = useState(false);
   const dispatch = useDispatch();
   const agoraEngineRef = useRef(null);
-  const pattientName = callPrepareVideo.getFullName();
+  const pattientName = callPrepareVideo.getPatinetName();
   const patientImg = callPrepareVideo.getPatientPhoto();
   const channelParametersRef = useRef({
     localAudioTrack: null,

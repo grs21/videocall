@@ -78,7 +78,7 @@ export default class PrepareVideoCall {
     getChannel() {
         return this.channel;
     }
-    getFullName() {
+    getPatinetName() {
         return this.full_Name;
     }
 

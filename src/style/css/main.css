@@ -2109,9 +2109,9 @@ input[type=file].form-control {
               width: 120px;
               cursor: pointer; }
               .content-full .display-table .table-row .table-body .table-content .chat-profile-img .edit-profile-img img {
-                height: auto;
+                height: 120px;
                 margin: 0;
-                width: 120px;
+                width: auto;
                 border-radius: 50%; }
               .content-full .display-table .table-row .table-body .table-content .chat-profile-img .edit-profile-img .change-img {
                 background-color: rgba(0, 0, 0, 0.3);

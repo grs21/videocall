@@ -70,9 +70,9 @@
                             cursor: $__pointer;
 
                             img {
-                                height: $__auto;
+                                height: 120px;
                                 margin: 0;
-                                width: 120px;
+                                width: $__auto;
                                 @include rounded(50%);
                             }
 

@@ -24,7 +24,7 @@ function DragFilesModal() {
       const fromName = callPrepareVideo.getDoctorName();
       const fromId = callPrepareVideo.getDoctorId();
       const toId = callPrepareVideo.getPatientId();
-      const toName = callPrepareVideo.getFullName();
+      const toName = callPrepareVideo.getPatinetName();
       uploadFile(formData, roomId, fromName, fromId, toId, toName, selectedFile.name)
     } else {
       toast.info(PLEASE_UPLOAD_FILE);

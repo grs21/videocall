@@ -17,7 +17,7 @@ function Chat() {
   const fromName = callPrepareVideo.getDoctorName();
   const fromId = callPrepareVideo.getDoctorId();
   const toId = callPrepareVideo.getPatientId();
-  const toName = callPrepareVideo.getFullName();
+  const toName = callPrepareVideo.getPatinetName();
   const fileUrl = '';
   var prevDate = null;
   const options = {

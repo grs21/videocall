@@ -105,5 +105,27 @@ export const sendMessage = (roomId, fromName, fromId, toId, fileUrl, toName, fil
 
 export const isBase64 = (data) => {
     /// a temporary function will be deleted upon base64 enhancement
-    return data !== undefined ? data.includes('http'):''
+    return data !== undefined ? data.includes('http') : ''
+}
+
+export const formatPhoneNumber = (phoneNumber) => {
+    // Sayıları dışındaki tüm karakterleri kaldır
+    phoneNumber = phoneNumber.replace(/\D/g, '');
+    // 10 haneli numara formatına dönüştür
+    const areaCode = phoneNumber.slice(0, 3);
+    const firstPart = phoneNumber.slice(3, 6);
+    const secondPart = phoneNumber.slice(6, 10);
+    return `(${areaCode}) ${firstPart}-${secondPart}`;
+}
+
+export const getFirstName = (fullName) => {
+    if (!fullName) return "";
+    const names = fullName.split(" ");
+    return names[0];
+}
+
+export const getLastName = (fullName) => {
+    if (!fullName) return "";
+    const names = fullName.split(" ");
+    return names.slice(1).join(" ");
 }
