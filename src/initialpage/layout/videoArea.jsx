@@ -8,7 +8,7 @@ import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
 import { prepareVideoCallPush } from '../../service/api/apiService';
 import { Call } from '../../assets/icons/assets';
-import { BEGIN_COLLING } from '../../constant/constant';
+import { ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
 import { setInCalling } from '../../stores/slices/videoRoomSlice';
 
 function VideoArea() {
@@ -171,7 +171,7 @@ function VideoArea() {
               </li>
             </ul>
             <div className='call-container'>
-              <div className={"end-call " + (inCalling ? 'show' : 'hide')} id='end_call'>
+              <div className={"end-call " + (inCalling ? 'show' : 'hide')} id='end_call' data-bs-toggle='modal' data-bs-target='#call-end-modal'  >
                 <div>
                   <i className="material-icons">call_end</i>
                 </div>
@@ -186,7 +186,32 @@ function VideoArea() {
           </div>
         </div>
       </div>
-      
+      <div id="call-end-modal" className="modal custom-modal fade" role="dialog">
+        <div className="modal-dialog modal-dialog-centered modal-md" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="form-group">
+                      <label>{ARE_YOU_SHOURE}</label>
+                    </div>
+                  </div>
+                </div>
+                <div className="submit-section">
+                  <button className="btn btn-primary submit-btn">{CANCEL}</button>
+                  <button className="btn btn-danger submit-btn">{CALL_END}</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
