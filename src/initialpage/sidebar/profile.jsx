@@ -16,7 +16,6 @@ function profile() {
               </div>
               <h3 className="user-name m-t-10 mb-0">John Doe</h3>
               <small className="text-muted">Web Designer</small>
-              <a href="" className="btn btn-primary edit-btn"><i className="fa fa-pencil" /></a>
             </div>
             <div className="chat-profile-info">
               <ul className="user-det-list">

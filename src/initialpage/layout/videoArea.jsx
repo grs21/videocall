@@ -7,12 +7,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
 import { prepareVideoCallPush } from '../../service/api/apiService';
-import { Call } from '../../assets/icons/assets';
+import { Call } from '../../assets/svg/assets';
 import { ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
-import { setInCalling } from '../../stores/slices/videoRoomSlice';
+import { setInCalling, setIsCallEnd } from '../../stores/slices/videoRoomSlice';
+import ResultItem from '../../component/resultItem';
+
 
 function VideoArea() {
-  const { callPrepareVideo, inCalling } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo, inCalling, isCallEnd } = useSelector(state => state.videoRoomProperty);
   const { messages, sidebarState } = useSelector(state => state.messages);
   const [isCalling, setIsCalling] = useState(false);
   const dispatch = useDispatch();
@@ -75,6 +77,7 @@ function VideoArea() {
         e.preventDefault();
         setIsCalling(true);
         dispatch(setInCalling(true));
+        dispatch(setIsCallEnd(false));
         console.log('başlattttt');
         if (agoraEngineRef.current.store.state.uid === undefined) {
           await startBasicCall();
@@ -89,6 +92,7 @@ function VideoArea() {
         leaveRoom(agoraEngineRef, channelParametersRef, remotePlayerContainer, localPlayerContainer);
         dispatch(setInCalling(false));
         setIsCalling(false);
+        dispatch(setIsCallEnd(true));
         document.getElementById('my-video-container').classList.remove('my-video-small');
       }
       joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
@@ -140,9 +144,17 @@ function VideoArea() {
                   : <div></div>
               }
             </div>
-            <div className="my-video" id='my-video-container'>
-              <img src={User} className={(inCalling ? 'hide' : 'show')} alt="" />
-            </div>
+            {
+              <div className="my-video" id='my-video-container'>
+                {
+                  isCallEnd ?
+                    <ResultItem />
+                    :
+                    <img src={User} className={(inCalling ? 'hide' : 'show')} alt="" />
+                }
+
+              </div>
+            }
           </div>
         </div>
         <div className="chat-footer">
@@ -171,7 +183,7 @@ function VideoArea() {
               </li>
             </ul>
             <div className='call-container'>
-              <div className={"end-call " + (inCalling ? 'show' : 'hide')}  data-bs-toggle='modal' data-bs-target='#call-end-modal'  >
+              <div className={"end-call " + (inCalling ? 'show' : 'hide')} data-bs-toggle='modal' data-bs-target='#call-end-modal'  >
                 <div>
                   <i className="material-icons">call_end</i>
                 </div>

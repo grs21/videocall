@@ -19,12 +19,9 @@ export const fileSlice = createSlice({
         setPreview: (state, action) => {
             state.preview = action.payload
         },
-        setShareImgURL: (state, action) => {
-            state.shareImgURL = action.payload
-        }
     }
 });
 
-export const { setSelectedFile, setIsDragging, setPreview, setShareImgURL } = fileSlice.actions;
+export const { setSelectedFile, setIsDragging, setPreview } = fileSlice.actions;
 
 export default fileSlice.reducer;
