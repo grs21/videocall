@@ -64,7 +64,6 @@ export default class PrepareVideoCall {
         } else {
             console.log('PrepareVideoCall', 'Undefined');
         }
-
     }
 
     getAppId() {

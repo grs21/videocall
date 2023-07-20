@@ -11,6 +11,7 @@ import { Call } from '../../assets/svg/assets';
 import { ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
 import { setInCalling, setIsCallEnd } from '../../stores/slices/videoRoomSlice';
 import ResultItem from '../../component/resultItem';
+import VideoCallTimer from '../../component/videoCallTimer';
 
 
 function VideoArea() {
@@ -20,7 +21,10 @@ function VideoArea() {
   const dispatch = useDispatch();
   const agoraEngineRef = useRef(null);
   const pattientName = callPrepareVideo.getPatinetName();
+  const doctorName = callPrepareVideo.getDoctorName();
   const patientImg = callPrepareVideo.getPatientPhoto();
+  const doctorImg = callPrepareVideo.getDoctorPhoto();
+  const branchName = callPrepareVideo.getBranhName();
   const channelParametersRef = useRef({
     localAudioTrack: null,
     localVideoTrack: null,
@@ -108,13 +112,15 @@ function VideoArea() {
             <div className="user-details">
               <div className="float-start user-img">
                 <Link className="avatar" to="/app/profile/employee-profile" title="Mike Litorus">
-                  <img src={User} alt="" className="rounded-circle" />
-                  <span className="status online" />
+                  <img src={(doctorImg === null ? User
+                    : isBase64(doctorImg) ? doctorImg
+                      : `data:image/png;base64,${doctorImg}`)} alt="" className="rounded-circle" />
+                  {/* <span className="status online" /> */}
                 </Link>
               </div>
               <div className="user-info float-start">
-                <Link to="/app/Email/employee-profile"><span>Mike Litorus</span></Link>
-                <span className="last-seen">Online</span>
+                <Link to="/app/Email/employee-profile"><span>{doctorName}</span></Link>
+                <span className="last-seen">{branchName}</span>
               </div>
             </div>
             <ChatIcon />
@@ -159,7 +165,7 @@ function VideoArea() {
         </div>
         <div className="chat-footer">
           <div className="call-icons">
-            <span className="call-duration">00:59</span>
+            <VideoCallTimer />
             <ul className="call-items">
               <li className="call-item">
                 <a href="" title="Enable Video" data-placement="top" data-bs-toggle="tooltip">
