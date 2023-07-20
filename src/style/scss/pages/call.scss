@@ -108,7 +108,7 @@
             position: $__inherit;
         }
 
-        a {
+        div {
             background-color: $__cherry__red;
             color: $__white;
             display: $__inline__block;
@@ -116,16 +116,30 @@
             text-transform: $__uppercase;
             @include margin-padding(null, 8px 25px);
             @include rounded(50px);
+            cursor: pointer;
         }
     }
-
-    .begin-call{
-        @extend .end-call;
-        right: 100px;
-        a{
-            background-color: $__call__green;
+    .call-container{
+        right: 0px;
+        top: 4px;
+        
+        .begin-call {
+            @extend .end-call;
+            right: 0;
+            div {
+                background-color: $__call__green;
+                display: flex;
+                text-transform: none;
+                @extend %align-items-center;
+                div{
+                    @include margin-padding(0 0 0 5px,null);
+                    font-weight: $__medium;
+                    text-align: $__center;
+                }
+            }
         }
     }
+    
 }
 
 .chat-sidebar {
@@ -155,38 +169,78 @@
     z-index: 10;
     @include position($__absolute, 0, 0, 0, 0);
 
-    img {
-        width: $__auto;
-        max-width: $__full__width;
-        height: $__auto;
-        max-height: $__full__height;
-        display: $__block;
-        margin: 0 $__auto;
+    .calling-container {
+        @extend %display-flex;
+        @extend %align-items-center;
+        @extend %justify-content-center;
+        flex-direction: column;
+        height: 100%;
+        .call-profile-img{
+            padding: 30px;
+            position: $__relative;
+            text-align: $__center;
+        
+            .wrap-profile-img {
+                height: 90px;
+                margin: 0 $__auto;
+                position: $__relative;
+                width: 90px;
+                img {
+                    height: $__auto;
+                    margin: 0;
+                    width: 75%;
+                    @include rounded(50%);
+                }
+        
+                .change-img {
+                    background-color: rgba(0, 0, 0, 0.3);
+                    color: $__white;
+                    display: $__none;
+                    height: $__full__height;
+                    line-height: 120px;
+                    width: $__full__width;
+                    @include position($__absolute, 0, null, null, 0);
+                    @include rounded(50%);
+                }
+            }
+        }
+    }
+
+    .calling {
+        @extend %display-flex;
+        @extend %align-items-center;
+        @extend %justify-content-center;
+        position: relative;
+        background-color: $__call__green;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        animation: calling 2s linear infinite;
     }
 }
 
 .my-video {
     z-index: 99;
-    @include position($__absolute, null, 20px, 20px, null);
+    @include position($__absolute, 10%, 10%, 10%, 10%);
+    width: 80%;
+    height: 80%;
+    @extend %display-flex;
+    @extend %align-items-center;
+    @extend %justify-content-center;
+    transition-duration: 1s;
 
-    ul {
-        @extend %ul_reset;
-
-        li {
-            float: $__left;
-            width: 120px;
-            margin-right: 10px;
-
-            @include respond-below(custom575) {
-                width: 80px;
-            }
-
-            img {
-                border: 3px solid $__white;
-                @include rounded(6px);
-            }
-        }
+    img {
+        border: 3px solid $__white;
+        @include rounded(6px);
+        height: 100%
     }
+}
+
+.my-video-small {
+    @extend.my-video;
+    @include position(null, unset, 2%, 3%, unset);
+    width: 25%;
+    height: 30%;
 }
 
 .call-box {
@@ -305,6 +359,12 @@
     min-height: 30px;
     @include margin-padding(0 10px 0 0, 2px 15px);
 }
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
 
 @-webkit-keyframes ripple {
     0% {
@@ -325,5 +385,23 @@
     100% {
         -moz-box-shadow: 0 0 0 50px rgba(0, 0, 0, 0);
         box-shadow: 0 0 0 50px rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes calling {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 173, 0, 0.7), 0 0 0 0 rgba(0, 173, 0, 0.7);
+    }
+
+    40% {
+        box-shadow: 0 0 0 50px rgba(0, 173, 0, 0), 0 0 0 0 rgba(0, 173, 0, 0.7);
+    }
+
+    80% {
+        box-shadow: 0 0 0 50px rgba(0, 173, 0, 0), 0 0 0 30px rgba(0, 173, 0, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 173, 0, 0), 0 0 0 30px rgba(0, 173, 0, 0);
     }
 }

@@ -1,25 +1,29 @@
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { SOCKET_IO } from '../constant/constant';
- 
+
 export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, callPrepareVideo, container) => {
     const appId = callPrepareVideo.getAppId(); // Pass your App ID here.
     const channel = callPrepareVideo.getChannel(); // Set the channel name.
     const token = callPrepareVideo.getToken();
     const uid = 1000; // Set the user ID.
     try {
-        await agoraEngineRef.current.join(appId, channel, token, uid);
-        channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
-        channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
-        const myVideoRow = document.querySelector('#my-video-container ul li');
-        if (container !== null && container !== undefined && myVideoRow !== null && myVideoRow !== undefined) {
-            myVideoRow.replaceChild(container, myVideoRow.firstChild)
+        if (token !== '') {
+            await agoraEngineRef.current.join(appId, channel, token, uid);
+            channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
+            channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
+            const myVideoRow = document.querySelector('#my-video-container ');
+            console.log(myVideoRow);
+            if (container !== null && container !== undefined && myVideoRow !== null && myVideoRow !== undefined) {
+                myVideoRow.appendChild(container, myVideoRow.firstChild)
+            }
+            await agoraEngineRef.current.publish([
+                channelParametersRef.current.localAudioTrack,
+                channelParametersRef.current.localVideoTrack,
+            ]);
+            channelParametersRef.current.localVideoTrack.play(container);
+            container.firstChild.firstChild.style = 'transform: rotateY(180deg); object-fit: cover; width: 100%; height: 100%; position: relative; left: 0px; top: 0px;';
+
         }
-        await agoraEngineRef.current.publish([
-            channelParametersRef.current.localAudioTrack,
-            channelParametersRef.current.localVideoTrack,
-        ]);
-        channelParametersRef.current.localVideoTrack.play(container);
-        container.firstChild.firstChild.style = 'transform: rotateY(180deg); object-fit: cover; width: 100%; height: 100%; position: relative; left: 0px; top: 0px;';
     } catch (error) {
         let errorMesage = error.code;
         console.error(errorMesage);
@@ -97,4 +101,9 @@ export const sendMessage = (roomId, fromName, fromId, toId, fileUrl, toName, fil
             messageInput.value = '';
         }
     }
+}
+
+export const isBase64 = (data) => {
+    /// a temporary function will be deleted upon base64 enhancement
+    return data !== undefined ? data.includes('http'):''
 }

@@ -1,18 +1,24 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { User, Video_Call } from '../../assets/imagePath'
-import { joinVideoRoom } from '../../helper/videoCallHelper';
+import { joinVideoRoom, isBase64, leaveRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
-import {  prepareVideoCallPush } from '../../service/api/apiService';
+import { prepareVideoCallPush } from '../../service/api/apiService';
+import { Call } from '../../assets/icons/assets';
+import { BEGIN_COLLING } from '../../constant/constant';
+import { setInCalling } from '../../stores/slices/videoRoomSlice';
 
 function VideoArea() {
-  const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo, inCalling } = useSelector(state => state.videoRoomProperty);
   const { messages, sidebarState } = useSelector(state => state.messages);
+  const [isCalling, setIsCalling] = useState(false);
   const dispatch = useDispatch();
   const agoraEngineRef = useRef(null);
+  const pattientName = callPrepareVideo.getFullName();
+  const patientImg = callPrepareVideo.getPatientPhoto();
   const channelParametersRef = useRef({
     localAudioTrack: null,
     localVideoTrack: null,
@@ -43,18 +49,22 @@ function VideoArea() {
       const localPlayerContainer = document.createElement('div');
       localPlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;border-radius: 6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 1px solid white;';
       agoraEngineRef.current.on("user-published", async (user, mediaType) => {
+        const uuid = user.uid;
         await agoraEngineRef.current.subscribe(user, mediaType);
         if (mediaType === "video") {
           channelParametersRef.current.remoteVideoTrack = user.videoTrack;
           channelParametersRef.current.remoteAudioTrack = user.audioTrack;
-          channelParametersRef.current.remoteUid = user.uid.toString();
-          remotePlayerContainer.id = user.uid.toString();
-          channelParametersRef.current.remoteUid = user.uid.toString();
-          remotePlayerContainer.textContent = "Remote user " + user.uid.toString();
+          channelParametersRef.current.remoteUid = uuid;
+          remotePlayerContainer.id = uuid;
+          channelParametersRef.current.remoteUid = uuid;
           document.getElementById('user-video-container').append(remotePlayerContainer);
+          setIsCalling(false);
+          dispatch(setInCalling(true));
           await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
-          remotePlayerContainer.childNodes[1].style = ''
-          remotePlayerContainer.childNodes[1].firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
+          const videoContainer = remotePlayerContainer.childNodes[0];
+          videoContainer.style = ''
+          videoContainer.firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
+
         }
         if (mediaType === "audio") {
           channelParametersRef.current.remoteAudioTrack = user.audioTrack;
@@ -63,9 +73,25 @@ function VideoArea() {
       });
       document.getElementById('begin_call').onclick = async (e) => {
         e.preventDefault();
-        prepareVideoCallPush();
+        setIsCalling(true);
+        dispatch(setInCalling(true));
+        console.log('başlattttt');
+        if (agoraEngineRef.current.store.state.uid === undefined) {
+          await startBasicCall();
+        }
+        //prepareVideoCallPush();
+        document.getElementById('my-video-container').classList.add('my-video-small');
       }
-      //joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
+
+      document.getElementById('end_call').onclick = (e) => {
+        e.preventDefault();
+        // console.log('leaveeeeee');
+        // leaveRoom(agoraEngineRef, channelParametersRef, remotePlayerContainer, localPlayerContainer);
+        // dispatch(setInCalling(false));
+        // document.getElementById('my-video-container').classList.remove('my-video-small');
+
+      }
+      joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
     }
     startBasicCall();
   }, [callPrepareVideo])
@@ -93,14 +119,29 @@ function VideoArea() {
         <div className="chat-contents">
           <div className="chat-content-wrap">
             <div className="user-video" id='user-video-container'>
-              {/* <img src={Video_Call} alt="" /> */}
+              {
+                isCalling ?
+                  <div className='calling-container' id='callin_container'>
+                    <div className="call-profile-img">
+                      <div className="wrap-profile-img">
+                        <img src={
+                          (patientImg === null ? User
+                            : isBase64(patientImg) ? patientImg
+                              : `data:image/png;base64,${patientImg}`)
+                        } alt="" />
+                      </div>
+                      <h3 className="user-name m-t-10 mb-0">{pattientName}</h3>
+                    </div>
+                    <div className="calling">
+                      <Call />
+                    </div>
+                    <span>Aranıyor...</span>
+                  </div>
+                  : <div></div>
+              }
             </div>
             <div className="my-video" id='my-video-container'>
-              <ul>
-                <li>
-                  <img src={User} className="" alt="" />
-                </li>
-              </ul>
+              <img src={User} className={(inCalling ? 'hide' : 'show')} alt="" />
             </div>
           </div>
         </div>
@@ -129,19 +170,23 @@ function VideoArea() {
                 </a>
               </li>
             </ul>
-            <div className="begin-call" id='begin_call'>
-              <a href="">
-                <i className="material-icons">call_end</i>
-              </a>
-            </div>
-            <div className="end-call">
-              <a href="">
-                <i className="material-icons">call_end</i>
-              </a>
+            <div className='call-container'>
+              <div className={"end-call " + (inCalling ? 'show' : 'hide')} id='end_call'>
+                <div>
+                  <i className="material-icons">call_end</i>
+                </div>
+              </div>
+              <div className={"begin-call " + (inCalling ? 'hide' : 'show')} id='begin_call' >
+                <div>
+                  <i className="material-icons">call_end</i>
+                  <div >{BEGIN_COLLING}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      
     </div>
   )
 }

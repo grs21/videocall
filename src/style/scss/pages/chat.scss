@@ -431,19 +431,6 @@
             @include position($__absolute, 0, null, null, 0);
             @include rounded(50%);
         }
-
-        &:hover {
-            .change-img {
-                display: $__block !important;
-            }
-        }
-    }
-
-    .edit-btn {
-        height: 36px;
-        width: 36px;
-        @include position($__absolute, 15px, 15px, null, null);
-        @include rounded(40px);
     }
 }
 

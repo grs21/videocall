@@ -3,6 +3,7 @@ import { User } from '../assets/imagePath';
 import ChatLine from './chatLine';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShareImgURL } from '../stores/slices/imageShareSlice';
+import { isBase64 } from '../helper/videoCallHelper';
 
 function Chat({ message }) {
     const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
@@ -21,10 +22,6 @@ function Chat({ message }) {
 
     const imageMessageHandler = (e) => {
         dispatch(setShareImgURL(fileUrl));
-    }
-    const isBase64 = (data)=>{
-        /// a temporary function will be deleted upon base64 enhancement
-        return data.includes('http')
     }
 
     return (

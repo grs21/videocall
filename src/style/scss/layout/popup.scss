@@ -75,7 +75,11 @@
 				margin-bottom: 1rem;
 				float: $__left;
 				width: $__full__width;
-
+				text-align: center;
+				color: $__black;
+				font-weight: $__medium;
+				font-size: $__font__size__18;
+				
 				&.col-sm-4 {
 					width: 33.3%;
 				}
@@ -136,6 +140,8 @@
 	margin-top: 40px;
 	float: $__left;
 	width: $__full__width;
+	display: flex;
+	justify-content: space-between;
 
 	@include respond-below(custom575) {
 		margin-top: 20px;
