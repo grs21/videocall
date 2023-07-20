@@ -85,11 +85,11 @@ function VideoArea() {
 
       document.getElementById('end_call').onclick = (e) => {
         e.preventDefault();
-        // console.log('leaveeeeee');
-        // leaveRoom(agoraEngineRef, channelParametersRef, remotePlayerContainer, localPlayerContainer);
-        // dispatch(setInCalling(false));
-        // document.getElementById('my-video-container').classList.remove('my-video-small');
-
+        console.log('leaveeeeee');
+        leaveRoom(agoraEngineRef, channelParametersRef, remotePlayerContainer, localPlayerContainer);
+        dispatch(setInCalling(false));
+        setIsCalling(false);
+        document.getElementById('my-video-container').classList.remove('my-video-small');
       }
       joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
     }
@@ -171,7 +171,7 @@ function VideoArea() {
               </li>
             </ul>
             <div className='call-container'>
-              <div className={"end-call " + (inCalling ? 'show' : 'hide')} id='end_call' data-bs-toggle='modal' data-bs-target='#call-end-modal'  >
+              <div className={"end-call " + (inCalling ? 'show' : 'hide')}  data-bs-toggle='modal' data-bs-target='#call-end-modal'  >
                 <div>
                   <i className="material-icons">call_end</i>
                 </div>
@@ -204,8 +204,8 @@ function VideoArea() {
                   </div>
                 </div>
                 <div className="submit-section">
-                  <button className="btn btn-primary submit-btn">{CANCEL}</button>
-                  <button className="btn btn-danger submit-btn">{CALL_END}</button>
+                  <div className="btn btn-primary submit-btn" data-bs-dismiss="modal" aria-label="Close" >{CANCEL}</div>
+                  <button className="btn btn-danger submit-btn" id='end_call' data-bs-dismiss="modal" aria-label="Close">{CALL_END}</button>
                 </div>
               </form>
             </div>
