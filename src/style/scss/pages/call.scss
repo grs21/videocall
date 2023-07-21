@@ -87,6 +87,12 @@
             text-align: $__center;
             margin-right: 5px;
 
+            .call-mute {
+                background-color: $__cherry__red;
+                text-align: $__center;
+                color: $__white;
+            }
+
             a {
                 color: $__dark__battle__gary;
                 border: 1px solid $__light__goose;

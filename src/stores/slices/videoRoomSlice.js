@@ -9,6 +9,8 @@ export const videoRoomSlice = createSlice({
         GUID: '7939bcb4-2a22-4833-af7c-6faf3381a613#',
         callPrepareVideo: new PrepareVideoCall(),
         timerStarted:false,
+        isAudio: false,
+        isVideo:false,
     },
     reducers: {
         setInCalling: (state, action) =>{
@@ -27,9 +29,15 @@ export const videoRoomSlice = createSlice({
         },
         setTimerStarted: (state,action) =>{
             state.timerStarted = action.payload;
-        }
+        },
+        setIsAudio: (state, action) =>{
+            state.isAudio = action.payload;
+        },
+        setIsVideo: (state, action) =>{
+            state.isVideo = action.payload;
+        },
     }
 })
-export const { setCallPrepareVideo, setInCalling, setIsCallEnd, setTimerStarted } = videoRoomSlice.actions;
+export const { setCallPrepareVideo, setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo } = videoRoomSlice.actions;
 
 export default videoRoomSlice.reducer

@@ -7,15 +7,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
 import { prepareVideoCallPush } from '../../service/api/apiService';
-import { Call } from '../../assets/svg/assets';
+import { Call, VideoSlash } from '../../assets/svg/assets';
 import { ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
-import { setInCalling, setIsCallEnd, setTimerStarted } from '../../stores/slices/videoRoomSlice';
+import { setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo } from '../../stores/slices/videoRoomSlice';
 import ResultItem from '../../component/resultItem';
 import VideoCallTimer from '../../component/videoCallTimer';
 
 
 function VideoArea() {
-  const { callPrepareVideo, inCalling, isCallEnd } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo, inCalling, isCallEnd, isAudio, isVideo } = useSelector(state => state.videoRoomProperty);
   const { messages, sidebarState } = useSelector(state => state.messages);
   const [isCalling, setIsCalling] = useState(false);
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ function VideoArea() {
     remoteUid: null,
   });
 
+  /// set message notification
   useEffect(() => {
     const chatNavbar = document.getElementsByClassName('nav-item');
     if (chatNavbar.length > 0) {
@@ -83,11 +84,10 @@ function VideoArea() {
         dispatch(setInCalling(true));
         dispatch(setIsCallEnd(false));
         dispatch(setTimerStarted(true));
-        console.log('başlattttt');
         if (agoraEngineRef.current.store.state.uid === undefined) {
           await startBasicCall();
         }
-        //prepareVideoCallPush();
+        prepareVideoCallPush();
         document.getElementById('my-video-container').classList.add('my-video-small');
       }
 
@@ -98,7 +98,7 @@ function VideoArea() {
         dispatch(setInCalling(false));
         setIsCalling(false);
         dispatch(setIsCallEnd(true));
-
+        dispatch(setTimerStarted(false));
         document.getElementById('my-video-container').classList.remove('my-video-small');
       }
       joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
@@ -106,7 +106,7 @@ function VideoArea() {
     startBasicCall();
   }, [callPrepareVideo])
 
-  const openFullscreen = (e) => {
+  const handlerFullscreen = (e) => {
     e.preventDefault();
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen();
@@ -114,6 +114,26 @@ function VideoArea() {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       }
+    }
+  }
+  const handlerMuteMic = (e) => {
+    e.preventDefault();
+    dispatch(setIsAudio(!isAudio));
+    const localAudioTrack = channelParametersRef.current.localAudioTrack;
+    localAudioTrack.setEnabled(isAudio);
+
+    const micController = document.getElementById('mic_controller');
+    micController.classList.toggle('call-mute', !isAudio);
+  }
+
+  const handlerVideo = (e) => {
+    e.preventDefault();
+    dispatch(setIsVideo(!isVideo));
+    const localVideoTrack = channelParametersRef.current.localVideoTrack;
+    if (localVideoTrack) {
+      localVideoTrack.setEnabled(isVideo);
+      const micController = document.getElementById('video_controller');
+      micController.classList.toggle('call-mute', !isVideo);
     }
   }
   return (
@@ -131,7 +151,7 @@ function VideoArea() {
                 </Link>
               </div>
               <div className="user-info float-start">
-                <Link to="/app/Email/employee-profile"><span>{doctorName}</span></Link>
+                <Link to=""><span>{doctorName}</span></Link>
                 <span className="last-seen">{branchName}</span>
               </div>
             </div>
@@ -180,17 +200,21 @@ function VideoArea() {
             <VideoCallTimer />
             <ul className="call-items">
               <li className="call-item">
-                <a href="" title="Enable Video" data-placement="top" data-bs-toggle="tooltip">
-                  <i className="fa fa-video-camera camera" />
+                <a className='' id='video_controller' href="" title="Enable Video" onClick={handlerVideo} data-placement="top" data-bs-toggle="tooltip">
+                  {
+                    isVideo ? <VideoSlash />
+                      :
+                      <i className="fa fa-video-camera camera" />
+                  }
                 </a>
               </li>
               <li className="call-item">
-                <a href="" title="Mute Audio" data-placement="top" data-bs-toggle="tooltip">
-                  <i className="fa fa-microphone microphone" />
+                <a className='' id='mic_controller' href="" title="Mute Audio" onClick={handlerMuteMic} data-placement="top" data-bs-toggle="tooltip">
+                  <i className={'fa ' + (isAudio ? 'fa-microphone-slash ' : 'fa-microphone') + ' microphone'} />
                 </a>
               </li>
               <li className="call-item">
-                <a href="" title="Full Screen" onClick={openFullscreen} data-placement="top" data-bs-toggle="tooltip">
+                <a href="" title="Full Screen" onClick={handlerFullscreen} data-placement="top" data-bs-toggle="tooltip">
                   <i className="fa fa-arrows-v full-screen" />
                 </a>
               </li>

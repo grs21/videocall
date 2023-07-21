@@ -4263,6 +4263,10 @@ input[type=file].form-control {
       display: inline-block;
       text-align: center;
       margin-right: 5px; }
+      .call-icons .call-items .call-item .call-mute {
+        background-color: #f06060;
+        text-align: center;
+        color: #ffffff; }
       .call-icons .call-items .call-item a {
         color: #777;
         border: 1px solid #dddddd;
