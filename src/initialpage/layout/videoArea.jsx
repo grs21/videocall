@@ -148,7 +148,6 @@ function VideoArea() {
                   <img src={((doctorImg === null || doctorImg === undefined) ? User
                     : isBase64(doctorImg) ? doctorImg
                       : `data:image/png;base64,${doctorImg}`)} alt="" className="rounded-circle" />
-                  {/* <span className="status online" /> */}
                 </div>
               </div>
               <div className="user-info float-start">
@@ -156,7 +155,7 @@ function VideoArea() {
                 <div className="last-seen">{branchName}</div>
               </div>
             </div>
-            <AppIcon/>
+            <AppIcon />
             <ChatIcon />
           </div>
         </div>
