@@ -37,7 +37,7 @@ function Profile() {
                     <span className="float-end text-muted">{firstName}</span>
                   </li>
                   <li>
-                    <span>Soyisim:</span>
+                    <span>Soyadı:</span>
                     <span className="float-end text-muted">{lastName}</span>
                   </li>
                   <li>

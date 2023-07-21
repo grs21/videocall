@@ -98,7 +98,7 @@ function VideoArea() {
         dispatch(setInCalling(false));
         setIsCalling(false);
         dispatch(setIsCallEnd(true));
-       
+
         document.getElementById('my-video-container').classList.remove('my-video-small');
       }
       joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
@@ -106,6 +106,16 @@ function VideoArea() {
     startBasicCall();
   }, [callPrepareVideo])
 
+  const openFullscreen = (e) => {
+    e.preventDefault();
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  }
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>
       <div className="chat-window">
@@ -180,12 +190,7 @@ function VideoArea() {
                 </a>
               </li>
               <li className="call-item">
-                <a href="" title="Add User" data-placement="top" data-bs-toggle="tooltip">
-                  <i className="fa fa-user-plus" />
-                </a>
-              </li>
-              <li className="call-item">
-                <a href="" title="Full Screen" data-placement="top" data-bs-toggle="tooltip">
+                <a href="" title="Full Screen" onClick={openFullscreen} data-placement="top" data-bs-toggle="tooltip">
                   <i className="fa fa-arrows-v full-screen" />
                 </a>
               </li>
