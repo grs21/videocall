@@ -12,7 +12,6 @@ export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, callPrep
             channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
             channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
             const myVideoRow = document.querySelector('#my-video-container ');
-            console.log(myVideoRow);
             if (container !== null && container !== undefined && myVideoRow !== null && myVideoRow !== undefined) {
                 myVideoRow.appendChild(container, myVideoRow.firstChild)
             }

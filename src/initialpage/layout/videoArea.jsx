@@ -144,16 +144,16 @@ function VideoArea() {
           <div className="navbar">
             <div className="user-details">
               <div className="float-start user-img">
-                <Link className="avatar" to="/app/profile/employee-profile" title="Mike Litorus">
+                <div className="avatar" title="Mike Litorus">
                   <img src={((doctorImg === null || doctorImg === undefined) ? User
                     : isBase64(doctorImg) ? doctorImg
                       : `data:image/png;base64,${doctorImg}`)} alt="" className="rounded-circle" />
                   {/* <span className="status online" /> */}
-                </Link>
+                </div>
               </div>
               <div className="user-info float-start">
-                <Link to=""><span>{doctorName}</span></Link>
-                <span className="last-seen">{branchName}</span>
+                <div>{doctorName}</div>
+                <div className="last-seen">{branchName}</div>
               </div>
             </div>
             <AppIcon/>
