@@ -12,6 +12,7 @@ import { ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/
 import { setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo } from '../../stores/slices/videoRoomSlice';
 import ResultItem from '../../component/resultItem';
 import VideoCallTimer from '../../component/videoCallTimer';
+import AppIcon from '../../component/appIcon';
 
 
 function VideoArea() {
@@ -155,6 +156,7 @@ function VideoArea() {
                 <span className="last-seen">{branchName}</span>
               </div>
             </div>
+            <AppIcon/>
             <ChatIcon />
           </div>
         </div>

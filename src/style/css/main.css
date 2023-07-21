@@ -6124,6 +6124,8 @@ button.close {
           color: #888888;
           display: block;
           font-size: 12px; }
+        .chat-main-row .chat-main-wrapper .chat-window .fixed-header .app-icon-container img {
+          height: 7vh; }
         .chat-main-row .chat-main-wrapper .chat-window .fixed-header .navbar {
           border: 0 none;
           margin: 0;

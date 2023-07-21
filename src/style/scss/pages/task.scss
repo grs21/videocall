@@ -399,6 +399,12 @@
                         font-size: $__font__size__12;
                     }
                 }
+                
+                .app-icon-container{
+                    img{
+                        height: 7vh;
+                    }
+                }
 
                 .navbar {
                     border: 0 none;
