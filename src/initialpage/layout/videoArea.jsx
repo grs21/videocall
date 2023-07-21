@@ -9,7 +9,7 @@ import ChatIcon from '../../component/chatIcon';
 import { prepareVideoCallPush } from '../../service/api/apiService';
 import { Call } from '../../assets/svg/assets';
 import { ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
-import { setInCalling, setIsCallEnd } from '../../stores/slices/videoRoomSlice';
+import { setInCalling, setIsCallEnd, setTimerStarted } from '../../stores/slices/videoRoomSlice';
 import ResultItem from '../../component/resultItem';
 import VideoCallTimer from '../../component/videoCallTimer';
 
@@ -82,6 +82,7 @@ function VideoArea() {
         setIsCalling(true);
         dispatch(setInCalling(true));
         dispatch(setIsCallEnd(false));
+        dispatch(setTimerStarted(true));
         console.log('başlattttt');
         if (agoraEngineRef.current.store.state.uid === undefined) {
           await startBasicCall();
@@ -97,6 +98,7 @@ function VideoArea() {
         dispatch(setInCalling(false));
         setIsCalling(false);
         dispatch(setIsCallEnd(true));
+       
         document.getElementById('my-video-container').classList.remove('my-video-small');
       }
       joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
@@ -112,7 +114,7 @@ function VideoArea() {
             <div className="user-details">
               <div className="float-start user-img">
                 <Link className="avatar" to="/app/profile/employee-profile" title="Mike Litorus">
-                  <img src={(doctorImg === null ? User
+                  <img src={((doctorImg === null || doctorImg === undefined) ? User
                     : isBase64(doctorImg) ? doctorImg
                       : `data:image/png;base64,${doctorImg}`)} alt="" className="rounded-circle" />
                   {/* <span className="status online" /> */}

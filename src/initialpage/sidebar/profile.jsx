@@ -20,7 +20,7 @@ function Profile() {
               <div className="chat-profile-img">
                 <div className="edit-profile-img">
                   <img src={
-                    (patientImg === null ? User
+                    ((patientImg === null || patientImg === undefined) ? User
                       : isBase64(patientImg) ? patientImg
                         : `data:image/png;base64,${patientImg}`)
                   } alt="" />

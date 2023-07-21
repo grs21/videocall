@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const VideoCallTimer = () => {
     const [totalSeconds, setTotalSeconds] = useState(0);
-
+    const { timerStarted } = useSelector(state => state.videoRoomProperty);
+    let intervalIdRef = React.useRef(null);
     useEffect(() => {
-        let interval;
-        interval = setInterval(() => {
-            setTotalSeconds(prevTotalSeconds => prevTotalSeconds + 1);
-        }, 1000);
+        if (timerStarted) {
+            intervalIdRef.current = setInterval(() => {
+                setTotalSeconds(prevTotalSeconds => prevTotalSeconds + 1);
+
+            }, 1000);
+        } else {
+            // Timer durdurulduğunda interval'ı temizle
+            clearInterval(intervalIdRef.current);
+        }
 
         return () => {
-            clearInterval(interval);
+            clearInterval(intervalIdRef.current);
         };
-    }, []);
+    }, [timerStarted]);
 
     const hours = Math.floor(totalSeconds / 3600);
     const remainingSeconds = totalSeconds % 3600;
@@ -21,7 +28,7 @@ const VideoCallTimer = () => {
 
     return (
         <span className='call-duration'>
-            { (hours !== 0 ? String(hours).padStart(2, '0') + ':' :'') + String(minutes).padStart(2, '0') }
+            {String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':'+ String(seconds).padStart(2, '0')}
         </span>
     );
 };
@@ -29,9 +36,3 @@ const VideoCallTimer = () => {
 export default VideoCallTimer;
 
 //String(seconds).padStart(2, '0')
-
-
-
-
-
-
