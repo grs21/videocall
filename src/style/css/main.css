@@ -2139,7 +2139,13 @@ input[type=file].form-control {
               list-style: none;
               padding: 0; }
               .content-full .display-table .table-row .table-body .table-content .chat-profile-info .user-det-list li {
-                padding: 6px 15px; }
+                padding: 6px 15px;
+                display: flex;
+                flex-direction: column;
+                align-items: center; }
+                .content-full .display-table .table-row .table-body .table-content .chat-profile-info .user-det-list li img {
+                  width: 80px;
+                  opacity: 0.7; }
 
 .nav-tabs .nav-tabs-solid {
   background-color: #fafafa;

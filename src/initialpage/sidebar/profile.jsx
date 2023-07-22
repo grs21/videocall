@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { User } from '../../assets/imagePath'
+import { Coming_Soon, User } from '../../assets/imagePath'
 import { useDispatch, useSelector } from 'react-redux';
 import { formatPhoneNumber, getFirstName, getLastName, isBase64 } from '../../helper/videoCallHelper';
+import ChatLine from '../../component/chatLine';
 
 function Profile() {
   const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
@@ -26,24 +27,27 @@ function Profile() {
                   } alt="" />
                   <span className="change-img">Change Image</span>
                 </div>
-                {/* <h3 className="user-name m-t-10 mb-0">{
+                <h3 className="user-name m-t-10 mb-0">{
                   patientName === null ? '' : patientName
-                }</h3> */}
+                }</h3>
               </div>
+              <ChatLine date={''} />
               <div className="chat-profile-info">
                 <ul className="user-det-list">
                   <li>
-                    <span>İsim:</span>
-                    <span className="float-end text-muted">{firstName}</span>
+                    <img src={Coming_Soon} alt="" />
+                    {/* <span>Yakında burdayız...</span> */}
+
+                    {/* <span className="float-end text-muted">{firstName}</span> */}
                   </li>
-                  <li>
+                  {/* <li>
                     <span>Soyadı:</span>
                     <span className="float-end text-muted">{lastName}</span>
                   </li>
                   <li>
                     <span>Numara:</span>
                     <span className="float-end text-muted">{patientNumber === null ? '' : patientNumber}</span>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </div>

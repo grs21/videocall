@@ -28,7 +28,7 @@ const VideoCallTimer = () => {
 
     return (
         <span className='call-duration'>
-            {String(hours).padStart(2, '0') + ':' + String(minutes).padStart(2, '0') + ':'+ String(seconds).padStart(2, '0')}
+            {(hours !== 0 ? String(hours).padStart(2, '0') + ':' : '') + String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0')}
         </span>
     );
 };

@@ -2,10 +2,10 @@ import React from 'react'
 import FileUpload from '../component/fileUpload'
 import { uploadFile } from '../service/api/apiService'
 import { useDispatch, useSelector } from 'react-redux';
-import { PLEASE_UPLOAD_FILE, FILE_EXTENSION, UNSUPPORTED_FILE_TYPE } from '../constant/constant';
+import { PLEASE_UPLOAD_FILE } from '../constant/constant';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { setSelectedFile, setIsDragging, setPreview } from '../stores/slices/fileSlice';
+import { setSelectedFile, setPreview } from '../stores/slices/fileSlice';
 
 function DragFilesModal() {
   const { selectedFile, isDragging } = useSelector(state => state.files);

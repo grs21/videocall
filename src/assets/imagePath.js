@@ -10,3 +10,4 @@ export {default as Video_Call} from './img/video-call.jpg';
 export {default as Liv_Icon} from './img/icons/liv.png';
 export {default as  MLP_Icon} from './img/icons/mlp.png';
 export {default as Banner} from './img/icons/banner.png';
+export {default as Coming_Soon} from './img/coming-soon.png';
