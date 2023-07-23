@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount, setSidebarState } from '../stores/slices/messagesSlice';
 
 function CharIcon() {
-    const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
+    const { newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
     const messageIconHandler = (e) => {
         const sideBar = document.getElementById('task_window');
         if (sideBar !== null && sideBar !== undefined) {
@@ -14,6 +14,20 @@ function CharIcon() {
         }
     }
     const dispatch = useDispatch();
+    useEffect(() => {
+        // Ekran genişliği değişikliklerini dinlemek için bir olay dinleyici ekleyelim.
+        const handleWindowResize = () => {
+            const screenWidth = window.innerWidth;
+            if (screenWidth < 997) {
+              const sidebar = document.getElementsByClassName('chat-sidebar')[0];
+              if(sidebar){
+                  sidebar.classList.remove('show');
+              }
+            } 
+          };
+          handleWindowResize();
+      });
+
     return (
         <ul className="nav float-end custom-menu" onClick={messageIconHandler}>
             <li className="nav-item">

@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { User, Video_Call } from '../../assets/imagePath'
 import { joinVideoRoom, isBase64, leaveRoom } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
