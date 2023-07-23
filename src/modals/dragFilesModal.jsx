@@ -2,7 +2,7 @@ import React from 'react'
 import FileUpload from '../component/fileUpload'
 import { uploadFile } from '../service/api/apiService'
 import { useDispatch, useSelector } from 'react-redux';
-import { PLEASE_UPLOAD_FILE } from '../constant/constant';
+import { DRAG_AND_PUT, PLEASE_UPLOAD_FILE } from '../constant/constant';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setSelectedFile, setPreview } from '../stores/slices/fileSlice';
@@ -39,7 +39,7 @@ function DragFilesModal() {
       <div className="modal-dialog modal-dialog-centered modal-md" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Drag and drop files upload</h5>
+            <h5 className="modal-title">{DRAG_AND_PUT}</h5>
             <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close" onClick={handleCloseButton}>
               <span aria-hidden="true">×</span>
             </button>

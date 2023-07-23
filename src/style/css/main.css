@@ -609,13 +609,12 @@ strong {
   color: #ffffff;
   display: inline-block;
   font-weight: 500;
-  height: 34px;
+  height: 6vh;
   line-height: 38px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   vertical-align: middle;
-  width: 34px;
   position: relative;
   white-space: nowrap;
   margin: 0 10px 0 0;
@@ -2307,7 +2306,8 @@ input[type=file].form-control {
     @media (max-width: 575px) {
       .submit-section .submit-btn {
         margin: 10px 0 0;
-        font-size: 14px; } }
+        font-size: 10px;
+        min-width: 150px; } }
 
 .task-follower-list {
   margin-top: 15px; }
@@ -4262,6 +4262,10 @@ input[type=file].form-control {
 .call-icons {
   text-align: center;
   position: relative; }
+  @media (max-width: 575px) {
+    .call-icons {
+      display: flex;
+      justify-content: space-around; } }
   .call-icons .call-items {
     display: inline-block;
     border-radius: 5px; }
@@ -4288,7 +4292,7 @@ input[type=file].form-control {
     right: 0; }
     @media (max-width: 575px) {
       .call-icons .end-call, .call-icons .call-container .begin-call {
-        margin-top: 10px;
+        margin-top: 5px;
         position: inherit; } }
     .call-icons .end-call div, .call-icons .call-container .begin-call div {
       background-color: #f06060;
@@ -4312,6 +4316,14 @@ input[type=file].form-control {
           margin: 0 0 0 5px;
           font-weight: 500;
           text-align: center; }
+          @media (max-width: 575px) {
+            .call-icons .call-container .begin-call div div {
+              font-size: small;
+              padding: 11px 4px 11px 3px; } }
+        @media (max-width: 575px) {
+          .call-icons .call-container .begin-call div {
+            font-size: small;
+            padding: 4px 4px 6px 3px; } }
 
 .chat-sidebar .chats {
   padding: 15px 15px 30px; }
@@ -6119,19 +6131,28 @@ button.close {
         background-color: #ffffff;
         border-bottom: 1px solid #eaeaea;
         padding: 10px 15px; }
-        .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details a {
-          color: #555;
-          text-transform: uppercase; }
-        .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details .typing-text {
-          color: #ff9b44;
-          font-size: 12px;
-          text-transform: lowercase; }
-        .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details .last-seen {
-          color: #888888;
-          display: block;
-          font-size: 12px; }
+        .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details {
+          display: flex;
+          align-items: center; }
+          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details a {
+            color: #555;
+            text-transform: uppercase; }
+          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details .typing-text {
+            color: #ff9b44;
+            font-size: 12px;
+            text-transform: lowercase; }
+          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details .last-seen {
+            color: #888888;
+            display: block;
+            font-size: 12px; }
+          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .user-details .user-info .name {
+            margin-top: 5px;
+            font-size: 2.2vh; }
         .chat-main-row .chat-main-wrapper .chat-window .fixed-header .app-icon-container img {
           height: 7vh; }
+        @media (max-width: 575px) {
+          .chat-main-row .chat-main-wrapper .chat-window .fixed-header .app-icon-container {
+            display: none; } }
         .chat-main-row .chat-main-wrapper .chat-window .fixed-header .navbar {
           border: 0 none;
           margin: 0;
@@ -6410,10 +6431,12 @@ button.close {
     left: 0; }
     @media (max-width: 575px) {
       .chat-footer .call-duration {
-        display: block;
+        display: flex;
+        align-items: center;
         margin-top: 0;
-        margin-bottom: 10px;
-        position: inherit; } }
+        margin-right: 10px;
+        position: inherit;
+        font-size: inherit; } }
   .chat-footer .task-followers {
     margin-top: 15px; }
     .chat-footer .task-followers .followers-title {

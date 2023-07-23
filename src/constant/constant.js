@@ -11,3 +11,4 @@ export const BEGIN_COLLING = 'Aramayı Başlat'
 export const CANCEL = 'Vazgeç';
 export const CALL_END = 'Görüşmeyi Sonlandır'
 export const ARE_YOU_SHOURE = 'Görüşmeyi sonlandırmak istediğinize emin misiniz ?';
+export const DRAG_AND_PUT = 'Dosya yüklemek için sürükleyip ya da tıklayınız';

@@ -13,6 +13,7 @@ import { setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo } f
 import ResultItem from '../../component/resultItem';
 import VideoCallTimer from '../../component/videoCallTimer';
 import AppIcon from '../../component/appIcon';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 function VideoArea() {
@@ -78,6 +79,9 @@ function VideoArea() {
           channelParametersRef.current.remoteAudioTrack = user.audioTrack;
           channelParametersRef.current.remoteAudioTrack.play();
         }
+      });
+      agoraEngineRef.current.on('user-left', async(user,reason)=>{
+          
       });
       document.getElementById('begin_call').onclick = async (e) => {
         e.preventDefault();
@@ -145,14 +149,14 @@ function VideoArea() {
             <div className="user-details">
               <div className="float-start user-img">
                 <div className="avatar" title="Mike Litorus">
-                  <img src={((doctorImg === null || doctorImg === undefined) ? User
-                    : isBase64(doctorImg) ? doctorImg
-                      : `data:image/png;base64,${doctorImg}`)} alt="" className="rounded-circle" />
+                  <img src={((patientImg === null || patientImg === undefined) ? User
+                    : isBase64(patientImg) ? patientImg
+                      : `data:image/png;base64,${patientImg}`)} alt="" className="rounded-circle" />
                 </div>
               </div>
               <div className="user-info float-start">
-                <div>{doctorName}</div>
-                <div className="last-seen">{branchName}</div>
+                <div className='name'>{pattientName}</div>
+                {/* <div className="last-seen">{branchName}</div> */}
               </div>
             </div>
             <AppIcon />
@@ -262,6 +266,10 @@ function VideoArea() {
           </div>
         </div>
       </div>
+      <ToastContainer
+        autoClose={1000}
+        hideProgressBar
+      />
     </div>
   )
 }

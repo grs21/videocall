@@ -76,7 +76,10 @@
 .call-icons {
     text-align: $__center;
     position: $__relative;
-
+    @include respond-below(custom575) {
+        display: $__flex;
+        justify-content: space-around;
+    }
     .call-items {
         display: $__inline__block;
         @extend %ul_reset;
@@ -110,7 +113,7 @@
         @include position($__absolute, 7px, 0, null, null);
 
         @include respond-below(custom575) {
-            margin-top: 10px;
+            margin-top: 5px;
             position: $__inherit;
         }
 
@@ -141,6 +144,14 @@
                     @include margin-padding(0 0 0 5px,null);
                     font-weight: $__medium;
                     text-align: $__center;
+                    @include respond-below(custom575) {
+                        font-size: small;
+                        @include margin-padding(null,11px 4px 11px 3px);
+                    }
+                }
+                @include respond-below(custom575) {
+                    font-size: small;
+                    @include margin-padding(null,4px 4px 6px 3px);
                 }
             }
         }

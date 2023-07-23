@@ -382,6 +382,9 @@
                 padding: 10px 15px;
 
                 .user-details {
+                    display: flex;
+                    align-items: center;
+
                     a {
                         color: $__dark__ash__gray;
                         text-transform: $__uppercase;
@@ -398,11 +401,20 @@
                         display: $__block;
                         font-size: $__font__size__12;
                     }
+
+                    .user-info .name {
+                        margin-top: 5px;
+                        font-size: 2.2vh;
+                    }
                 }
-                
-                .app-icon-container{
-                    img{
+
+                .app-icon-container {
+                    img {
                         height: 7vh;
+                    }
+                    @include respond-below(custom575) {
+                        display: $__none;
+                       
                     }
                 }
 
@@ -826,10 +838,12 @@
         @include position($__absolute, null, null, null, 0);
 
         @include respond-below(custom575) {
-            display: $__block;
+            display: $__flex;
+            align-items: center;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-right: 10px;
             position: $__inherit;
+            font-size: $__inherit;
         }
     }
 
@@ -986,7 +1000,7 @@
     transition: width 2s;
 }
 
-.custom-notification-count{
+.custom-notification-count {
     @extend .notification-count;
     left: 58px;
     top: 8px;

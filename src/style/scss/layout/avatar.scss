@@ -3,13 +3,12 @@
 	color: $__white;
 	display: $__inline__block;
 	font-weight: $__medium;
-	height: 34px;
+	height: 6vh;
 	line-height: 38px;
 	text-align: $__center;
 	text-decoration: $__none;
 	text-transform: $__uppercase;
 	vertical-align: $__middle;
-	width: 34px;
 	position: $__relative;
 	white-space: $__nowrap;
 	@include margin-padding(0 10px 0 0, null);
