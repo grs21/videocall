@@ -11,6 +11,7 @@ export const videoRoomSlice = createSlice({
         timerStarted:false,
         isAudio: false,
         isVideo:false,
+        isPatientLeft: false,
     },
     reducers: {
         setInCalling: (state, action) =>{
@@ -36,8 +37,11 @@ export const videoRoomSlice = createSlice({
         setIsVideo: (state, action) =>{
             state.isVideo = action.payload;
         },
+        setIsPatientLeft: (state, action) =>{
+            state.isPatientLeft = action.payload;
+        },
     }
 })
-export const { setCallPrepareVideo, setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo } = videoRoomSlice.actions;
+export const { setCallPrepareVideo, setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo, setIsPatientLeft } = videoRoomSlice.actions;
 
 export default videoRoomSlice.reducer

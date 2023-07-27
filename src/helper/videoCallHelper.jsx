@@ -131,8 +131,9 @@ export const getLastName = (fullName) => {
     return names.slice(1).join(" ");
 }
 
-export const startSetCallRecord = async  () =>  {
+export const startSetCallRecord = async (state) => {
     var batteryLevel = 100;
+    state === undefined ? state = 'Connected': state = state;
     try {
         let batteryPromise = await navigator.getBattery();
         batteryLevel = batteryPromise.level * 100;
@@ -143,5 +144,5 @@ export const startSetCallRecord = async  () =>  {
         batteryLevel = 200;
     }
     var device = getDeviceInfo(window);
-    videoCallRecord('Connected', UID, GUID, batteryLevel,device);
-  }
+    videoCallRecord(state, UID, GUID, batteryLevel, device);
+}

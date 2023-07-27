@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { User, Video_Call } from '../../assets/imagePath'
+import { User, UserLeave, Video_Call } from '../../assets/imagePath'
 import { joinVideoRoom, isBase64, leaveRoom, startSetCallRecord } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,8 +7,8 @@ import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
 import { prepareVideoCallPush } from '../../service/api/apiService';
 import { Call, VideoSlash } from '../../assets/svg/assets';
-import { ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
-import { setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo } from '../../stores/slices/videoRoomSlice';
+import { AGAIN_BEGIN_COLLING, ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
+import { setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo, setIsPatientLeft } from '../../stores/slices/videoRoomSlice';
 import ResultItem from '../../component/resultItem';
 import VideoCallTimer from '../../component/videoCallTimer';
 import AppIcon from '../../component/appIcon';
@@ -16,7 +16,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 
 function VideoArea() {
-  const { callPrepareVideo, inCalling, isCallEnd, isAudio, isVideo } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo, inCalling, isCallEnd, isAudio, isVideo, isPatientLeft } = useSelector(state => state.videoRoomProperty);
   const { messages, sidebarState } = useSelector(state => state.messages);
   const [isCalling, setIsCalling] = useState(false);
   const dispatch = useDispatch();
@@ -26,6 +26,8 @@ function VideoArea() {
   const patientImg = callPrepareVideo.getPatientPhoto();
   const doctorImg = callPrepareVideo.getDoctorPhoto();
   const branchName = callPrepareVideo.getBranhName();
+  const micController = document.getElementById('mic_controller');
+  const vidController = document.getElementById('video_controller');
   let interval;
   const channelParametersRef = useRef({
     localAudioTrack: null,
@@ -69,6 +71,9 @@ function VideoArea() {
           document.getElementById('user-video-container').append(remotePlayerContainer);
           setIsCalling(false);
           dispatch(setInCalling(true));
+          dispatch(setIsPatientLeft(false));
+          let remoteUser = document.getElementById('user-video-container');
+          remoteUser.childNodes[1].style.display = 'block'
           await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
           const videoContainer = remotePlayerContainer.childNodes[0];
           videoContainer.style = ''
@@ -81,7 +86,23 @@ function VideoArea() {
         }
       });
       agoraEngineRef.current.on('user-left', async (user, reason) => {
-
+        dispatch(setIsPatientLeft(true));
+        let remoteUser = document.getElementById('user-video-container');
+        remoteUser.childNodes[1].style.display = 'none'
+      });
+      agoraEngineRef.current.on("user-published", async (user, mediaType) => {
+        if (mediaType === "audio") {
+          console.log("Karşı taraf ses yayınına başladı");
+        } else if (mediaType === "video") {
+          console.log("Karşı taraf video yayınına başladı");
+        }
+      });
+      agoraEngineRef.current.on("user-unpublished", async (user, mediaType) => {
+        if (mediaType === "audio") {
+          console.log("Karşı taraf ses yayınını durdurdu");
+        } else if (mediaType === "video") {
+          console.log("Karşı taraf video yayınını durdurdu");
+        }
       });
       document.getElementById('begin_call').onclick = async (e) => {
         e.preventDefault();
@@ -94,7 +115,7 @@ function VideoArea() {
         }
         prepareVideoCallPush();
         document.getElementById('my-video-container').classList.add('my-video-small');
-        startSetCallRecord();
+        startSetCallRecord('Connected');
         interval = setInterval(startSetCallRecord, 10000);
       }
 
@@ -105,8 +126,14 @@ function VideoArea() {
         setIsCalling(false);
         dispatch(setIsCallEnd(true));
         dispatch(setTimerStarted(false));
+        dispatch(setIsVideo(false));
+        dispatch(setIsAudio(false));
+        dispatch(setIsPatientLeft(false));
         document.getElementById('my-video-container').classList.remove('my-video-small');
         clearInterval(interval);
+        startSetCallRecord('Disconnected');
+        micController.classList.remove('call-mute');
+        vidController.classList.remove('call-mute');
       }
       joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
     }
@@ -128,8 +155,6 @@ function VideoArea() {
     dispatch(setIsAudio(!isAudio));
     const localAudioTrack = channelParametersRef.current.localAudioTrack;
     localAudioTrack.setEnabled(isAudio);
-
-    const micController = document.getElementById('mic_controller');
     micController.classList.toggle('call-mute', !isAudio);
   }
 
@@ -139,9 +164,14 @@ function VideoArea() {
     const localVideoTrack = channelParametersRef.current.localVideoTrack;
     if (localVideoTrack) {
       localVideoTrack.setEnabled(isVideo);
-      const micController = document.getElementById('video_controller');
-      micController.classList.toggle('call-mute', !isVideo);
+      vidController.classList.toggle('call-mute', !isVideo);
     }
+  }
+  const againBeginCall = () =>{
+    setIsCalling(true);
+    dispatch(setInCalling(true));
+    dispatch(setIsCallEnd(false));
+    prepareVideoCallPush();
   }
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>
@@ -186,16 +216,27 @@ function VideoArea() {
                     </div>
                     <span>Aranıyor...</span>
                   </div>
-                  : <div></div>
+                  : isPatientLeft ? (
+                    <div className='result-wrapper'>
+                    <div className='body-container' >
+                        <div className='background-img'>
+                        <img src={UserLeave}  alt="" style={{marginBlock:'2em'}}/>
+                        </div>
+                        {/* <div className='text-container'>
+                            <p>Hasta görüşmeden ayrıldı.</p>
+                        </div> */}
+                    </div>
+                </div>
+                  ) : <div></div>
               }
             </div>
             {
               <div className="my-video" id='my-video-container'>
                 {
                   isCallEnd ?
-                    <ResultItem />
+                    (<ResultItem />)
                     :
-                    <img src={User} className={(inCalling ? 'hide' : 'show')} alt="" />
+                    (<img src={User} className={(inCalling ? 'hide' : 'show')} alt="" />)
                 }
               </div>
             }
@@ -235,6 +276,12 @@ function VideoArea() {
                 <div>
                   <i className="material-icons">call_end</i>
                   <div >{BEGIN_COLLING}</div>
+                </div>
+              </div>
+              <div className={"begin-call " + (isPatientLeft ? 'show' : 'hide')} id='again_begin_call' onClick={againBeginCall} >
+                <div>
+                  <i className="material-icons">call_end</i>
+                  <div >{AGAIN_BEGIN_COLLING}</div>
                 </div>
               </div>
             </div>
