@@ -1,5 +1,7 @@
 import AgoraRTC from "agora-rtc-sdk-ng";
-import { SOCKET_IO } from '../constant/constant';
+import { GUID, SOCKET_IO, UID } from '../constant/constant';
+import { getDeviceInfo } from "./deviceReference";
+import { videoCallRecord } from "../service/api/apiService";
 
 export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, callPrepareVideo, container) => {
     const appId = callPrepareVideo.getAppId(); // Pass your App ID here.
@@ -8,7 +10,7 @@ export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, callPrep
     const uid = 1000; // Set the user ID.
     try {
         if (token !== '') {
-            await agoraEngineRef.current.join(appId, channel, token, uid);
+            await agoraEngineRef.current.join(appId, channel, token, UID);
             channelParametersRef.current.localAudioTrack = await AgoraRTC.createMicrophoneAudioTrack();
             channelParametersRef.current.localVideoTrack = await AgoraRTC.createCameraVideoTrack();
             const myVideoRow = document.querySelector('#my-video-container ');
@@ -128,3 +130,18 @@ export const getLastName = (fullName) => {
     const names = fullName.split(" ");
     return names.slice(1).join(" ");
 }
+
+export const startSetCallRecord = async  () =>  {
+    var batteryLevel = 100;
+    try {
+        let batteryPromise = await navigator.getBattery();
+        batteryLevel = batteryPromise.level * 100;
+    }
+    catch (error) {
+        console.error(error);
+        console.log(error.message);
+        batteryLevel = 200;
+    }
+    var device = getDeviceInfo(window);
+    videoCallRecord('Connected', UID, GUID, batteryLevel,device);
+  }

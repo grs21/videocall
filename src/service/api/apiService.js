@@ -37,3 +37,21 @@ export const prepareVideoCallPush = async () => {
   }
   return requestService.post(url, JSON.stringify(data), header);
 }
+
+export const videoCallRecord = async (status, uid, guid, deviceBattery, device) => {
+  const url = `${BASE_URL}/Mobile/Video_Call_Record`;
+  const data = {
+    Status: status,
+    Uid: uid,
+    Guid: guid,
+    DeviceBattery: deviceBattery,
+    DeviceHardware: device.browser + " " + device.browserVersion,
+    DeviceOS: device.os + " " + device.osVersion,
+    DeviceType: 'web',
+    StatusDescription:'',
+  };
+  const header = {
+    'Content-Type': 'application/json',
+  }
+  return requestService.post(url, JSON.stringify(data), header);
+}

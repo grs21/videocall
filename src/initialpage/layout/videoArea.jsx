@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { User, Video_Call } from '../../assets/imagePath'
-import { joinVideoRoom, isBase64, leaveRoom } from '../../helper/videoCallHelper';
+import { joinVideoRoom, isBase64, leaveRoom, startSetCallRecord } from '../../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
@@ -26,6 +26,7 @@ function VideoArea() {
   const patientImg = callPrepareVideo.getPatientPhoto();
   const doctorImg = callPrepareVideo.getDoctorPhoto();
   const branchName = callPrepareVideo.getBranhName();
+  let interval;
   const channelParametersRef = useRef({
     localAudioTrack: null,
     localVideoTrack: null,
@@ -79,8 +80,8 @@ function VideoArea() {
           channelParametersRef.current.remoteAudioTrack.play();
         }
       });
-      agoraEngineRef.current.on('user-left', async(user,reason)=>{
-          
+      agoraEngineRef.current.on('user-left', async (user, reason) => {
+
       });
       document.getElementById('begin_call').onclick = async (e) => {
         e.preventDefault();
@@ -93,17 +94,19 @@ function VideoArea() {
         }
         prepareVideoCallPush();
         document.getElementById('my-video-container').classList.add('my-video-small');
+        startSetCallRecord();
+        interval = setInterval(startSetCallRecord, 10000);
       }
 
       document.getElementById('end_call').onclick = (e) => {
         e.preventDefault();
-        console.log('leaveeeeee');
         leaveRoom(agoraEngineRef, channelParametersRef, remotePlayerContainer, localPlayerContainer);
         dispatch(setInCalling(false));
         setIsCalling(false);
         dispatch(setIsCallEnd(true));
         dispatch(setTimerStarted(false));
         document.getElementById('my-video-container').classList.remove('my-video-small');
+        clearInterval(interval);
       }
       joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
     }
@@ -194,7 +197,6 @@ function VideoArea() {
                     :
                     <img src={User} className={(inCalling ? 'hide' : 'show')} alt="" />
                 }
-
               </div>
             }
           </div>
