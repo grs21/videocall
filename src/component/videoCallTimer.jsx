@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 const VideoCallTimer = () => {
     const [totalSeconds, setTotalSeconds] = useState(0);
-    const { timerStarted } = useSelector(state => state.videoRoomProperty);
+    const { timerStarted } = useSelector(state => state.componentState);
     let intervalIdRef = React.useRef(null);
     useEffect(() => {
         if (timerStarted) {

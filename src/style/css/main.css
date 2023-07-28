@@ -4502,6 +4502,20 @@ input[type=file].form-control {
 .show {
   display: block; }
 
+.remote-mic {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  left: 0;
+  width: 8vh;
+  z-index: 1;
+  padding: 5px;
+  border: 1px solid #0000002e;
+  background-color: #ffffff4d;
+  border-radius: 15px;
+  margin: 0 auto;
+  opacity: 0.5; }
+
 @-webkit-keyframes ripple {
   0% {
     -webkit-box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1); }

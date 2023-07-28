@@ -1,34 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { User, UserLeave, Video_Call } from '../../assets/imagePath'
-import { joinVideoRoom, isBase64, leaveRoom, startSetCallRecord } from '../../helper/videoCallHelper';
-import AgoraRTC from "agora-rtc-sdk-ng";
+import {  User } from '../../assets/imagePath'
+import {  isBase64} from '../../helper/videoCallHelper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
 import { prepareVideoCallPush } from '../../service/api/apiService';
 import { Call, VideoSlash } from '../../assets/svg/assets';
 import { AGAIN_BEGIN_COLLING, ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
-import { setInCalling, setIsCallEnd, setTimerStarted, setIsAudio, setIsVideo, setIsPatientLeft } from '../../stores/slices/videoRoomSlice';
-import ResultItem from '../../component/resultItem';
+import { setInCalling, setIsCallEnd  } from '../../stores/slices/videoRoomSlice';
+import {  setIsAudio, setIsVideo, setIsCalling } from '../../stores/slices/componentState';
 import VideoCallTimer from '../../component/videoCallTimer';
 import AppIcon from '../../component/appIcon';
 import { toast, ToastContainer } from 'react-toastify';
+import Video from '../../component/video';
 
 
 function VideoArea() {
-  const { callPrepareVideo, inCalling, isCallEnd, isAudio, isVideo, isPatientLeft } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo, inCalling } = useSelector(state => state.videoRoomProperty);
+  const { isAudio, isVideo, isPatientLeft } = useSelector(state => state.componentState);
   const { messages, sidebarState } = useSelector(state => state.messages);
-  const [isCalling, setIsCalling] = useState(false);
   const dispatch = useDispatch();
-  const agoraEngineRef = useRef(null);
   const pattientName = callPrepareVideo.getPatinetName();
-  const doctorName = callPrepareVideo.getDoctorName();
   const patientImg = callPrepareVideo.getPatientPhoto();
-  const doctorImg = callPrepareVideo.getDoctorPhoto();
-  const branchName = callPrepareVideo.getBranhName();
   const micController = document.getElementById('mic_controller');
   const vidController = document.getElementById('video_controller');
-  let interval;
   const channelParametersRef = useRef({
     localAudioTrack: null,
     localVideoTrack: null,
@@ -51,94 +46,6 @@ function VideoArea() {
       }
     }
   }, [messages])
-
-  useEffect(() => {
-    const startBasicCall = async () => {
-      agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-      const remotePlayerContainer = document.createElement('div');
-      remotePlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;'
-      const localPlayerContainer = document.createElement('div');
-      localPlayerContainer.style = 'width: 100%;height: 100%;position: inherit;overflow: hidden;border-radius: 6px;box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;border: 1px solid white;';
-      agoraEngineRef.current.on("user-published", async (user, mediaType) => {
-        const uuid = user.uid;
-        await agoraEngineRef.current.subscribe(user, mediaType);
-        if (mediaType === "video") {
-          channelParametersRef.current.remoteVideoTrack = user.videoTrack;
-          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
-          channelParametersRef.current.remoteUid = uuid;
-          remotePlayerContainer.id = uuid;
-          channelParametersRef.current.remoteUid = uuid;
-          document.getElementById('user-video-container').append(remotePlayerContainer);
-          setIsCalling(false);
-          dispatch(setInCalling(true));
-          dispatch(setIsPatientLeft(false));
-          let remoteUser = document.getElementById('user-video-container');
-          remoteUser.childNodes[1].style.display = 'block'
-          await channelParametersRef.current.remoteVideoTrack.play(remotePlayerContainer);
-          const videoContainer = remotePlayerContainer.childNodes[0];
-          videoContainer.style = ''
-          videoContainer.firstChild.style = 'object-fit: contain;width: 100%;height: 100%;position: absolute;left: 0px;top: 0px;'
-
-        }
-        if (mediaType === "audio") {
-          channelParametersRef.current.remoteAudioTrack = user.audioTrack;
-          channelParametersRef.current.remoteAudioTrack.play();
-        }
-      });
-      agoraEngineRef.current.on('user-left', async (user, reason) => {
-        dispatch(setIsPatientLeft(true));
-        let remoteUser = document.getElementById('user-video-container');
-        remoteUser.childNodes[1].style.display = 'none'
-      });
-      agoraEngineRef.current.on("user-published", async (user, mediaType) => {
-        if (mediaType === "audio") {
-          console.log("Karşı taraf ses yayınına başladı");
-        } else if (mediaType === "video") {
-          console.log("Karşı taraf video yayınına başladı");
-        }
-      });
-      agoraEngineRef.current.on("user-unpublished", async (user, mediaType) => {
-        if (mediaType === "audio") {
-          console.log("Karşı taraf ses yayınını durdurdu");
-        } else if (mediaType === "video") {
-          console.log("Karşı taraf video yayınını durdurdu");
-        }
-      });
-      document.getElementById('begin_call').onclick = async (e) => {
-        e.preventDefault();
-        setIsCalling(true);
-        dispatch(setInCalling(true));
-        dispatch(setIsCallEnd(false));
-        dispatch(setTimerStarted(true));
-        if (agoraEngineRef.current.store.state.uid === undefined) {
-          await startBasicCall();
-        }
-        prepareVideoCallPush();
-        document.getElementById('my-video-container').classList.add('my-video-small');
-        startSetCallRecord('Connected');
-        interval = setInterval(startSetCallRecord, 10000);
-      }
-
-      document.getElementById('end_call').onclick = (e) => {
-        e.preventDefault();
-        leaveRoom(agoraEngineRef, channelParametersRef, remotePlayerContainer, localPlayerContainer);
-        dispatch(setInCalling(false));
-        setIsCalling(false);
-        dispatch(setIsCallEnd(true));
-        dispatch(setTimerStarted(false));
-        dispatch(setIsVideo(false));
-        dispatch(setIsAudio(false));
-        dispatch(setIsPatientLeft(false));
-        document.getElementById('my-video-container').classList.remove('my-video-small');
-        clearInterval(interval);
-        startSetCallRecord('Disconnected');
-        micController.classList.remove('call-mute');
-        vidController.classList.remove('call-mute');
-      }
-      joinVideoRoom(agoraEngineRef, channelParametersRef, callPrepareVideo, localPlayerContainer);
-    }
-    startBasicCall();
-  }, [callPrepareVideo])
 
   const handlerFullscreen = (e) => {
     e.preventDefault();
@@ -168,7 +75,7 @@ function VideoArea() {
     }
   }
   const againBeginCall = () => {
-    setIsCalling(true);
+    dispatch(setIsCalling(true));
     dispatch(setInCalling(true));
     dispatch(setIsCallEnd(false));
     prepareVideoCallPush();
@@ -195,53 +102,7 @@ function VideoArea() {
             <ChatIcon />
           </div>
         </div>
-        <div className="chat-contents">
-          <div className="chat-content-wrap">
-            <div className="user-video" id='user-video-container'>
-              {
-                isCalling ?
-                  <div className='calling-container' id='callin_container'>
-                    <div className="call-profile-img">
-                      <div className="wrap-profile-img">
-                        <img src={
-                          (patientImg === null ? User
-                            : isBase64(patientImg) ? patientImg
-                              : `data:image/png;base64,${patientImg}`)
-                        } alt="" />
-                      </div>
-                      <h3 className="user-name m-t-10 mb-0">{pattientName}</h3>
-                    </div>
-                    <div className="calling">
-                      <Call />
-                    </div>
-                    <span>Aranıyor...</span>
-                  </div>
-                  : isPatientLeft ? (
-                    <div className='result-wrapper'>
-                      <div className='body-container' >
-                        <div className='custom-background-img'>
-                          <img src={UserLeave} alt="" style={{ marginBlock: '2em' }} />
-                        </div>
-                        {/* <div className='text-container'>
-                            <p>Hasta görüşmeden ayrıldı.</p>
-                        </div> */}
-                      </div>
-                    </div>
-                  ) : <div></div>
-              }
-            </div>
-            {
-              <div className="my-video" id='my-video-container'>
-                {
-                  isCallEnd ?
-                    (<ResultItem />)
-                    :
-                    (<img src={User} className={(inCalling ? 'hide' : 'show')} alt="" />)
-                }
-              </div>
-            }
-          </div>
-        </div>
+        <Video channelParametersRef={channelParametersRef}></Video>
         <div className="chat-footer">
           <div className="call-icons">
             <VideoCallTimer />
