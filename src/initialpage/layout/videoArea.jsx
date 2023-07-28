@@ -167,7 +167,7 @@ function VideoArea() {
       vidController.classList.toggle('call-mute', !isVideo);
     }
   }
-  const againBeginCall = () =>{
+  const againBeginCall = () => {
     setIsCalling(true);
     dispatch(setInCalling(true));
     dispatch(setIsCallEnd(false));
@@ -218,15 +218,15 @@ function VideoArea() {
                   </div>
                   : isPatientLeft ? (
                     <div className='result-wrapper'>
-                    <div className='body-container' >
-                        <div className='background-img'>
-                        <img src={UserLeave}  alt="" style={{marginBlock:'2em'}}/>
+                      <div className='body-container' >
+                        <div className='custom-background-img'>
+                          <img src={UserLeave} alt="" style={{ marginBlock: '2em' }} />
                         </div>
                         {/* <div className='text-container'>
                             <p>Hasta görüşmeden ayrıldı.</p>
                         </div> */}
+                      </div>
                     </div>
-                </div>
                   ) : <div></div>
               }
             </div>
@@ -267,21 +267,24 @@ function VideoArea() {
               </li>
             </ul>
             <div className='call-container'>
-              <div className={"end-call " + (inCalling ? 'show' : 'hide')} data-bs-toggle='modal' data-bs-target='#call-end-modal'  >
-                <div>
-                  <i className="material-icons">call_end</i>
+              <div className='group-buttons'>
+                <div className={"end-call " + (inCalling ? 'show' : 'hide')} data-bs-toggle='modal' data-bs-target='#call-end-modal'  >
+                  <div>
+                    <i className="material-icons">call_end</i>
+                    <div className='button-text' >Aramayı Sonlandır</div>
+                  </div>
                 </div>
-              </div>
-              <div className={"begin-call " + (inCalling ? 'hide' : 'show')} id='begin_call' >
-                <div>
-                  <i className="material-icons">call_end</i>
-                  <div >{BEGIN_COLLING}</div>
+                <div className={"begin-call " + (inCalling ? 'hide' : 'show')} id='begin_call' >
+                  <div>
+                    <i className="material-icons">call_end</i>
+                    <div className='button-text' >{BEGIN_COLLING}</div>
+                  </div>
                 </div>
               </div>
               <div className={"begin-call " + (isPatientLeft ? 'show' : 'hide')} id='again_begin_call' onClick={againBeginCall} >
                 <div>
                   <i className="material-icons">call_end</i>
-                  <div >{AGAIN_BEGIN_COLLING}</div>
+                  <div className='button-text' >{AGAIN_BEGIN_COLLING}</div>
                 </div>
               </div>
             </div>

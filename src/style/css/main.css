@@ -594,6 +594,11 @@ strong {
     .body-container .background-img img {
       opacity: 0.4;
       border: none; }
+  .body-container .custom-background-img {
+    width: 43%;
+    height: 43%;
+    display: flex;
+    justify-content: center; }
   .body-container .text-container {
     position: absolute;
     width: 100%;
@@ -4261,14 +4266,19 @@ input[type=file].form-control {
 
 .call-icons {
   text-align: center;
-  position: relative; }
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
   @media (max-width: 575px) {
     .call-icons {
       display: flex;
       justify-content: space-around; } }
   .call-icons .call-items {
-    display: inline-block;
-    border-radius: 5px; }
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center; }
     .call-icons .call-items .call-item {
       display: inline-block;
       text-align: center;
@@ -4286,44 +4296,43 @@ input[type=file].form-control {
         display: inline-block;
         font-size: 20px;
         border-radius: 50px; }
-  .call-icons .end-call, .call-icons .call-container .begin-call {
-    position: absolute;
-    top: 7px;
-    right: 0; }
-    @media (max-width: 575px) {
-      .call-icons .end-call, .call-icons .call-container .begin-call {
-        margin-top: 5px;
-        position: inherit; } }
-    .call-icons .end-call div, .call-icons .call-container .begin-call div {
-      background-color: #f06060;
-      color: #ffffff;
-      display: inline-block;
-      line-height: 10px;
-      text-transform: uppercase;
-      padding: 8px 25px;
-      border-radius: 50px;
-      cursor: pointer; }
+        .call-icons .call-items .call-item a svg {
+          margin-bottom: 5px; }
+  .call-icons .end-call div, .call-icons .call-container .begin-call div {
+    background-color: #f06060;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    line-height: 10px;
+    padding: 8px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    justify-content: center; }
+    .call-icons .end-call div .button-text, .call-icons .call-container .begin-call div .button-text {
+      font-weight: 500;
+      text-align: center; }
+      @media (max-width: 575px) {
+        .call-icons .end-call div .button-text, .call-icons .call-container .begin-call div .button-text {
+          font-size: small;
+          padding: 0px 0px 0px 7px; } }
   .call-icons .call-container {
-    right: 0px;
-    top: 4px; }
+    display: flex;
+    align-items: center; }
+    @media (max-width: 575px) {
+      .call-icons .call-container {
+        flex-direction: column; } }
+    @media (max-width: 575px) {
+      .call-icons .call-container .group-buttons {
+        width: 100%; } }
     .call-icons .call-container .begin-call {
-      right: 0; }
+      margin: 0 0 0 5px; }
+      @media (max-width: 575px) {
+        .call-icons .call-container .begin-call {
+          margin: 25px 0 0 0; } }
       .call-icons .call-container .begin-call div {
         background-color: #4ed964;
         display: flex;
         text-transform: none; }
-        .call-icons .call-container .begin-call div div {
-          margin: 0 0 0 5px;
-          font-weight: 500;
-          text-align: center; }
-          @media (max-width: 575px) {
-            .call-icons .call-container .begin-call div div {
-              font-size: small;
-              padding: 11px 4px 11px 3px; } }
-        @media (max-width: 575px) {
-          .call-icons .call-container .begin-call div {
-            font-size: small;
-            padding: 4px 4px 6px 3px; } }
 
 .chat-sidebar .chats {
   padding: 15px 15px 30px; }
@@ -6426,9 +6435,7 @@ button.close {
   .chat-footer .call-duration {
     display: inline-block;
     font-size: 30px;
-    margin-top: 4px;
-    position: absolute;
-    left: 0; }
+    margin-top: 4px; }
     @media (max-width: 575px) {
       .chat-footer .call-duration {
         display: flex;

@@ -29,6 +29,11 @@
     .body-container .background-img img {
       opacity: 0.4;
       border: none; }
+  .body-container .custom-background-img {
+    width: 43%;
+    height: 43%;
+    display: flex;
+    justify-content: center; }
   .body-container .text-container {
     position: absolute;
     width: 100%;

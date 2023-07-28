@@ -835,7 +835,7 @@
         display: $__inline__block;
         font-size: $__font__size__30;
         margin-top: 4px;
-        @include position($__absolute, null, null, null, 0);
+        // @include position($__absolute, null, null, null, 0);
 
         @include respond-below(custom575) {
             display: $__flex;

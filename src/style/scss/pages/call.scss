@@ -76,14 +76,21 @@
 .call-icons {
     text-align: $__center;
     position: $__relative;
+    display: $__flex;
+    justify-content: space-between;
+    align-items: $__center;
+
     @include respond-below(custom575) {
         display: $__flex;
         justify-content: space-around;
     }
+
     .call-items {
-        display: $__inline__block;
+        display: $__flex;
         @extend %ul_reset;
         @include rounded(5px);
+        justify-content: $__center;
+        align-items: $__center;
 
         .call-item {
             display: $__inline__block;
@@ -105,58 +112,70 @@
                 display: $__inline__block;
                 font-size: $__font__size__20;
                 @include rounded(50px);
+
+                svg {
+                    margin-bottom: 5px;
+                }
             }
         }
     }
 
     .end-call {
-        @include position($__absolute, 7px, 0, null, null);
+        // @include position($__absolute, 7px, 0, null, null);
 
-        @include respond-below(custom575) {
-            margin-top: 5px;
-            position: $__inherit;
-        }
+        
 
         div {
             background-color: $__cherry__red;
             color: $__white;
-            display: $__inline__block;
+            display: $__flex;
+            align-items: $__center;
             line-height: 10px;
-            text-transform: $__uppercase;
             @include margin-padding(null, 8px 25px);
             @include rounded(50px);
             cursor: pointer;
+            justify-content: $__center;;
+            .button-text {
+                font-weight: $__medium;
+                text-align: $__center;
+
+                @include respond-below(custom575) {
+                    font-size: small;
+                    @include margin-padding(null, 0px 0px 0px 7px);
+                }
+            }
         }
     }
-    .call-container{
-        right: 0px;
-        top: 4px;
-        
+
+    .call-container {
+        display: $__flex;
+        align-items: $__center;
+
+        @include respond-below(custom575) {
+            flex-direction: column;
+        }
+        .group-buttons{
+            @include respond-below(custom575) {
+               width: 100%;
+             
+            }
+        }
         .begin-call {
             @extend .end-call;
-            right: 0;
+            @include margin-padding(0 0 0 5px, null);
+            @include respond-below(custom575) {
+                @include margin-padding(25px 0 0 0, null);
+              
+             }
             div {
                 background-color: $__call__green;
                 display: flex;
                 text-transform: none;
                 @extend %align-items-center;
-                div{
-                    @include margin-padding(0 0 0 5px,null);
-                    font-weight: $__medium;
-                    text-align: $__center;
-                    @include respond-below(custom575) {
-                        font-size: small;
-                        @include margin-padding(null,11px 4px 11px 3px);
-                    }
-                }
-                @include respond-below(custom575) {
-                    font-size: small;
-                    @include margin-padding(null,4px 4px 6px 3px);
-                }
+
             }
         }
     }
-    
 }
 
 .chat-sidebar {
@@ -192,23 +211,25 @@
         @extend %justify-content-center;
         flex-direction: column;
         height: 100%;
-        .call-profile-img{
+
+        .call-profile-img {
             padding: 30px;
             position: $__relative;
             text-align: $__center;
-        
+
             .wrap-profile-img {
                 height: 90px;
                 margin: 0 $__auto;
                 position: $__relative;
                 width: 90px;
+
                 img {
                     height: $__auto;
                     margin: 0;
                     width: 75%;
                     @include rounded(50%);
                 }
-        
+
                 .change-img {
                     background-color: rgba(0, 0, 0, 0.3);
                     color: $__white;
@@ -376,10 +397,12 @@
     min-height: 30px;
     @include margin-padding(0 10px 0 0, 2px 15px);
 }
-.hide{
+
+.hide {
     display: none;
 }
-.show{
+
+.show {
     display: block;
 }
 
