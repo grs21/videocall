@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { setSelectedFile, setPreview } from '../stores/slices/fileSlice';
 
 function DragFilesModal() {
-  const { selectedFile, isDragging } = useSelector(state => state.files);
+  const { selectedFile } = useSelector(state => state.files);
   const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
   const dispatch = useDispatch();
 

@@ -12,7 +12,7 @@ const VideoCallTimer = () => {
 
             }, 1000);
         } else {
-            // Timer durdurulduğunda interval'ı temizle
+            // Clear interval
             clearInterval(intervalIdRef.current);
         }
 

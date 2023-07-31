@@ -4,16 +4,19 @@ import PrepareVideoCall from "../../model/PrepareVideoCall.js"
 export const videoRoomSlice = createSlice({
     name: 'videoRoom',
     initialState: {
-        inCalling:false,
-        isCallEnd:false,
+        inCalling: false,
+        isCallEnd: false,
         GUID: '7939bcb4-2a22-4833-af7c-6faf3381a613#',
         callPrepareVideo: new PrepareVideoCall(),
     },
     reducers: {
-        setInCalling: (state, action) =>{
+        setGUID: (state, action) => {
+            state.GUID = action.payload;
+        },
+        setInCalling: (state, action) => {
             state.inCalling = action.payload;
         },
-        setIsCallEnd: (state, action) =>{
+        setIsCallEnd: (state, action) => {
             state.isCallEnd = action.payload;
         },
         setCallPrepareVideo: (state, action) => {
@@ -26,6 +29,6 @@ export const videoRoomSlice = createSlice({
         },
     }
 })
-export const { setCallPrepareVideo, setInCalling, setIsCallEnd} = videoRoomSlice.actions;
+export const { setCallPrepareVideo, setInCalling, setIsCallEnd, setGUID } = videoRoomSlice.actions;
 
 export default videoRoomSlice.reducer

@@ -43,7 +43,6 @@ function Chat() {
       await dispatch(addMessage(data));
       SOCKET_IO.emit('read', { RoomId: roomId, ToId: fromId });
       chatScroll();
-      console.log('newMessage', data);
     });
     SOCKET_IO.on('typing', (data) => {
       if (data.FromId === toId) {
@@ -85,22 +84,22 @@ function Chat() {
                 <div className="chats">
                   {
                     messagesState ?
-                    messages && messages.map((message, index) => {
-                      const messageDate = new Date(message.CreatedDate);
-                      /// To add chatLine when a new day is passed
-                      if (!prevDate || (messageDate && messageDate.getDate() !== prevDate.getDate())) {
-                        prevDate = messageDate;
-                        return (
-                          <div key={index} className='line-container'>
-                            <ChatLine date={dateFormat(messageDate, options)} />
-                            <Message message={message} />
-                          </div>
-                        );
-                      } else {
-                        prevDate = messageDate;
-                        return (<Message key={index} message={message} />)
-                      }
-                    }): <Spinner/>
+                      messages && messages.map((message, index) => {
+                        const messageDate = new Date(message.CreatedDate);
+                        /// To add chatLine when a new day is passed
+                        if (!prevDate || (messageDate && messageDate.getDate() !== prevDate.getDate())) {
+                          prevDate = messageDate;
+                          return (
+                            <div key={index} className='line-container'>
+                              <ChatLine date={dateFormat(messageDate, options)} />
+                              <Message message={message} />
+                            </div>
+                          );
+                        } else {
+                          prevDate = messageDate;
+                          return (<Message key={index} message={message} />)
+                        }
+                      }) : <Spinner />
                   }
                 </div>
               </div>

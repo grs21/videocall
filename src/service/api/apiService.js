@@ -1,11 +1,11 @@
 import RequestService from "./request";
-import { BASE_URL, GUID } from "../../constant/constant";
+import { BASE_URL } from "../../constant/constant";
 import { sendMessage } from "../../helper/videoCallHelper";
 import { CloseModal } from '../../helper/videoCallHelper';
 
 const requestService = RequestService.getInstance();
 
-export const callPrepareVideo = async () => {
+export const callPrepareVideo = async (GUID) => {
   const url = `${BASE_URL}/Mobile/PrepareVideoCall`
   const data = {
     RandevuGuid: GUID,
@@ -27,7 +27,7 @@ export const uploadFile = async (formdata, roomId, fromName, fromId, toId, toNam
   return response;
 };
 
-export const prepareVideoCallPush = async () => {
+export const prepareVideoCallPush = async (GUID) => {
   const url = `${BASE_URL}/Mobile/PrepareVideoCall_Push`;
   const data = {
     RandevuGuid: GUID,
@@ -48,7 +48,7 @@ export const videoCallRecord = async (status, uid, guid, deviceBattery, device) 
     DeviceHardware: device.browser + " " + device.browserVersion,
     DeviceOS: device.os + " " + device.osVersion,
     DeviceType: 'web',
-    StatusDescription:'',
+    StatusDescription: '',
   };
   const header = {
     'Content-Type': 'application/json',

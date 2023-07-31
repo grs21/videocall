@@ -6,15 +6,39 @@ import ShareFileModal from '../modals/shareFileModal';
 import VideoArea from '../initialpage/layout/videoArea';
 import NavItem from '../component/navItem';
 import Chat from '../initialpage/sidebar/chat';
-import Calls from '../initialpage/sidebar/calls';
 import Profile from '../initialpage/sidebar/profile';
+import { useLocation } from 'react-router-dom';
+import { setGUID } from '../stores/slices/videoRoomSlice';
+import { useRef } from 'react';
+import { callPrepareVideo } from '../service/api/apiService';
+import { setCallPrepareVideo } from '../stores/slices/videoRoomSlice';
 
 const VideoCall = () => {
   const dispatch = useDispatch();
+  const { GUID } = useSelector(state => state.videoRoomProperty);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const guid = searchParams.get('GUID');
+  const effectRun = useRef(false);
   const [windowDimension, detectHW] = useState({
     winWidth: window.innerWidth,
     winHeight: window.innerHeight - 1,
   })
+
+  useEffect(() => {
+    dispatch(setGUID(GUID));
+    if (effectRun.current === false) {
+      const initializeApp = async () => {
+        const resPrepareVideoCall = await callPrepareVideo(guid);
+        await dispatch(setCallPrepareVideo(resPrepareVideoCall));
+      }
+      initializeApp();
+      return () => {
+        effectRun.current = true;
+      }
+    }
+    console.log(guid);
+  });
   const detectSize = () => {
     detectHW({
       winWidth: window.innerWidth,
@@ -54,7 +78,7 @@ const VideoCall = () => {
                 <ul className="nav nav-tabs nav-tabs-bottom">
                   <NavItem href='#profile_tab' state='active' navName='Profil' />
                   <NavItem href='#chats_tab' state='' navName='Chat' />
-                  
+
                 </ul>
               </div>
               <div className="tab-content chat-contents">

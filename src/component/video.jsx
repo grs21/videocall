@@ -4,13 +4,13 @@ import { joinVideoRoom, isBase64, leaveRoom, startSetCallRecord } from '../helpe
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { useSelector, useDispatch } from 'react-redux';
 import { prepareVideoCallPush } from '../service/api/apiService';
-import { Call, VideoSlash } from '../assets/svg/assets';
-import { setInCalling, setIsCallEnd} from '../stores/slices/videoRoomSlice';
-import { setTimerStarted, setIsAudio, setIsVideo, setIsPatientLeft, setIsPatientMute, setIsCalling} from '../stores/slices/componentState';
+import { Call } from '../assets/svg/assets';
+import { setInCalling, setIsCallEnd } from '../stores/slices/videoRoomSlice';
+import { setTimerStarted, setIsAudio, setIsVideo, setIsPatientLeft, setIsPatientMute, setIsCalling } from '../stores/slices/componentState';
 import ResultItem from '../component/resultItem';
 
-function Video( {channelParametersRef}) {
-    const { callPrepareVideo, inCalling, isCallEnd } = useSelector(state => state.videoRoomProperty);
+function Video({ channelParametersRef }) {
+    const { callPrepareVideo, inCalling, isCallEnd, GUID } = useSelector(state => state.videoRoomProperty);
     const { isPatientLeft, isCalling } = useSelector(state => state.componentState);
     const dispatch = useDispatch();
     const agoraEngineRef = useRef(null);
@@ -19,7 +19,7 @@ function Video( {channelParametersRef}) {
     const micController = document.getElementById('mic_controller');
     const vidController = document.getElementById('video_controller');
     let interval;
-    
+
     useEffect(() => {
         const startBasicCall = async () => {
             agoraEngineRef.current = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
@@ -90,10 +90,12 @@ function Video( {channelParametersRef}) {
                 if (agoraEngineRef.current.store.state.uid === undefined) {
                     await startBasicCall();
                 }
-                prepareVideoCallPush();
+                prepareVideoCallPush(GUID);
                 document.getElementById('my-video-container').classList.add('my-video-small');
-                startSetCallRecord('Connected');
-                interval = setInterval(startSetCallRecord, 10000);
+                startSetCallRecord('Connected', GUID);
+                interval = setInterval(() => {
+                    startSetCallRecord('Connected', GUID);
+                }, 10000);
             }
 
             document.getElementById('end_call').onclick = (e) => {
@@ -108,7 +110,7 @@ function Video( {channelParametersRef}) {
                 dispatch(setIsPatientLeft(false));
                 document.getElementById('my-video-container').classList.remove('my-video-small');
                 clearInterval(interval);
-                startSetCallRecord('Disconnected');
+                startSetCallRecord('Disconnected', GUID);
                 micController.classList.remove('call-mute');
                 vidController.classList.remove('call-mute');
             }

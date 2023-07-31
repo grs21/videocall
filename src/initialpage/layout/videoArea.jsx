@@ -1,22 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {  User } from '../../assets/imagePath'
-import {  isBase64} from '../../helper/videoCallHelper';
+import React, { useEffect, useRef } from 'react';
+import { User } from '../../assets/imagePath'
+import { isBase64 } from '../../helper/videoCallHelper';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMessagesCount } from '../../stores/slices/messagesSlice';
 import ChatIcon from '../../component/chatIcon';
 import { prepareVideoCallPush } from '../../service/api/apiService';
-import { Call, VideoSlash } from '../../assets/svg/assets';
+import { VideoSlash } from '../../assets/svg/assets';
 import { AGAIN_BEGIN_COLLING, ARE_YOU_SHOURE, BEGIN_COLLING, CALL_END, CANCEL } from '../../constant/constant';
-import { setInCalling, setIsCallEnd  } from '../../stores/slices/videoRoomSlice';
-import {  setIsAudio, setIsVideo, setIsCalling } from '../../stores/slices/componentState';
+import { setInCalling, setIsCallEnd } from '../../stores/slices/videoRoomSlice';
+import { setIsAudio, setIsVideo, setIsCalling } from '../../stores/slices/componentState';
 import VideoCallTimer from '../../component/videoCallTimer';
 import AppIcon from '../../component/appIcon';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import Video from '../../component/video';
 
 
 function VideoArea() {
-  const { callPrepareVideo, inCalling } = useSelector(state => state.videoRoomProperty);
+  const { callPrepareVideo, inCalling, GUID } = useSelector(state => state.videoRoomProperty);
   const { isAudio, isVideo, isPatientLeft } = useSelector(state => state.componentState);
   const { messages, sidebarState } = useSelector(state => state.messages);
   const dispatch = useDispatch();
@@ -78,7 +78,7 @@ function VideoArea() {
     dispatch(setIsCalling(true));
     dispatch(setInCalling(true));
     dispatch(setIsCallEnd(false));
-    prepareVideoCallPush();
+    prepareVideoCallPush(GUID);
   }
   return (
     <div className="col-lg-9 message-view task-view show" id='task_window'>

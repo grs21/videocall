@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedFile, setIsDragging, setPreview } from '../stores/slices/fileSlice';
 import { FILE_EXTENSION, UNSUPPORTED_FILE_TYPE } from '../constant/constant';
@@ -12,26 +12,23 @@ function FileUpload() {
     const fileName = selectedFile?.name;
     var fileExtension = '';
     const handleFileUpload = () => {
-        //fileInputRef.current.value = null;
         if (selectedFile) {
-            // Dosya yükleme işlemlerini burada gerçekleştirin
+            // Perform file uploads here
             console.log('Yüklenen dosya:', selectedFile);
         }
         if (!isDragging) {
-            // Dosya seçme işlemlerini burada gerçekleştirin
+            // Perform file selections here
             fileInputRef.current.click();
         }
     };
 
     const handleDragOver = (e) => {
         e.preventDefault();
-        dispatch(setIsDragging(true));
-        console.log('handleDragOver');
+        dispatch(setIsDragging(true)); 
     };
 
     const handleDragLeave = () => {
         dispatch(setIsDragging(false));
-        console.log('handleDragLeave');
     };
 
     const handleDrop = (e) => {
@@ -47,7 +44,6 @@ function FileUpload() {
     const setFile = (file) => {
         dispatch(setIsDragging(false));
         if (file !== undefined) {
-            console.log(file, 'tıklandı');
             fileExtension = file.name.split('.').pop();
             const isImage = fileExtension === 'png' || fileExtension === 'jpg' || fileExtension === 'jpeg'
             if (isImage) {
@@ -62,7 +58,7 @@ function FileUpload() {
             }
             if (FILE_EXTENSION.includes(fileExtension)) {
                 dispatch(setSelectedFile(file));
-                // Dosya seçicisini sıfırla
+                // Reset file picker
                 if (fileInputRef.current) {
                     fileInputRef.current.value = "";
                 }

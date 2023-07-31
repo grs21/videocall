@@ -1,5 +1,5 @@
 import AgoraRTC from "agora-rtc-sdk-ng";
-import { GUID, SOCKET_IO, UID } from '../constant/constant';
+import { SOCKET_IO, UID } from '../constant/constant';
 import { getDeviceInfo } from "./deviceReference";
 import { videoCallRecord } from "../service/api/apiService";
 
@@ -84,7 +84,6 @@ export const CloseModal = (tagId) => {
     }
 }
 export const sendMessage = (roomId, fromName, fromId, toId, fileUrl, toName, fileName) => {
-    console.log('gönderrrrrr');
     const messageInput = document.getElementById('messageInput');
     if (messageInput !== null && messageInput !== undefined) {
         const message = fileUrl === '' ? messageInput.value : fileName;
@@ -131,9 +130,9 @@ export const getLastName = (fullName) => {
     return names.slice(1).join(" ");
 }
 
-export const startSetCallRecord = async (state) => {
+export const startSetCallRecord = async (state, GUID) => {
     var batteryLevel = 100;
-    state === undefined ? state = 'Connected': state = state;
+    state === undefined ? state = 'Connected' : state = state;
     try {
         let batteryPromise = await navigator.getBattery();
         batteryLevel = batteryPromise.level * 100;

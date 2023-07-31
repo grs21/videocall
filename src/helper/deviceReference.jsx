@@ -1,11 +1,9 @@
-export const getDeviceInfo = (screen)=> {
+export const getDeviceInfo = (screen) => {
     try {
         var unknown = '-';
-
         // screen
         var unknown = '-';
         var screenSize = '';
-
         // Get screen width and height using window object
         if (window.innerWidth && window.innerHeight) {
             var width = window.innerWidth;
@@ -29,7 +27,6 @@ export const getDeviceInfo = (screen)=> {
         var version = '' + parseFloat(navigator.appVersion);
         var majorVersion = parseInt(navigator.appVersion, 10);
         var nameOffset, verOffset, ix;
-
         // Opera
         if ((verOffset = nAgt.indexOf('Opera')) != -1) {
             browser = 'Opera';
@@ -99,18 +96,14 @@ export const getDeviceInfo = (screen)=> {
             version = '' + parseFloat(navigator.appVersion);
             majorVersion = parseInt(navigator.appVersion, 10);
         }
-
         // mobile version
         var mobile = /Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(nVer);
-
         // cookie
         var cookieEnabled = (navigator.cookieEnabled) ? true : false;
-
         if (typeof navigator.cookieEnabled == 'undefined' && !cookieEnabled) {
             document.cookie = 'testcookie';
             cookieEnabled = (document.cookie.indexOf('testcookie') != -1) ? true : false;
         }
-
         // system
         var os = unknown;
         var clientStrings = [
@@ -149,39 +142,22 @@ export const getDeviceInfo = (screen)=> {
                 break;
             }
         }
-
         var osVersion = unknown;
-
         if (/Windows/.test(os)) {
             osVersion = /Windows (.*)/.exec(os)[1];
             os = 'Windows';
         }
-
         switch (os) {
             case 'Mac OS':
             case 'Mac OS X':
             case 'Android':
                 osVersion = /(?:Android|Mac OS|Mac OS X|MacPPC|MacIntel|Mac_PowerPC|Macintosh) ([\.\_\d]+)/.exec(nAgt)[1];
                 break;
-
             case 'iOS':
                 osVersion = /OS (\d+)[_\.](\d+)_?(\d+)?/.exec(nVer);
                 osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
                 break;
         }
-
-        // flash (you'll need to include swfobject)
-        /* script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" */
-        var flashVersion = 'no check';
-        // if (typeof swfobject != 'undefined') {
-        //     var fv = swfobject.getFlashPlayerVersion();
-        //     if (fv.major > 0) {
-        //         flashVersion = fv.major + '.' + fv.minor + ' r' + fv.release;
-        //     }
-        //     else {
-        //         flashVersion = unknown;
-        //     }
-        // }
         window.jscd = {
             screen: screenSize,
             browser: browser,

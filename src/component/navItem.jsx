@@ -13,8 +13,6 @@ function NavItem({ href, state, navName }) {
             dispatch(setMessagesCount(0));
             chatScroll();
         } else {
-            console.log(notifCState);
-            console.log(sidebarState);
             dispatch(setNotifCState(false))
         }
     }

@@ -11,7 +11,7 @@ export default configureStore({
         messages: messagesSlice,
         files: fileSlice,
         modal: imageShareSlice,
-        componentState:componentState,
+        componentState: componentState,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

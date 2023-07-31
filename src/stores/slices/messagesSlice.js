@@ -9,7 +9,7 @@ export const messagesSlice = createSlice({
         notifCState: false,
         // if side bar opened value true
         sidebarState: true,
-        messagesState:false,
+        messagesState: false,
     },
     reducers: {
 

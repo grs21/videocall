@@ -3,7 +3,6 @@ import 'lightbox.js-react/dist/index.css'
 import { SlideshowLightbox, initLightboxJS, Image } from 'lightbox.js-react'
 import 'lightbox.js-react/dist/index.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setImageModalState } from '../stores/slices/imageShareSlice';
 
 function ShareFileModal() {
   const { shareImgURL, imageModalState } = useSelector(state => state.modal);

@@ -5,25 +5,9 @@ import {
   Route,
 } from "react-router-dom";
 import { routes } from '../service/rooterService/routes';
-import React, { useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { callPrepareVideo, prepareVideoCallPush } from '../service/api/apiService';
-import { createSlice, setCallPrepareVideo } from '../stores/slices/videoRoomSlice';
+import React from 'react';
+
 function App() {
-  const dispatch = useDispatch();
-  const effectRun = useRef(false);
-  useEffect(() => {
-    if (effectRun.current === false) {
-      const initializeApp = async () => {
-        const resPrepareVideoCall = await callPrepareVideo();
-        await dispatch(setCallPrepareVideo(resPrepareVideoCall));
-      }
-      initializeApp();
-      return () =>{
-        effectRun.current = true;
-      }
-    }
-  })
   return (
     <Router>
       <div className="App">
