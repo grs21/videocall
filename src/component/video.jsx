@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { MuteMicrophone, User, UserLeave, Video_Call } from '../assets/imagePath'
+import React, { useEffect, useRef } from 'react';
+import { MuteMicrophone, User, UserLeave } from '../assets/imagePath'
 import { joinVideoRoom, isBase64, leaveRoom, startSetCallRecord } from '../helper/videoCallHelper';
 import AgoraRTC from "agora-rtc-sdk-ng";
 import { useSelector, useDispatch } from 'react-redux';

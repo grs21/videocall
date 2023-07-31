@@ -45,7 +45,7 @@ function VideoArea() {
         }
       }
     }
-  }, [messages])
+  }, [messages,dispatch, sidebarState])
 
   const handlerFullscreen = (e) => {
     e.preventDefault();

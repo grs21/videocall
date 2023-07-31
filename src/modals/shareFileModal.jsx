@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import 'lightbox.js-react/dist/index.css'
-import { SlideshowLightbox, initLightboxJS, Image } from 'lightbox.js-react'
+import { SlideshowLightbox } from 'lightbox.js-react'
 import 'lightbox.js-react/dist/index.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function ShareFileModal() {
-  const { shareImgURL, imageModalState } = useSelector(state => state.modal);
-  const dispatch = useDispatch();
+  const { shareImgURL } = useSelector(state => state.modal);
   var img = shareImgURL[0]['src'];
 
 

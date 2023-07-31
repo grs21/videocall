@@ -7,7 +7,6 @@ export var joinVideoRoom = async (agoraEngineRef, channelParametersRef, callPrep
     const appId = callPrepareVideo.getAppId(); // Pass your App ID here.
     const channel = callPrepareVideo.getChannel(); // Set the channel name.
     const token = callPrepareVideo.getToken();
-    const uid = 1000; // Set the user ID.
     try {
         if (token !== '') {
             await agoraEngineRef.current.join(appId, channel, token, UID);
@@ -132,7 +131,7 @@ export const getLastName = (fullName) => {
 
 export const startSetCallRecord = async (state, GUID) => {
     var batteryLevel = 100;
-    state === undefined ? state = 'Connected' : state = state;
+    state = state === undefined ? 'Connected' : state;
     try {
         let batteryPromise = await navigator.getBattery();
         batteryLevel = batteryPromise.level * 100;

@@ -5,7 +5,7 @@ import { chatScroll } from '../helper/videoCallHelper';
 
 function NavItem({ href, state, navName }) {
     const dispatch = useDispatch();
-    const { messages, newMessageCount, notifCState, sidebarState } = useSelector(state => state.messages);
+    const { newMessageCount, notifCState } = useSelector(state => state.messages);
     const handleNavClick = (e) => {
         e.preventDefault();
         if (e.target.href.includes('chats_tab')) {

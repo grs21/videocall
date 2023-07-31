@@ -1,17 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { Coming_Soon, User } from '../../assets/imagePath'
-import { useDispatch, useSelector } from 'react-redux';
-import { formatPhoneNumber, getFirstName, getLastName, isBase64 } from '../../helper/videoCallHelper';
+import { useSelector } from 'react-redux';
+import { isBase64 } from '../../helper/videoCallHelper';
 import ChatLine from '../../component/chatLine';
 
 function Profile() {
   const { callPrepareVideo } = useSelector(state => state.videoRoomProperty);
   const patientImg = callPrepareVideo.getPatientPhoto();
   const patientName = callPrepareVideo.getPatinetName();
-  const firstName = getFirstName(patientName);
-  const lastName = getLastName(patientName);
-  const patientNumber = formatPhoneNumber(callPrepareVideo.getPatientPhone());
   return (
     <div className="content-full tab-pane show active" id="profile_tab">
       <div className="display-table">
