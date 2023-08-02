@@ -9,6 +9,7 @@ import './style/css/main.css';
 import './style/css/line-awesome.min.css';
 import './style/css/font-awesome.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
