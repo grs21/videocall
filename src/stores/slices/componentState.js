@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import PrepareVideoCall from "../../model/PrepareVideoCall.js"
 
 export const componentStateSlice = createSlice({
     name: 'videoRoom',

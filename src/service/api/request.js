@@ -1,5 +1,3 @@
-import React from 'react';
-
 class RequestService {
   static instance = null;
 
